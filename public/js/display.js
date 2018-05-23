@@ -99,7 +99,7 @@ function launchVideo() {
     'display': 'none'
   });
 
-  $('#vid').get(0).play();
+  // $('#vid').get(0).play();
   $('#song').get(0).play();
   loopVideo();
 }
