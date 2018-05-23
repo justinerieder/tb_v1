@@ -95,9 +95,9 @@ function launchVideo() {
     'display': 'none'
   });
 
-  $('#vid').css({
-    'display': 'none'
-  });
+  // $('#vid').css({
+  //   'display': 'none'
+  // });
 
   // $('#vid').get(0).play();
   $('#song').get(0).play();
@@ -121,3 +121,6 @@ function loopVideo() {
     loopVideo();
   }, 100);
 }
+$('.resetUsers').click(function() {
+  socket.emit('resetUser');
+})
