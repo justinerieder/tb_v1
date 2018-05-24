@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-server.listen(8080);
+server.listen(80);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -47,6 +47,11 @@ var loadVideo = 0;
 
 
 io.on('connection', function(socket) {
+
+  socket.on('resetUser', function() {
+    users = [];
+    console.log("ID user " + users);
+  });
 
 
   socket.on('newUser', function() {
@@ -149,17 +154,22 @@ io.on('connection', function(socket) {
 
     var timePerUser = balTime / users.length;
     console.log("timeParUsers " + timePerUser);
-    //console.log("count " + count);
 
-    var intBal = setInterval(function() {
-      if (count == users.length) {
-        clearInterval(intBal);
-      } else {
-        count++;
-      }
-      io.sockets.connected[users[count - 1]].emit('animationBal', data);
-    }, timePerUser * 1000);
+    io.sockets.connected[users[0]].emit('animationBal', data);
+    balayage();
 
+
+    function balayage() {
+      var intBal = setInterval(function() {
+        if (count >= users.length - 1) {
+          //count = 0;
+          clearInterval(intBal);
+        } else {
+          count++;
+        }
+        io.sockets.connected[users[count]].emit('animationBal', data);
+      }, timePerUser * 1000);
+    }
 
 
 

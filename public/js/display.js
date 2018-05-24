@@ -20,7 +20,7 @@ $('.page-video').click(function() {
   console.log($('#song').get(0).currentTime);
 });
 
-var actionTime = [ /*20.93*/ 0, 18.5, 20.8, 21, 32, 36, 36.53, 56.96, 59.8, 60, 62.3, 63];
+var actionTime = [ /*20.93*/ 0, 18.5, 20.8, 21, 32, 36, 36.53, 56.96, 59.8, /*10*/ 60, 62.3, 66.8, 67.2, 67.5];
 var eventNb = 0;
 var nextTime = actionTime[eventNb];
 
@@ -37,7 +37,7 @@ function timeManager(aTime) {
   }
 }
 
-var actionTimeDrum = [62.3, 62.9, 63.4, 63.7, 63.9, 64.4, 64.6, 64.8, 65, 65.2];
+var actionTimeDrum = [62.3, 62.9, 63.4, 63.7, 63.9, 64.4, 64.6, 64.8,];
 var eventNbDrum = 0;
 var nextTimeDrum = actionTimeDrum[eventNbDrum];
 
@@ -55,7 +55,7 @@ function timeManagerDrum(drumTime) {
 }
 
 
-var superActionTime = [30.5, 31.24, 33.60, 34.65, 34.95, 35.24, 35.56, 36.5];
+var superActionTime = [30.5, 31.24, 33.60, 34.65, 34.95, 35.24, 35.56, 36.5, 67.07, 68.2];
 var superEventNb = 0;
 var superNextTime = superActionTime[superEventNb];
 
@@ -72,7 +72,7 @@ function superTimeManager(bTime) {
   }
 }
 
-var actionTimeBal = [65.3, 67.07];
+var actionTimeBal = [65.3, 67.20];
 var eventNbBal = 0;
 var nextTimeBal = actionTimeBal[eventNbBal];
 

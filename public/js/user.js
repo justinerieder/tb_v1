@@ -82,6 +82,14 @@ socket.on('animation', function(animationNb, play, stop) {
       console.log("bigFade11 " + play + " - " + stop);
       animation11(colorH);
       break;
+    case 12:
+      console.log("bigFade12 " + play + " - " + stop);
+      animation12(colorH);
+      break;
+    case 13:
+      console.log("bigFade13 " + play + " - " + stop);
+      animation13(colorH);
+      break;
   }
 
 });
@@ -138,16 +146,31 @@ function animation8(colorH) {
 }
 function animation9(colorH) {
   colorIndex += colorH;
+  console.log("fade to blanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 function animation10(colorH) {
   colorIndex = 255;
+  console.log("blaaaaanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 function animation11(colorH) {
   colorIndex = 0;
+  console.log("noiiiiiiir");
+  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
+  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
+}
+function animation12(colorH) {
+  colorIndex += colorH;
+  console.log("fade blanc");
+  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
+  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
+}
+function animation13(colorH) {
+  colorIndex -= colorH;
+  console.log("fade black");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
@@ -204,7 +227,6 @@ var rectSizes = [90, 70, 60, 50, 40, 60, 50, 40, 30, 20]
 
 function drum1() {
   var calculeMargin = (100 - rectSizes[0]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('display', 'block')
     .css('background-color', 'white')
@@ -214,7 +236,6 @@ function drum1() {
 }
 function drum2() {
   var calculeMargin = (100 - rectSizes[1]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[1] + '%')
     .css('height', rectSizes[1] + '%')
@@ -222,7 +243,6 @@ function drum2() {
 }
 function drum3() {
   var calculeMargin = (100 - rectSizes[2]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[2] + '%')
     .css('height', rectSizes[2] + '%')
@@ -230,7 +250,6 @@ function drum3() {
 }
 function drum4() {
   var calculeMargin = (100 - rectSizes[3]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[3] + '%')
     .css('height', rectSizes[3] + '%')
@@ -238,7 +257,6 @@ function drum4() {
 }
 function drum5() {
   var calculeMargin = (100 - rectSizes[4]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[4] + '%')
     .css('height', rectSizes[4] + '%')
@@ -246,7 +264,6 @@ function drum5() {
 }
 function drum6() {
   var calculeMargin = (100 - rectSizes[5]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[5] + '%')
     .css('height', rectSizes[5] + '%')
@@ -254,7 +271,6 @@ function drum6() {
 }
 function drum7() {
   var calculeMargin = (100 - rectSizes[6]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[6] + '%')
     .css('height', rectSizes[6] + '%')
@@ -262,7 +278,6 @@ function drum7() {
 }
 function drum8() {
   var calculeMargin = (100 - rectSizes[7]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[7] + '%')
     .css('height', rectSizes[7] + '%')
@@ -270,7 +285,6 @@ function drum8() {
 }
 function drum9() {
   var calculeMargin = (100 - rectSizes[8]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[8] + '%')
     .css('height', rectSizes[8] + '%')
@@ -278,7 +292,6 @@ function drum9() {
 }
 function drum10() {
   var calculeMargin = (100 - rectSizes[9]) / 2
-  console.log(calculeMargin);
   $('.drum')
     .css('width', rectSizes[9] + '%')
     .css('height', rectSizes[9] + '%')
@@ -312,42 +325,20 @@ socket.on('superAnimation', function(data) {
     case 4:
       stopSuperAnimation3 = true;
       var number = data.superAnimationNb;
-      var rectH = getRandom(5, 80);
-      var rectW = getRandom(5, 80);
-      var marginW = (100 - rectW) / 2;
-      var marginH = (100 - rectH) / 2;
       goblink = true;
       blink();
       superAnimation4(number);
       break
     case 5:
       number = data.superAnimationNb;
-      rectH = getRandom(5, 80);
-      rectW = getRandom(5, 80);
-      maxPosY = 100 - rectH;
-      maxPosX = 100 - rectW;
-      marginW = (100 - rectW) / 2;
-      marginH = (100 - rectH) / 2;
       superAnimation4(number);
       break
     case 6:
       number = data.superAnimationNb;
-      rectH = getRandom(5, 80);
-      rectW = getRandom(5, 80);
-      maxPosY = 100 - rectH;
-      maxPosX = 100 - rectW;
-      marginW = (100 - rectW) / 2;
-      marginH = (100 - rectH) / 2;
       superAnimation4(number);
       break
     case 7:
       number = data.superAnimationNb;
-      rectH = getRandom(5, 80);
-      rectW = getRandom(5, 80);
-      maxPosY = 100 - rectH;
-      maxPosX = 100 - rectW;
-      marginW = (100 - rectW) / 2;
-      marginH = (100 - rectH) / 2;
       superAnimation4(number);
       break
     case 8:
@@ -484,35 +475,50 @@ function kate() {
 
 ///-------------- annimation balayage
 
+var goBalayage = false;
+
 socket.on('animationBal', function(data) {
   console.log("data " + data.animationNbBal);
 
   switch (data.animationNbBal) {
     case 1:
-      console.log("balayage j'ai hate que tu sois fait !");
+      goBalayage = true;
       lightUp();
+      console.log("1 balagae");
       break
-    case 2:
+  // case 3:
+  //   goBalayage = false;
+  //   break
+  // case 4:
+  //   goBalayage = true;
+  //
+  //   lightUp();
+  //   console.log("2 balagae");
+  //
+  //   break
   }
 })
 var countLight = 0;
 
 function lightUp() {
+  if (goBalayage == true) {
 
-  countLight++;
-  console.log(countLight);
-  $('.page-bal')
-    .css('display', 'block')
-    .css('background-color', 'white')
-  setTimeout(function() {
-    if (countLight <= 100) {
-      lightUp()
-    } else {
-      console.log("fini");
-      $('.page-bal')
-        .css('background-color', 'black')
-    }
-  }, 10)
+    countLight++;
+    $('.page-bal')
+      .css('display', 'block')
+      .css('background-color', 'white')
+    setTimeout(function() {
+      if (countLight <= 20) {
+        lightUp()
+      } else {
+        $('.page-bal')
+          .css('display', 'none')
+      }
+    }, 10)
+  } else {
+    countLight = 0;
+
+  }
 }
 
 
