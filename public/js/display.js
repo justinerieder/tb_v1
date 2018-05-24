@@ -55,7 +55,7 @@ function timeManagerDrum(drumTime) {
 }
 
 
-var superActionTime = [30.5, 31.24, 33.60, 34.65, 34.95, 35.24, 35.56, 36.5, 67.07, 68.2];
+var superActionTime = [30.5, 31.24, 33.60, 34.65, 34.95, 35.24, 35.56, 36.5];
 var superEventNb = 0;
 var superNextTime = superActionTime[superEventNb];
 
