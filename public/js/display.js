@@ -97,11 +97,11 @@ function superTimeManager(bTime) {
   }
 }
 
-var actionTimeRandom = [8, 8.5, 9, 9.5, 10, 10.5, 11]
-// var actionTimeRandom = [70.50, 70.70, 71.02, 71.18, 71.35, 71.30, /**/
-//   75.56, 75.72, 75.88, 76.04, 76.20, 76.36, /*76.50*/ /**/
-//   80.50, 80.68, 80.83, 80.99, 81.16, 81.32, /*81.47*/ /**/
-//   82.80, 82.97];
+// var actionTimeRandom = [8, 8.5, 9, 9.5, 10, 10.5, 11]
+var actionTimeRandom = [70.50, 70.70, 71.02, 71.18, 71.35, 71.30, /**/
+  75.56, 75.72, 75.88, 76.04, 76.20, 76.36, /*76.50*/ /**/
+  80.50, 80.68, 80.83, 80.99, 81.16, 81.32, /*81.47*/ /**/
+  82.80, 82.97];
 var eventNbRandom = 0;
 var nextTimeRandom = actionTimeRandom[eventNbRandom];
 
@@ -118,19 +118,19 @@ function timeManagerRandom(randomTime) {
   }
 }
 
-var actionTimeBal = [1, 2, 5, 6];
-// var actionTimeBal = [
-// /*1*/ 85.34, /*90*/ 86.24, /*141*/
-// /*3*/ 87.65, /*85*/ 88.50, /*152*/
-// /*5*/ 90.02, /*87*/ 90.89, /*150*/
-// /*7*/ 92.39, /* 88*/ 93.27, /*163*/
-// /*9*/ 94.90, /*97*/ 95.87, /*137*/
-// /*11*/ 97.24, /*82*/ 98.06, /*155*/
-// /*12*/ 99.61, /*82*/ 100.43, /*159*/
-// /*13*/ 102.02, /*87*/ 102.89, /*153*/
-// /*15*/ 104.42, /*87*/ 105.29
-//
-// ];
+// var actionTimeBal = [1, 2, 5, 6];
+var actionTimeBal = [
+/*1*/ 85.34, /*90*/ 86.24, /*141*/
+/*3*/ 87.65, /*85*/ 88.50, /*152*/
+/*5*/ 90.02, /*87*/ 90.89, /*150*/
+/*7*/ 92.39, /* 88*/ 93.27, /*163*/
+/*9*/ 94.90, /*97*/ 95.87, /*137*/
+/*11*/ 97.24, /*82*/ 98.06, /*155*/
+/*12*/ 99.61, /*82*/ 100.43, /*159*/
+/*13*/ 102.02, /*87*/ 102.89, /*153*/
+/*15*/ 104.42, /*87*/ 105.29
+
+];
 var eventNbBal = 0;
 var nextTimeBal = actionTimeBal[eventNbBal];
 
@@ -176,9 +176,9 @@ function loopVideo() {
 
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
-  // timeManager(vTime);
-  // superTimeManager(vTime);
-  // timeManagerDrum(vTime);
+  timeManager(vTime);
+  superTimeManager(vTime);
+  timeManagerDrum(vTime);
   timeManagerBal(vTime);
   timeManagerRandom(vTime);
 
