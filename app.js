@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-server.listen(80);
+server.listen(8080);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -143,6 +143,16 @@ io.on('connection', function(socket) {
   socket.on('superAnimation', function(data) {
     socket.broadcast.emit('superAnimation', data);
   });
+
+  socket.on('animationRandom', function(data) {
+    //  socket.broadcast.emit('animationRandom', data);
+
+    var randomUser = getRandom(0, (users.length - 1));
+    console.log("random user " + randomUser + " " + (users.length - 1));
+    io.sockets.connected[users[randomUser]].emit('animationRandom', data);
+
+  });
+
   socket.on('animationBal', function(data) {
     //console.log("animationBal " + data.playBal);
     var count = 0;
@@ -162,7 +172,7 @@ io.on('connection', function(socket) {
     function balayage() {
       var intBal = setInterval(function() {
         if (count >= users.length - 1) {
-          //count = 0;
+          count = 0;
           clearInterval(intBal);
         } else {
           count++;
@@ -179,3 +189,7 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('updateVideo', vTime);
   });
 });
+
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
