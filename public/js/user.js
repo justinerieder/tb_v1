@@ -94,10 +94,10 @@ socket.on('animation', function(animationNb, play, stop) {
       console.log("bigFade13 " + play + " - " + stop);
       animation14(colorH);
       break;
-  // case 15:
-  //   console.log("bigFade13 " + play + " - " + stop);
-  //   animation15(colorH);
-  //   break;
+    case 15:
+      console.log("bigFade13 " + play + " - " + stop);
+      animation15(colorH);
+      break;
   }
 
 });
@@ -190,12 +190,12 @@ function animation14(colorH) {
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-// function animation15(colorH) {
-//   colorIndex -= colorH;
-//   console.log("fade black");
-//   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-//   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-// }
+function animation15(colorH) {
+  colorIndex -= colorH;
+  console.log("fade black");
+  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
+  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
+}
 //----______Annimation drum !!!
 
 socket.on('animationDrum', function(data) {

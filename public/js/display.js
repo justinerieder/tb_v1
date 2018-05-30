@@ -21,7 +21,7 @@ $('.page-video').click(function() {
   console.log($('#song').get(0).currentTime);
 });
 
-var actionTime = [0, 18.5, 20.8, 21, 32, 36, 36.53, 56.96, 59.8, 60, 62.3, 70, /*reste noir*/ 104.2, /*fade blanc*/ 104.44, /*rest blanc*/ 106,];
+var actionTime = [0, 18.5, 20.8, 21, 32, 36, 36.53, 56.96, 59.8, 60, 62.3, 70, /*reste noir*/ 104.2, /*fade blanc*/ 104.44, /*rest blanc*/ 106, 110];
 var eventNb = 0;
 var nextTime = actionTime[eventNb];
 
