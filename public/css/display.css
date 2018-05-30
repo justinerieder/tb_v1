@@ -26,7 +26,11 @@ body{
     height: 60%;
 
 }
-
+.chrono{
+  font-size: 3em;
+  color:white;
+  text-align: left;
+}
 #vid{
 
     display: none;

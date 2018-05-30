@@ -157,8 +157,8 @@ function animation10(colorH) {
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 function animation11(colorH) {
-  colorIndex = 0;
-  console.log("noiiiiiiir");
+  colorIndex -= colorH;
+  console.log("fade noiir");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
@@ -179,123 +179,88 @@ function animation13(colorH) {
 socket.on('animationDrum', function(data) {
   console.log("data " + data.animationNbDrum);
 
+
+
   switch (data.animationNbDrum) {
     case 1:
-      console.log("go drum animation1");
+      initDrum();
       drum1();
       break;
     case 2:
-      console.log("go drum animation2");
-      drum2();
+      initDrum();
       break;
     case 3:
-      console.log("go drum animation3");
-      drum3();
+      drum2();
       break;
     case 4:
-      console.log("go drum animation4");
-      drum4();
+      initDrum();
       break;
+    /*_----------------------*/
     case 5:
-      console.log("go drum animation5");
-      drum5();
+      drum1();
       break;
     case 6:
-      console.log("go drum animation6");
-      drum6();
+      initDrum();
       break;
     case 7:
-      console.log("go drum animation7");
-      drum7();
+      drum2();
       break;
     case 8:
-      console.log("go drum animation8");
-      drum8();
+      initDrum();
       break;
     case 9:
-      console.log("go drum animation9");
-      drum9();
+      drum1();
       break;
     case 10:
-      console.log("go drum animation10");
-      drum10();
+      initDrum();
       break;
   }
 });
 
-var rectSizes = [90, 70, 60, 50, 40, 60, 50, 40, 30, 20]
+
+var drumW = 20 * 1.7;
+var drumH = 20;
+var marginCalc = (100 - drumW) / 2;
+
+var mobilHeight = 100;
+var marginTopCalc = (mobilHeight / 3) - (drumH / 2);
+var marginTopCalc2 = (2 * (mobilHeight / 3)) - (drumH / 2);
+var marginTopCalc3 = (3 * (mobilHeight / 3)) - (drumH / 2);
+
+
+function initDrum() {
+  console.log("initDrum");
+
+  $(".drum0")
+    .css("display", "none")
+    .css("width", drumW + "%")
+    .css("height", drumH + "%")
+    .css("margin-left", marginCalc + "%")
+    .css("margin-top", marginTopCalc + "%")
+  $(".drum1")
+    .css("display", "none")
+    .css("width", drumW + "%")
+    .css("height", drumH + "%")
+    .css("margin-left", marginCalc + "%")
+    .css("margin-top", marginTopCalc2 + "%")
+  $(".drum2")
+    .css("display", "none")
+    .css("width", drumW + "%")
+    .css("height", drumH + "%")
+    .css("margin-left", marginCalc + "%")
+    .css("margin-top", marginTopCalc3 + "%")
+}
+
+var aleatoire = getRandom(0, 2);
+console.log("aleatoire " + aleatoire);
 
 function drum1() {
-  var calculeMargin = (100 - rectSizes[0]) / 2
-  $('.drum')
-    .css('display', 'block')
-    .css('background-color', 'white')
-    .css('width', rectSizes[0] + '%')
-    .css('height', rectSizes[0] + '%')
-    .css("margin", calculeMargin + '%')
+  console.log("goDrum");
+  $(".drum" + aleatoire).css("display", "block")
 }
 function drum2() {
-  var calculeMargin = (100 - rectSizes[1]) / 2
-  $('.drum')
-    .css('width', rectSizes[1] + '%')
-    .css('height', rectSizes[1] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum3() {
-  var calculeMargin = (100 - rectSizes[2]) / 2
-  $('.drum')
-    .css('width', rectSizes[2] + '%')
-    .css('height', rectSizes[2] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum4() {
-  var calculeMargin = (100 - rectSizes[3]) / 2
-  $('.drum')
-    .css('width', rectSizes[3] + '%')
-    .css('height', rectSizes[3] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum5() {
-  var calculeMargin = (100 - rectSizes[4]) / 2
-  $('.drum')
-    .css('width', rectSizes[4] + '%')
-    .css('height', rectSizes[4] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum6() {
-  var calculeMargin = (100 - rectSizes[5]) / 2
-  $('.drum')
-    .css('width', rectSizes[5] + '%')
-    .css('height', rectSizes[5] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum7() {
-  var calculeMargin = (100 - rectSizes[6]) / 2
-  $('.drum')
-    .css('width', rectSizes[6] + '%')
-    .css('height', rectSizes[6] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum8() {
-  var calculeMargin = (100 - rectSizes[7]) / 2
-  $('.drum')
-    .css('width', rectSizes[7] + '%')
-    .css('height', rectSizes[7] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum9() {
-  var calculeMargin = (100 - rectSizes[8]) / 2
-  $('.drum')
-    .css('width', rectSizes[8] + '%')
-    .css('height', rectSizes[8] + '%')
-    .css("margin", calculeMargin + '%')
-}
-function drum10() {
-  var calculeMargin = (100 - rectSizes[9]) / 2
-  $('.drum')
-    .css('width', rectSizes[9] + '%')
-    .css('height', rectSizes[9] + '%')
-    .css("margin", calculeMargin + '%')
+  console.log("goDrum");
+  $(".drum" + aleatoire).css("display", "block");
 }
 
 
@@ -455,7 +420,7 @@ function blink() {
       $('.superAnimationRect').css("border", "10px solid rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
 
       //rgb(" + Math.round(randomColor) + ";" + Math.round(randomColor) + ";" + Math.round(randomColor) + ")")
-      console.log($('.superAnimationRect4').css("border"));
+      // console.log($('.superAnimationRect4').css("border"));
 
       blink();
     }, 1);
@@ -471,6 +436,54 @@ function kate() {
     .css('width', "100%")
     .css('height', '100%')
     .css('margin', "0px")
+}
+
+///-------------- annimation random
+var currentNb = 100;
+
+socket.on('animationRandom', function(data) {
+  goBalayage = true;
+  randomLightUp();
+  console.log("random");
+
+
+})
+
+function randomLightUp() {
+  var color = 0;
+  // $('.randomLight')
+  //   .css('display', 'block')
+  //   .css('background-color', 'white')
+
+  var intRandom = setInterval(function() {
+    console.log("hi up ");
+    color += 10;
+    $('.randomLight')
+      .css('display', 'block')
+      .css('background-color', "rgb(" + Math.round(color) + "," + Math.round(color) + "," + Math.round(color) + ")")
+    if (color >= 255) {
+      clearInterval(intRandom);
+      console.log("bye up");
+
+      randomLightDown();
+    }
+  }, 0.0001)
+
+}
+
+function randomLightDown() {
+  var color = 255;
+  var intRandom = setInterval(function() {
+    console.log("hi down ");
+    color -= 10;
+    $('.randomLight')
+      .css('display', 'block')
+      .css('background-color', "rgb(" + Math.round(color) + "," + Math.round(color) + "," + Math.round(color) + ")")
+    if (color <= 0) {
+      console.log("bye down");
+      clearInterval(intRandom);
+    }
+  }, 0.01)
 }
 
 ///-------------- annimation balayage
