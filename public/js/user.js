@@ -90,6 +90,14 @@ socket.on('animation', function(animationNb, play, stop) {
       console.log("bigFade13 " + play + " - " + stop);
       animation13(colorH);
       break;
+    case 14:
+      console.log("bigFade13 " + play + " - " + stop);
+      animation14(colorH);
+      break;
+  // case 15:
+  //   console.log("bigFade13 " + play + " - " + stop);
+  //   animation15(colorH);
+  //   break;
   }
 
 });
@@ -162,18 +170,32 @@ function animation11(colorH) {
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
+// ------- ici il faut faire les battements et enlevè le 12
+
 function animation12(colorH) {
+  colorIndex = 0;
+  console.log("reste noir");
+  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
+  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
+}
+function animation13(colorH) {
   colorIndex += colorH;
   console.log("fade blanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-function animation13(colorH) {
-  colorIndex -= colorH;
-  console.log("fade black");
+function animation14(colorH) {
+  colorIndex = 255;
+  console.log("reste blanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
+// function animation15(colorH) {
+//   colorIndex -= colorH;
+//   console.log("fade black");
+//   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
+//   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
+// }
 //----______Annimation drum !!!
 
 socket.on('animationDrum', function(data) {
@@ -456,14 +478,12 @@ function randomLightUp() {
   //   .css('background-color', 'white')
 
   var intRandom = setInterval(function() {
-    console.log("hi up ");
     color += 10;
     $('.randomLight')
       .css('display', 'block')
       .css('background-color', "rgb(" + Math.round(color) + "," + Math.round(color) + "," + Math.round(color) + ")")
     if (color >= 255) {
       clearInterval(intRandom);
-      console.log("bye up");
 
       randomLightDown();
     }
@@ -474,13 +494,13 @@ function randomLightUp() {
 function randomLightDown() {
   var color = 255;
   var intRandom = setInterval(function() {
-    console.log("hi down ");
     color -= 10;
     $('.randomLight')
       .css('display', 'block')
       .css('background-color', "rgb(" + Math.round(color) + "," + Math.round(color) + "," + Math.round(color) + ")")
     if (color <= 0) {
-      console.log("bye down");
+      $('.randomLight')
+        .css('display', 'none')
       clearInterval(intRandom);
     }
   }, 0.01)
@@ -495,20 +515,50 @@ socket.on('animationBal', function(data) {
 
   switch (data.animationNbBal) {
     case 1:
-      goBalayage = true;
-      lightUp();
-      console.log("1 balagae");
+      randomLightUp();
       break
-  // case 3:
-  //   goBalayage = false;
-  //   break
-  // case 4:
-  //   goBalayage = true;
-  //
-  //   lightUp();
-  //   console.log("2 balagae");
-  //
-  //   break
+    case 2:
+      $('.randomLight').css('display', 'none')
+      break
+    case 3:
+      randomLightUp();
+      break
+    case 4:
+      $('.randomLight').css('display', 'none')
+      break
+    case 5:
+      randomLightUp();
+      break
+    case 6:
+      $('.randomLight').css('display', 'none')
+      break
+    case 7:
+      randomLightUp();
+      break
+    case 8:
+      $('.randomLight').css('display', 'none')
+      break
+    case 9:
+      randomLightUp();
+      break
+    case 10:
+      $('.randomLight').css('display', 'none')
+      break
+    case 11:
+      randomLightUp();
+      break
+    case 12:
+      $('.randomLight').css('display', 'none')
+      break
+    case 13:
+      randomLightUp();
+      break
+    case 14:
+      $('.randomLight').css('display', 'none')
+      break
+    case 15:
+      randomLightUp();
+      break
   }
 })
 var countLight = 0;
