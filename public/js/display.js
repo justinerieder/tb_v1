@@ -39,8 +39,8 @@ function timeManager(aTime) {
 }
 
 // var actionTimeDrum = [64 + 1, 64 + 1.4, 64 + 1.6, 64 + 1.8, 64 + 1.13, 64 + 1.15, 64 + 1.20, 64 + 1.22, 64 + 2, 64 + 2.2];
-var actionTimeDrum = [65.09, /*41 */ 65.50, /*35*/ 65.85, /*41*/ 66.26, /*32*/ 66.58, /*41*/ 66.99, /*32*/ 67.31, /*41*/ 67.72, /*32*/ 68.04, /*41*/ 68.45, /*68.77*/ ];
-// var actionTimeDrum = [];
+// var actionTimeDrum = [65.09, /*41 */ 65.50, /*35*/ 65.85, /*41*/ 66.26, /*32*/ 66.58, /*41*/ 66.99, /*32*/ 67.31, /*41*/ 67.72, /*32*/ 68.04, /*41*/ 68.45, /*68.77*/ ];
+var actionTimeDrum = [];
 var eventNbDrum = 0;
 var nextTimeDrum = actionTimeDrum[eventNbDrum];
 
