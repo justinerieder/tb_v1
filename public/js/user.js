@@ -673,7 +673,21 @@ function lightUp() {
   }
 }
 
+$('.fs-button').click(function() {
 
+  toggleFullScreen(document.body);
+
+  $(this).css({
+    'background-color': 'yellow'
+  });
+
+  $(this).animate({
+    'opacity': '0'
+  }, 600, function() {
+
+    $(this).remove();
+  });
+});
 
 
 

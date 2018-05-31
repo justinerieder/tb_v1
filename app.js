@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-server.listen(80);
+server.listen(8080);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
