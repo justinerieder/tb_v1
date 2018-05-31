@@ -144,6 +144,10 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('superAnimation', data);
   });
 
+  socket.on('exec', function(data) {
+    socket.broadcast.emit('exec', data);
+  });
+
   socket.on('animationRandom', function(data) {
     //  socket.broadcast.emit('animationRandom', data);
 

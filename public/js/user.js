@@ -13,7 +13,6 @@ $(document).ready(function() {
 
   socket.emit('newUser');
 
-
   //disable scroll refresh
   /*$(document).on('touchmove', function(e) {
 
@@ -22,6 +21,15 @@ $(document).ready(function() {
 );*/
 
 });
+
+socket.on('exec', function(animFunc, play, stop) {
+
+  console.log(animFunc.superAnimationNb);
+  var f = eval(animFunc.superAnimationNb);
+  f();
+
+});
+
 
 socket.on('showNb', function(userNb) {
   console.log(userNb);
@@ -83,7 +91,7 @@ socket.on('animation', function(animationNb, play, stop) {
       animation11(colorH);
       break;
     case 12:
-      console.log("bigFade12 " + play + " - " + stop);
+      // console.log("bigFade12 " + play + " - " + stop);
       animation12(colorH);
       break;
     case 13:
@@ -174,7 +182,7 @@ function animation11(colorH) {
 
 function animation12(colorH) {
   colorIndex = 0;
-  console.log("reste noir");
+  // console.log("reste noir");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
@@ -296,6 +304,8 @@ socket.on('superAnimation', function(data) {
   console.log("data " + data.superAnimationNb);
 
   switch (data.superAnimationNb) {
+
+
     case 1:
       console.log("go super animation1");
       superAnimation1();
@@ -306,10 +316,13 @@ socket.on('superAnimation', function(data) {
       superAnimation2();
       break
     case 3:
-      // kate();
+      console.log("go super animation3");
+
       superAnimation3();
       break
     case 4:
+      console.log("go super animation4");
+
       stopSuperAnimation3 = true;
       var number = data.superAnimationNb;
       goblink = true;
@@ -317,20 +330,68 @@ socket.on('superAnimation', function(data) {
       superAnimation4(number);
       break
     case 5:
+      console.log("go super animation5");
+
       number = data.superAnimationNb;
       superAnimation4(number);
       break
     case 6:
+      console.log("go super animation6");
+
       number = data.superAnimationNb;
       superAnimation4(number);
       break
     case 7:
+      console.log("go super animation7");
+
       number = data.superAnimationNb;
       superAnimation4(number);
       break
     case 8:
+      console.log("go super animation8");
+
       goblink = false;
+      console.log("je devrais me cacher");
       $(".superAnimationRect").css("display", "none")
+      $(".superAnimation1").css("display", "none")
+      $(".superAnimation2").css("display", "none")
+      kate();
+      break
+  }
+
+  var n = data.superAnimationNb;
+  if (n >= 9 && n < 72) {
+    var mod = n % 4;
+    if (mod == 1) {
+      tiktik1();
+    } else if (mod == 2) {
+      tiktik2();
+    } else if (mod == 3) {
+      tiktik3();
+    } else if (mod == 0) {
+      kate();
+    }
+
+  }
+
+  var round = 0;
+  for (var i = 9; i < data.superAnimationNb.length; i++) {
+    console.log("round " + round);
+    round++;
+    if (round == 1) {
+      console.log("tikti1");
+      tiktik1();
+    } else if (round == 2) {
+      console.log("tikti2");
+      tiktik2();
+    } else if (round == 3) {
+      console.log("tikti3");
+      tiktik3();
+    } else if (round == 4) {
+      console.log("kate");
+      kate();
+      round = 0;
+    }
 
   }
 });
@@ -365,8 +426,10 @@ function superAnimation2() {
   $('.superAnimation')
     .css("display", "block")
     .css("width", "6%")
+
   $('.superAnimation1')
     .css("margin-left", calculeMargin1 + "%")
+
   $('.superAnimation2')
     .css("margin-left", calculeMargin2 + "%")
   setTimeout(function() {
@@ -448,6 +511,32 @@ function blink() {
     }, 1);
   }
 
+}
+
+function tiktik1() {
+  console.log("tiktik1");
+  $('.superAnimation2')
+    .css('display', "block")
+    .css('top', '7%').css('left', '0')
+    .css('width', "100%")
+    .css('height', '15px')
+}
+function tiktik2() {
+  console.log("tiktik2");
+  $('.superAnimation2')
+    .css('display', "block")
+    .css('top', '90%')
+    .css('left', '0')
+    .css('width', "100%")
+    .css('height', '15px')
+}
+function tiktik3() {
+  console.log("tiktik3");
+  $('.superAnimation2')
+    .css('display', "block")
+    .css('top', '7%').css('left', '0')
+    .css('width', "100%")
+    .css('height', '15px')
 }
 
 function kate() {
