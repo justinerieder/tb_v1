@@ -48,21 +48,12 @@ h1{
   height: 100%;
   opacity: 1;
 }
-.superAnimation1{
+.superAnimation{
   display: none;
   position: absolute;
   left: 0; top: 0;
   width: 100%;
-  height: 6%;
-  opacity: 1;
-  background-color: white;
-}
-.superAnimation2{
-  display: none;
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  height: 6%;
+  height: 100%;
   opacity: 1;
   background-color: white;
 }

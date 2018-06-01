@@ -297,104 +297,364 @@ function drum2() {
 
 //----______Annimation glitch !!!
 
+
+
+// socket.on('superAnimation', function(data) {
+//   console.log("data " + data.superAnimationNb);
+//
+//   switch (data.superAnimationNb) {
+//
+//
+//     case 1:
+//       console.log("go super animation1");
+//       superAnimation1();
+//       break;
+//     case 2:
+//       console.log("go super animation2");
+//       kate();
+//       superAnimation2();
+//       break
+//     case 3:
+//       console.log("go super animation3");
+//
+//       superAnimation3();
+//       break
+//     case 4:
+//       console.log("go super animation4");
+//
+//       stopSuperAnimation3 = true;
+//       var number = data.superAnimationNb;
+//       goblink = true;
+//       blink();
+//       superAnimation4(number);
+//       break
+//     case 5:
+//       console.log("go super animation5");
+//
+//       number = data.superAnimationNb;
+//       superAnimation4(number);
+//       break
+//     case 6:
+//       console.log("go super animation6");
+//
+//       number = data.superAnimationNb;
+//       superAnimation4(number);
+//       break
+//     case 7:
+//       console.log("go super animation7");
+//
+//       number = data.superAnimationNb;
+//       superAnimation4(number);
+//       break
+//     case 8:
+//       console.log("go super animation8");
+//
+//       goblink = false;
+//       console.log("je devrais me cacher");
+//       $(".superAnimationRect").css("display", "none")
+//       $(".superAnimation1").css("display", "none")
+//       $(".superAnimation2").css("display", "none")
+//       kate();
+//       break
+//   }
+//
+//   var n = data.superAnimationNb;
+//   if (n >= 9 && n < 72) {
+//     var mod = n % 4;
+//     if (mod == 1) {
+//       tiktik1();
+//     } else if (mod == 2) {
+//       tiktik2();
+//     } else if (mod == 3) {
+//       tiktik3();
+//     } else if (mod == 0) {
+//       kate();
+//     }
+//
+//   }
+//
+//   var round = 0;
+//   for (var i = 9; i < data.superAnimationNb.length; i++) {
+//     console.log("round " + round);
+//     round++;
+//     if (round == 1) {
+//       console.log("tikti1");
+//       tiktik1();
+//     } else if (round == 2) {
+//       console.log("tikti2");
+//       tiktik2();
+//     } else if (round == 3) {
+//       console.log("tikti3");
+//       tiktik3();
+//     } else if (round == 4) {
+//       console.log("kate");
+//       kate();
+//       round = 0;
+//     }
+//
+//   }
+// });
+
 var stopSuperAnimation3 = false;
 var goblink = false;
+border = false;
+blinkBg = false;
+blinkBorder = false;
 
 socket.on('superAnimation', function(data) {
   console.log("data " + data.superAnimationNb);
 
   switch (data.superAnimationNb) {
-
-
     case 1:
-      console.log("go super animation1");
-      superAnimation1();
-      break;
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
     case 2:
-      console.log("go super animation2");
       kate();
-      superAnimation2();
       break
     case 3:
-      console.log("go super animation3");
-
-      superAnimation3();
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 4:
-      console.log("go super animation4");
-
-      stopSuperAnimation3 = true;
-      var number = data.superAnimationNb;
-      goblink = true;
-      blink();
-      superAnimation4(number);
+      kate();
       break
     case 5:
-      console.log("go super animation5");
-
-      number = data.superAnimationNb;
-      superAnimation4(number);
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 6:
-      console.log("go super animation6");
-
-      number = data.superAnimationNb;
-      superAnimation4(number);
+      kate();
       break
     case 7:
-      console.log("go super animation7");
-
-      number = data.superAnimationNb;
-      superAnimation4(number);
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 8:
-      console.log("go super animation8");
-
-      goblink = false;
-      console.log("je devrais me cacher");
-      $(".superAnimationRect").css("display", "none")
-      $(".superAnimation1").css("display", "none")
-      $(".superAnimation2").css("display", "none")
       kate();
       break
-  }
-
-  var n = data.superAnimationNb;
-  if (n >= 9 && n < 72) {
-    var mod = n % 4;
-    if (mod == 1) {
-      tiktik1();
-    } else if (mod == 2) {
-      tiktik2();
-    } else if (mod == 3) {
-      tiktik3();
-    } else if (mod == 0) {
+    case 9:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 10:
       kate();
-    }
-
-  }
-
-  var round = 0;
-  for (var i = 9; i < data.superAnimationNb.length; i++) {
-    console.log("round " + round);
-    round++;
-    if (round == 1) {
-      console.log("tikti1");
-      tiktik1();
-    } else if (round == 2) {
-      console.log("tikti2");
-      tiktik2();
-    } else if (round == 3) {
-      console.log("tikti3");
-      tiktik3();
-    } else if (round == 4) {
-      console.log("kate");
+      break
+    case 11:
+      goodMarg(true, ".superAnimation1");
+      goodMarg(true, ".superAnimation2");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      blink(".superAnimation2", true, false);
+      break
+    case 12:
       kate();
-      round = 0;
-    }
-
+      break
+    case 13:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 14:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 15:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 16:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 17:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 18:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 19:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 20:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 21:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 22:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 23:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 24:
+      kate();
+      break
+    case 25:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
+    case 26:
+      animationGlitch('.superAnimation1', 0, 2);
+      break
+    case 27:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
+    case 28:
+      animationGlitch('.superAnimation1', 0, 2);
+      break
+    case 29:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
+    case 30:
+      animationGlitch('.superAnimation1', 0, 2);
+      break
+    case 31:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
   }
 });
+
+glitchAnimation = false;
+function goodMarg(border, who) {
+  var randomSizeW = getRandom(10, 90)
+  var randomSizeH = getRandom(10, 90)
+  var w = randomSizeW;
+  var h = randomSizeH;
+  var bSize = -10;
+
+  var top = (100 - h) / 2;
+  var left = (100 - w) / 2;
+
+  $(who)
+    .css('display', 'block')
+    .css('width', w + "%")
+    .css('height', h + "%")
+    .css('top', top + "%")
+    .css('left', left + "%")
+    .css('margin-left', bSize + 'px')
+    .css('margin-top', bSize + 'px')
+
+  if (border == true) {
+    $(who)
+      .css('border', '10px solid white')
+      .css("background-color", "transparent")
+  } else {
+    $(who)
+      .css("background-color", "white")
+  }
+
+}
+function animationGlitch(who, dirTop, dirLeft) {
+  $(who).css('border', 'none')
+
+  if (dirTop > 0) {
+    w = 100;
+    h = 6;
+
+    otop = -20;
+    left = 0;
+
+    var moveGlitch = setInterval(function() {
+      console.log("hello ? " + otop);
+
+      otop += dirTop;
+      $(who)
+        .css('top', otop + "%")
+
+      if (otop > 100) {
+        clearInterval(moveGlitch);
+        kate();
+      }
+    }, 1)
+
+  }
+  if (dirLeft > 0) {
+    w = 9;
+    h = 100;
+
+    top = 0;
+    left = -20;
+    var moveGlitch = setInterval(function() {
+      left += dirLeft;
+      console.log("hello ? " + left);
+
+      $(who)
+        .css('left', left + "%")
+
+      if (left > 100) {
+        clearInterval(moveGlitch);
+        kate();
+      }
+    }, 1)
+  }
+  $(who)
+    .css('display', 'block')
+    .css('width', w + "%")
+    .css('height', h + "%")
+    .css('margin-left', '0px')
+    .css('margin-top', '0px')
+    .css('top', top + "%")
+    .css('left', left + "%")
+
+
+
+}
+var randomColor;
+
+function blink(who, blinkBorder, blinkBg) {
+  // console.log("blink");
+  if (goblink == true) {
+    setTimeout(function() {
+      randomColor = getRandom(0, 255);
+      if (blinkBorder == true) {
+        $(who).css("border", "10px solid rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
+      } else if (blinkBorder == false) {
+        $(who).css("border", "10px solid rgb(255,255,255)")
+      } else if (blinkBg == true) {
+        $(who).css("background-color", "rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
+      } else if (blinkBg == false) {
+        $(who).css("background-color", "transparent")
+
+      }
+      blink(who, blinkBorder, blinkBg);
+    }, 1);
+  }
+}
+function kate() {
+  goblink = false;
+  $('.superAnimation')
+    .css('display', "none")
+    .css('top', '0%')
+    .css('left', '0%')
+    .css('width', "100%")
+    .css('height', '100%')
+    .css('margin', "0px")
+    .css('border', 'none')
+    .css('background-color', 'white')
+}
 
 var moveSuperAnimation = 0;
 var moveSuperAnimationMap;
@@ -494,25 +754,6 @@ function superAnimation4(number) {
     .css("margin-top", compenseMarginH + "%")
 }
 
-var randomColor;
-
-function blink() {
-  if (goblink == true) {
-    setTimeout(function() {
-      randomColor = getRandom(0, 255);
-      //console.log("randomColor " + randomColor);
-
-      $('.superAnimationRect').css("border", "10px solid rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
-
-      //rgb(" + Math.round(randomColor) + ";" + Math.round(randomColor) + ";" + Math.round(randomColor) + ")")
-      // console.log($('.superAnimationRect4').css("border"));
-
-      blink();
-    }, 1);
-  }
-
-}
-
 function tiktik1() {
   console.log("tiktik1");
   $('.superAnimation2')
@@ -539,15 +780,7 @@ function tiktik3() {
     .css('height', '15px')
 }
 
-function kate() {
-  $('.superAnimation')
-    .css('display', "none")
-    .css('top', '0')
-    .css('left', '0')
-    .css('width', "100%")
-    .css('height', '100%')
-    .css('margin', "0px")
-}
+
 
 ///-------------- annimation random
 var currentNb = 100;

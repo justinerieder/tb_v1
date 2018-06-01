@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-server.listen(8080);
+server.listen(80);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -44,6 +44,8 @@ var users = [];
 var nbVideoLoaded = 0;
 var txtIsHide = 0;
 var loadVideo = 0;
+// var firstMoit = [];
+// var secondMoit = [];
 
 
 io.on('connection', function(socket) {
@@ -103,6 +105,20 @@ io.on('connection', function(socket) {
   socket.on('hideWelcome', function() {
 
     socket.broadcast.emit('hideWelcome');
+  // console.log("hey moit");
+  //
+  //
+  // for (var i = 0; i < users.length; i++) {
+  //   firstMoit.push(users[i]);
+  //   if (i <= users.length / 2) {
+  //     firstMoit.push(users[i]);
+  //   } else {
+  //     secondMoit.push(users[i])
+  //   }
+  // }
+  // console.log("users " + users.length);
+  // console.log("firstMoit " + firstMoit.length);
+  // console.log("secondMoit " + firstMoit.length);
   });
 
   socket.on('animation', function(data) {
@@ -156,6 +172,7 @@ io.on('connection', function(socket) {
     io.sockets.connected[users[randomUser]].emit('animationRandom', data);
 
   });
+  socket.on('animationMoit', function(data) {})
 
   socket.on('animationBal', function(data) {
     //console.log("animationBal " + data.playBal);
