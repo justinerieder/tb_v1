@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-server.listen(80);
+server.listen(8080);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -130,6 +130,31 @@ io.on('connection', function(socket) {
     animation(animationNb, play, stop);
 
   //socket.broadcast.emit('animation', data);
+  });
+
+  socket.on('animationResetClick', function(data) {
+
+    console.log("reset click ");
+
+    socket.broadcast.emit('animationResetClick', data);
+
+  //socket.broadcast.emit('animation', data);
+  });
+
+  socket.on('animationWord', function(data) {
+
+    var theWord = data.theWord;
+    var animationNbWord = data.animationNbWord
+    // console.log("coucou mot");
+    socket.broadcast.emit('animationWord', theWord, animationNbWord);
+  });
+  socket.on('animationWordRemove', function(data) {
+
+    var removerTime = data.animationNbWordRemove;
+    var playRemove = data.playWordRemove;
+    var stopRemove = data.stopWordRemove;
+    // console.log("coucou mot");
+    socket.broadcast.emit('animationWordRemove', removerTime, playRemove, stopRemove);
   });
 
   var currentTime = 0;

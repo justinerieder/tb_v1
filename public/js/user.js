@@ -3,6 +3,7 @@ var socket = io.connect(ip);
 
 //update the interface to the current step
 
+
 socket.on('hideWelcome', function() {
   $('.page-welcome').css("display", "none");
   $('.page-animation').css("display", "block");
@@ -22,15 +23,6 @@ $(document).ready(function() {
 
 });
 
-socket.on('exec', function(animFunc, play, stop) {
-
-  console.log(animFunc.superAnimationNb);
-  var f = eval(animFunc.superAnimationNb);
-  f();
-
-});
-
-
 socket.on('showNb', function(userNb) {
   console.log(userNb);
   $('.displayNumber').html(userNb);
@@ -39,6 +31,308 @@ socket.on('showNb', function(userNb) {
 socket.on('updateVideo', function(vTime) {
   //console.log("vTime " + vTime);
 });
+
+$('body').on('click touchstart', function() {
+  // $('body').on('click', function() {
+  console.log("changeCollection");
+  changeCollection();
+});
+
+var screenNb = 0;
+function changeCollection() {
+  screenNb++;
+  console.log("nb " + screenNb);
+  if (screenNb > 12) {
+    $('.test').removeClass('negative')
+    screenNb = 0;
+  }
+  switch (screenNb) {
+    case 0:
+      negativeRemover();
+      $('.page-animation').css('display', 'block')
+      break
+    case 1:
+      negativeRemover();
+      $('.page-animation').css('display', 'block')
+      $('.top-right').addClass('negative')
+      $('.top-left').addClass('negative')
+      break
+    case 2:
+      negativeRemover();
+      $('.page-animation').css('display', 'block')
+      $('.bottom-right').addClass('negative')
+      $('.bottom-left').addClass('negative')
+      break
+    case 3:
+      negativeRemover();
+      $('.page-animation').css('display', 'block')
+
+      $('.top-right').addClass('negative')
+      $('.bottom-left').addClass('negative')
+      break
+    case 4:
+      negativeRemover();
+      $('.page-animation').css('display', 'block')
+
+      $('.top-left').addClass('negative')
+      $('.bottom-right').addClass('negative')
+      break
+    case 5:
+      negativeRemover();
+
+      $('.page-animation').css('display', 'block')
+      $('.top-right').addClass('negative')
+      $('.bottom-right').addClass('negative')
+      break
+    case 6:
+      negativeRemover();
+      $('.page-animation').css('display', 'block')
+      $('.top-left').addClass('negative')
+      $('.bottom-left').addClass('negative')
+      break
+    case 7:
+      negativeRemover();
+      $('.top-right')
+        .css('display', 'block')
+        .css('width', '100%')
+        .css('height', '100%')
+        .css('left', '0px')
+        .addClass('negative')
+      $('.top-left')
+        .css('display', 'block')
+        .css('top', '25%')
+        .css('left', '25%')
+        .css('z-index', '2')
+      break
+    case 8:
+      negativeRemover();
+      $('.top-right')
+        .css('display', 'block')
+        .css('width', '100%')
+        .css('height', '100%')
+        .css('left', '0px')
+      $('.top-left')
+        .css('display', 'block')
+        .css('top', '25%')
+        .css('left', '25%')
+        .css('z-index', '2')
+        .addClass('negative')
+      break
+    case 9:
+      negativeRemover();
+      $('.top-right')
+        .css('display', 'block')
+        .css('width', '100%')
+        .css('height', '100%')
+        .css('left', '0px')
+      $('.top-left')
+        .css('display', 'block')
+        .css('top', '35%')
+        .css('left', '15%')
+        .css('z-index', '2')
+        .addClass('negative')
+      $('.bottom-left')
+        .css('display', 'block')
+        .css('top', '15%')
+        .css('left', '35%')
+        .css('z-index', '2')
+        .addClass('negative')
+      break
+    case 10:
+      negativeRemover();
+      $('.top-right')
+        .css('display', 'block')
+        .css('width', '100%')
+        .css('height', '100%')
+        .css('left', '0px')
+        .addClass('negative')
+      $('.top-left')
+        .css('display', 'block')
+        .css('top', '35%')
+        .css('left', '15%')
+        .css('z-index', '2')
+      $('.bottom-left')
+        .css('display', 'block')
+        .css('top', '15%')
+        .css('left', '35%')
+        .css('z-index', '2')
+      break
+    case 11:
+      negativeRemover();
+      $('.top-right')
+        .css('display', 'block')
+        .css('width', '100%')
+        .css('height', '100%')
+        .css('left', '0px')
+        .addClass('negative')
+      $('.top-left')
+        .css('display', 'block')
+        .css('top', '33%')
+        .css('left', '0px')
+        .css('height', '33%')
+        .css('z-index', '100')
+      $('.bottom-left')
+        .css('display', 'block')
+        .css('top', '33%')
+        .css('left', '50%')
+        .css('height', '33%')
+        .css('z-index', '2')
+      break
+    case 12:
+      negativeRemover();
+      $('.top-right')
+        .css('display', 'block')
+        .css('width', '100%')
+        .css('height', '100%')
+        .css('left', '0px')
+      $('.top-left')
+        .css('display', 'block')
+        .css('top', '33%')
+        .css('left', '0px')
+        .css('height', '33%')
+        .css('z-index', '2')
+        .addClass('negative')
+
+      $('.bottom-left')
+        .css('display', 'block')
+        .css('top', '33%')
+        .css('left', '50%')
+        .css('height', '33%')
+        .css('z-index', '2')
+        .addClass('negative')
+      break
+  }
+}
+function negativeRemover() {
+  $('.page-animation').removeClass('negative')
+  $('.page-animation').css('display', 'none')
+  $('.top-left')
+    .css('top', '0px')
+    .css('left', '0px')
+    .css('width', '50%')
+    .css('height', '50%')
+    .css('z-index', '0')
+  $('.top-right')
+    .css('top', '0px')
+    .css('left', '50%')
+    .css('width', '50%')
+    .css('height', '50%')
+    .css('z-index', '0')
+  $('.bottom-left')
+    .css('top', '50%')
+    .css('left', '0px')
+    .css('width', '50%')
+    .css('height', '50%')
+    .css('z-index', '0')
+  $('.bottom-right')
+    .css('top', '50%')
+    .css('left', '50%')
+    .css('width', '50%')
+    .css('height', '50%')
+    .css('z-index', '0')
+}
+//------------------ reset clickin
+socket.on('animationResetClick', function(data) {
+  console.log("reset click");
+
+  $('.page-animation').fadeTo("slow", 0, function() {
+    negativeRemover();
+    $('.page-animation')
+      .css('display', 'block')
+      .css('opacity', '1')
+  });
+});
+
+
+// socket.on('exec', function(animFunc, play, stop) {
+//
+//   console.log(animFunc.superAnimationNb);
+//   var f = eval(animFunc.superAnimationNb);
+//   f();
+//
+// });
+var speechTop = 0;
+var realSpeechTop;
+var nbTexte = 8;
+var calculeMargintexte = 100 / (nbTexte + 2)
+
+
+for (var i = 0; i < nbTexte; i++) {
+  speechTop += calculeMargintexte;
+  $('.speech' + i).css('top', speechTop + '%')
+}
+
+
+
+var phrase = 'Hi and welcome to the dynamic_circle experience / Dynamic_circle can not exist without your participation / Dynamic_circle needs co-authors to take place / author means person at the origin / you are the authors of this moment / And authors makes choices / As the way you’re clicking on your phone / Or the way you have positioned yourself / Lets try to make our circle more dynamic / Please take a step back / Being author in the field of Interaction Design / Its accepting that users become co-author / of his own creation'
+var sepatator = ' / '
+var phraseCut = phrase.split(sepatator);
+var motParPhraseCute;
+var longueurPhrase = [];
+
+for (var i = 0; i < phraseCut.length; i++) {
+  motParPhraseCute = phraseCut[i].split(" ");
+  longueurPhrase.push(motParPhraseCute);
+}
+
+
+
+var textPosition = 0;
+var currentTextPosition;
+var phrasePosition = 0;
+var phraseCurrentPosition;
+
+
+//----------------- Words
+
+socket.on('animationWord', function(theWord, animationNbWord) {
+
+  phrasePosition++;
+  phraseCurrentPosition = phrasePosition - 1;
+  console.log("phrase position" + phraseCurrentPosition);
+  console.log(longueurPhrase[phraseCurrentPosition].length);
+  console.log(longueurPhrase[phraseCurrentPosition]);
+
+  var texteInterval = setInterval(function() {
+    textPosition++;
+    currentTextPosition = textPosition - 1;
+    console.log("nombre de lettre");
+    $('.speech' + currentTextPosition)
+      .html(longueurPhrase[phraseCurrentPosition][textPosition - 1])
+      .fadeTo("slow", 1)
+    $('.speech')
+      .css('left', '20px')
+      .css("color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")")
+
+    if (textPosition >= longueurPhrase[phraseCurrentPosition].length) {
+      clearInterval(texteInterval)
+      textPosition = 0;
+      console.log("hey clear");
+    }
+
+  }, 150);
+});
+
+var canRemove = false;
+var goRemover = true;
+var canRemoveTime = 0;
+var timeToRemove;
+var speechOpacity = 1;
+var minusOpacity = -1;
+var speechCurrentOpacity;
+
+socket.on('animationWordRemove', function(removerTime, playRemove, stopRemove) {
+
+  // $('.speech').fadeTo("slow", 0)
+
+  $('.speech').fadeTo("slow", 0, function() {
+    console.log("done fadeto");
+    $('.speech').empty();
+  });
+
+});
+
+
 
 socket.on('animation', function(animationNb, play, stop) {
 
@@ -59,52 +353,60 @@ socket.on('animation', function(animationNb, play, stop) {
       animation3(colorH);
       break;
     case 4:
-      console.log("bigFade4 " + play + " - " + stop);
+      // console.log("bigFade4 " + play + " - " + stop);
       animation4(colorH);
       break;
     case 5:
-      console.log("bigFade5 " + play + " - " + stop);
+      // console.log("bigFade5 " + play + " - " + stop);
       animation5(colorH);
       break;
     case 6:
-      console.log("bigFade6 " + play + " - " + stop);
+      // console.log("bigFade6 " + play + " - " + stop);
       animation6(colorH);
       break;
     case 7:
-      console.log("bigFade7 " + play + " - " + stop);
+      // console.log("bigFade7 " + play + " - " + stop);
       animation7(colorH);
       break;
     case 8:
-      console.log("bigFade8 " + play + " - " + stop);
+      // console.log("bigFade8 " + play + " - " + stop);
       animation8(colorH);
       break;
     case 9:
-      console.log("bigFade9 " + play + " - " + stop);
+      // console.log("bigFade9 " + play + " - " + stop);
       animation9(colorH);
       break;
     case 10:
-      console.log("bigFade10 " + play + " - " + stop);
+      // console.log("bigFade10 " + play + " - " + stop);
       animation10(colorH);
       break;
     case 11:
-      console.log("bigFade11 " + play + " - " + stop);
+      // console.log("bigFade11 " + play + " - " + stop);
       animation11(colorH);
       break;
     case 12:
-      // console.log("bigFade12 " + play + " - " + stop);
+      console.log("bigFade12 " + play + " - " + stop);
       animation12(colorH);
       break;
     case 13:
-      console.log("bigFade13 " + play + " - " + stop);
+      // console.log("bigFade13 " + play + " - " + stop);
       animation13(colorH);
       break;
     case 14:
-      console.log("bigFade13 " + play + " - " + stop);
+      // console.log("bigFade13 " + play + " - " + stop);
       animation14(colorH);
       break;
     case 15:
-      console.log("bigFade13 " + play + " - " + stop);
+      // console.log("bigFade13 " + play + " - " + stop);
       animation15(colorH);
+      break;
+    case 16:
+      // console.log("bigFade13 " + play + " - " + stop);
+      animation16(colorH);
+      break;
+    case 17:
+      // console.log("bigFade13 " + play + " - " + stop);
+      animation17(colorH);
       break;
   }
 
@@ -162,19 +464,19 @@ function animation8(colorH) {
 }
 function animation9(colorH) {
   colorIndex += colorH;
-  console.log("fade to blanc");
+  // console.log("fade to blanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 function animation10(colorH) {
   colorIndex = 255;
-  console.log("blaaaaanc");
+  // console.log("blaaaaanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 function animation11(colorH) {
   colorIndex -= colorH;
-  console.log("fade noiir");
+  //console.log("fade noiir");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
@@ -188,212 +490,37 @@ function animation12(colorH) {
 }
 function animation13(colorH) {
   colorIndex += colorH;
-  console.log("fade blanc");
+  //console.log("fade blanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 function animation14(colorH) {
   colorIndex = 255;
-  console.log("reste blanc");
+  //console.log("reste blanc");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 function animation15(colorH) {
   colorIndex -= colorH;
-  console.log("fade black");
+  //console.log("fade black");
   //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-//----______Annimation drum !!!
-
-socket.on('animationDrum', function(data) {
-  console.log("data " + data.animationNbDrum);
-
-
-
-  switch (data.animationNbDrum) {
-    case 1:
-      initDrum();
-      drum1();
-      break;
-    case 2:
-      initDrum();
-      break;
-    case 3:
-      drum2();
-      break;
-    case 4:
-      initDrum();
-      break;
-    /*_----------------------*/
-    case 5:
-      drum1();
-      break;
-    case 6:
-      initDrum();
-      break;
-    case 7:
-      drum2();
-      break;
-    case 8:
-      initDrum();
-      break;
-    case 9:
-      drum1();
-      break;
-    case 10:
-      initDrum();
-      break;
-  }
-});
-
-
-var drumW = 20 * 1.7;
-var drumH = 20;
-var marginCalc = (100 - drumW) / 2;
-
-var mobilHeight = 100;
-var marginTopCalc = (mobilHeight / 3) - (drumH / 2);
-var marginTopCalc2 = (2 * (mobilHeight / 3)) - (drumH / 2);
-var marginTopCalc3 = (3 * (mobilHeight / 3)) - (drumH / 2);
-
-
-function initDrum() {
-  console.log("initDrum");
-
-  $(".drum0")
-    .css("display", "none")
-    .css("width", drumW + "%")
-    .css("height", drumH + "%")
-    .css("margin-left", marginCalc + "%")
-    .css("margin-top", marginTopCalc + "%")
-  $(".drum1")
-    .css("display", "none")
-    .css("width", drumW + "%")
-    .css("height", drumH + "%")
-    .css("margin-left", marginCalc + "%")
-    .css("margin-top", marginTopCalc2 + "%")
-  $(".drum2")
-    .css("display", "none")
-    .css("width", drumW + "%")
-    .css("height", drumH + "%")
-    .css("margin-left", marginCalc + "%")
-    .css("margin-top", marginTopCalc3 + "%")
+function animation16(colorH) {
+  colorIndex = 255;
+  //console.log("fade black");
+  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
+  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-
-var aleatoire = getRandom(0, 2);
-console.log("aleatoire " + aleatoire);
-
-function drum1() {
-  console.log("goDrum");
-  $(".drum" + aleatoire).css("display", "block")
+function animation17(colorH) {
+  colorIndex -= colorH;
+  //console.log("fade black");
+  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
+  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-function drum2() {
-  console.log("goDrum");
-  $(".drum" + aleatoire).css("display", "block");
-}
-
 
 
 //----______Annimation glitch !!!
-
-
-
-// socket.on('superAnimation', function(data) {
-//   console.log("data " + data.superAnimationNb);
-//
-//   switch (data.superAnimationNb) {
-//
-//
-//     case 1:
-//       console.log("go super animation1");
-//       superAnimation1();
-//       break;
-//     case 2:
-//       console.log("go super animation2");
-//       kate();
-//       superAnimation2();
-//       break
-//     case 3:
-//       console.log("go super animation3");
-//
-//       superAnimation3();
-//       break
-//     case 4:
-//       console.log("go super animation4");
-//
-//       stopSuperAnimation3 = true;
-//       var number = data.superAnimationNb;
-//       goblink = true;
-//       blink();
-//       superAnimation4(number);
-//       break
-//     case 5:
-//       console.log("go super animation5");
-//
-//       number = data.superAnimationNb;
-//       superAnimation4(number);
-//       break
-//     case 6:
-//       console.log("go super animation6");
-//
-//       number = data.superAnimationNb;
-//       superAnimation4(number);
-//       break
-//     case 7:
-//       console.log("go super animation7");
-//
-//       number = data.superAnimationNb;
-//       superAnimation4(number);
-//       break
-//     case 8:
-//       console.log("go super animation8");
-//
-//       goblink = false;
-//       console.log("je devrais me cacher");
-//       $(".superAnimationRect").css("display", "none")
-//       $(".superAnimation1").css("display", "none")
-//       $(".superAnimation2").css("display", "none")
-//       kate();
-//       break
-//   }
-//
-//   var n = data.superAnimationNb;
-//   if (n >= 9 && n < 72) {
-//     var mod = n % 4;
-//     if (mod == 1) {
-//       tiktik1();
-//     } else if (mod == 2) {
-//       tiktik2();
-//     } else if (mod == 3) {
-//       tiktik3();
-//     } else if (mod == 0) {
-//       kate();
-//     }
-//
-//   }
-//
-//   var round = 0;
-//   for (var i = 9; i < data.superAnimationNb.length; i++) {
-//     console.log("round " + round);
-//     round++;
-//     if (round == 1) {
-//       console.log("tikti1");
-//       tiktik1();
-//     } else if (round == 2) {
-//       console.log("tikti2");
-//       tiktik2();
-//     } else if (round == 3) {
-//       console.log("tikti3");
-//       tiktik3();
-//     } else if (round == 4) {
-//       console.log("kate");
-//       kate();
-//       round = 0;
-//     }
-//
-//   }
-// });
 
 var stopSuperAnimation3 = false;
 var goblink = false;
@@ -402,7 +529,7 @@ blinkBg = false;
 blinkBorder = false;
 
 socket.on('superAnimation', function(data) {
-  console.log("data " + data.superAnimationNb);
+  // console.log("data " + data.superAnimationNb);
 
   switch (data.superAnimationNb) {
     case 1:
@@ -578,7 +705,7 @@ function animationGlitch(who, dirTop, dirLeft) {
     left = 0;
 
     var moveGlitch = setInterval(function() {
-      console.log("hello ? " + otop);
+      // console.log("hello ? " + otop);
 
       otop += dirTop;
       $(who)
@@ -599,7 +726,7 @@ function animationGlitch(who, dirTop, dirLeft) {
     left = -20;
     var moveGlitch = setInterval(function() {
       left += dirLeft;
-      console.log("hello ? " + left);
+      // console.log("hello ? " + left);
 
       $(who)
         .css('left', left + "%")
@@ -922,7 +1049,24 @@ $('.fs-button').click(function() {
   });
 });
 
+(function($) {
+  var IS_IOS = /iphone|ipad/i.test(navigator.userAgent);
+  $.fn.nodoubletapzoom = function() {
+    if (IS_IOS)
+      $(this).bind('touchstart', function preventZoom(e) {
+        var t2 = e.timeStamp,
+          t1 = $(this).data('lastTouch') || t2,
+          dt = t2 - t1,
+          fingers = e.originalEvent.touches.length;
+        $(this).data('lastTouch', t2);
+        if (!dt || dt > 500 || fingers > 1) return; // not double-tap
 
+        e.preventDefault(); // double tap - prevent the zoom
+        // also synthesize click events we just swallowed up
+        $(this).trigger('click').trigger('click');
+      });
+  };
+})(jQuery);
 
 
 function toggleFullScreen(elem) {

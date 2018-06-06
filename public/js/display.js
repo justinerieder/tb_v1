@@ -22,7 +22,7 @@ $('.page-video').click(function() {
   console.log("staaaart");
 });
 
-var actionTime = [0, 18.5, 20.8, 21, 32, 36, 36.53, 56.96, 59.8, 60, 62.3, 70, /*reste noir*/ 113.75, /*fade blanc*/ 113.95, /*rest blanc*/ 115.95];
+var actionTime = [0, 18.5, 20.8, 21, 32, 36, 36.53, 56.96, 59.8, 60, 62.3, 70, /*reste noir*/ 113.75, /*fade blanc*/ 113.95, /*rest blanc*/ 115.95, 139.98, 142.22];
 var eventNb = 0;
 var nextTime = actionTime[eventNb];
 
@@ -39,135 +39,68 @@ function timeManager(aTime) {
   }
 }
 
-// var actionTimeDrum = [64 + 1, 64 + 1.4, 64 + 1.6, 64 + 1.8, 64 + 1.13, 64 + 1.15, 64 + 1.20, 64 + 1.22, 64 + 2, 64 + 2.2];
-// var actionTimeDrum = [65.09, /*41 */ 65.50, /*35*/ 65.85, /*41*/ 66.26, /*32*/ 66.58, /*41*/ 66.99, /*32*/ 67.31, /*41*/ 67.72, /*32*/ 68.04, /*41*/ 68.45, /*68.77*/ ];
-var actionTimeDrum = [];
-var eventNbDrum = 0;
-var nextTimeDrum = actionTimeDrum[eventNbDrum];
+var actionTimeResetClick = [70.30]
+var eventNbResetClick = 0;
+var nextTimeResetClick = actionTimeResetClick[eventNbResetClick];
 
-function getNumbersDrum() {
-  var first = 65.09;
-  var Nfirst = 65.09;
-  actionTimeDrum.push(first)
-  var value = 0;
-  var last = 0;
-  var add1 = .41;
-  actionTimeDrum[0] = 65.09;
-
-  for (var i = 0; i < 10; i++) {
-
-    first = Nfirst;
-
-
-    actionTimeDrum.push(last)
-    //
-
-  }
-  console.log("number ? " + actionTimeDrum);
-}
-
-function timeManagerDrum(drumTime) {
-  if (drumTime >= nextTimeDrum) {
-    console.log(eventNbDrum + "drum " + 1);
-    console.log($('#song').get(0).currentTime);
-    socket.emit('animationDrum', {
-      animationNbDrum: (eventNbDrum + 1),
-      playDrum: actionTimeDrum[eventNbDrum],
-      stopDrum: actionTimeDrum[eventNbDrum + 1]
+function timeManagerResetClick(aTimeResetClick) {
+  if (aTimeResetClick >= nextTimeResetClick) {
+    // console.log(eventNb + 1);
+    socket.emit('animationResetClick', {
+      animationNbResetClick: (eventNbResetClick + 1),
+      playResetClick: actionTimeResetClick[eventNbResetClick],
+      stopResetClick: actionTimeResetClick[eventNbResetClick + 1]
     });
-    eventNbDrum++;
-    nextTimeDrum = actionTimeDrum[eventNbDrum]
+    eventNbResetClick++;
+    nextTimeResetClick = actionTimeResetClick[eventNbResetClick]
   }
 }
 
-/*
-86.20
-86.36
-86.52
 
-87.364379
-16
-87.524133
-16
-87.683715
+// var actionTimeWord = [0, 5, 10, 15, 20, 25, 30, 35, 40]
+var actionTimeWord = [3.87, 13.64, 21.07, 31.14, 36.53, 47, 52, 56.5, 85.32, 90.06, 158.20, 162.97, 167.95]
 
-84
+var eventNbWord = 0;
+var nextTimeWord = actionTimeWord[eventNbWord];
 
-88.524257
-16
-88.68443
-88.84
+var phrase = 'Hi and welcome to the "dynamic_circle" experience _ you are the authors of this moment _ Dynamic_circle can not exist without your participation _'
+var mot = phrase.split(" ");
+console.log("mot " + mot[2]);
 
-89.707523
-89.875131
-90.052483
 
-90.869237
-91.027681
-91.205746
+function timeManagerWord(aTimeWord) {
+  if (aTimeWord >= nextTimeWord) {
+    console.log((eventNbWord + 1) + actionTimeWord[eventNbWord]);
+    socket.emit('animationWord', {
+      animationNbWord: (eventNbWord + 1),
+      playWord: actionTimeWord[eventNbWord],
+      stopWord: actionTimeWord[eventNbWord + 1],
+      theWord: mot[eventNbWord]
+    });
+    eventNbWord++;
+    nextTimeWord = actionTimeWord[eventNbWord]
+  }
+}
 
-92.100141
-92.259726
-92.436171
+// var actionTimeWordRemove = [4, 9, 14, 19, 24, 29, 34, 39]
+var actionTimeWordRemove = [9.23, 18.85, 27.19, 34, 40.50, 50.90, 55.67, 60.31, 88, 92.8, 162.07, 166.71, 170.84]
+var eventNbWordRemove = 0;
+var nextTimeWordRemove = actionTimeWordRemove[eventNbWordRemove];
 
-93.284306
-93.459345
-93.628025
 
-95.733863
-95.902082
-96.077443
+function timeManagerWordRemove(aTimeWordRemove) {
+  if (aTimeWordRemove >= nextTimeWordRemove) {
+    console.log("remover " + eventNbWordRemove + 1);
+    socket.emit('animationWordRemove', {
+      animationNbWordRemove: (eventNbWordRemove + 1),
+      playWordRemove: actionTimeWordRemove[eventNbWordRemove],
+      stopWordRemove: actionTimeWordRemove[eventNbWordRemove + 1],
+    });
+    eventNbWordRemove++;
+    nextTimeWordRemove = actionTimeWordRemove[eventNbWordRemove]
+  }
+}
 
-96.949264
-97.118304
-97.285466
-
-98.110805
-98.277917
-98.438141
-
-99.302035
-99.47734
-99.638044
-
-100.502201
-100.66994
-100.837301
-
-101.712091
-101.879035
-102.038091
-
-102.878482
-103.045222
-103.212908
-
-104.053379
-104.221721
-104.390062
-*/
-
-// --------- ancien son
-// var superActionTime = [
-//   30.5, 31.25, 33.60, 34.65, 34.95, 35.24, 35.56, 36.5, /*37.5 ,*/ /**/
-//
-// /*9*/ 86.20, 86.36, 86.52, 86.6,
-// /*13*/ 87.36, 87.52, 87.68, 87.75,
-// /*17*/ 88.52, 88.68, 88.84, 88.95,
-// /*21*/ 89.70, 89.87, 90.05, 90.12,
-// /*25*/ 90.86, 91.02, 91.20, 91.30,
-// /*29*/ 92.10, 92.25, 92.43, 92.52,
-// /*33*/ 93.28, 93.45, 93.62, 93.72,
-// /*37*/ 94.56, 94.72, 94.91, 95,
-// /*41*/ 95.73, 95.90, 96.07, 96.85,
-// /*45*/ 96.94, 97.11, 97.28, 97.35,
-// /*48*/ 98.11, 98.27, 98.43, 98.55,
-// /*52*/ 99.30, 99.47, 99.63, 99.75,
-// /*56*/ 100.50, 100.66, 100.83, 100.95,
-// /*60*/ 101.71, 101.87, 102.03, 102.15,
-// /*64*/ 102.87, 103.04, 103.21, 103.35,
-// /*68*/ 104.05, 104.22, 104.39, 104.50
-// ];
 
 var superActionTime = [
   29.80, 30.70,
@@ -239,11 +172,15 @@ function superTimeManager(bTime) {
 
 
 
-// var actionTimeRandom = [8, 8.5, 9, 9.5, 10, 10.5, 11]
-var actionTimeRandom = [70.50, 70.70, 71.02, 71.18, 71.35, 71.30, /**/
-  75.56, 75.72, 75.88, 76.04, 76.20, 76.36, /*76.50*/ /**/
-  80.50, 80.68, 80.83, 80.99, 81.16, 81.32, /*81.47*/ /**/
-  82.80, 82.97];
+var actionTimeRandom = [70.47, 70.63, 70.92, 71.08, 71.24, 71.39,
+  75.49, 75.64, 75.80, 75.96, 76.12, 76.27, 76.42,
+  80.45, 80.60, 80.76, 80.91, 81.06, 81.21, 81.37,
+  82.73, 82.88
+]
+// var actionTimeRandom = [70.50, 70.70, 71.02, 71.18, 71.35, 71.30, /**/
+//   75.56, 75.72, 75.88, 76.04, 76.20, 76.36, /*76.50*/ /**/
+//   80.50, 80.68, 80.83, 80.99, 81.16, 81.32, /*81.47*/ /**/
+//   82.80, 82.97];
 var eventNbRandom = 0;
 var nextTimeRandom = actionTimeRandom[eventNbRandom];
 
@@ -289,17 +226,27 @@ function timeManagerMoit(moitTime) {
   }
 }
 
+// var actionTimeBal = [
+//   /*1*/ 94.90, /*90*/ 95.85, /*141*/
+//   /*3*/ 97.30, /*85*/ 98.26, /*152*/
+//   /*5*/ 99.69, /*87*/ 100.60, /*150*/
+//   /*7*/ 102.05, /* 88*/ 102.94, /*163*/
+//   104.43, 105.33,
+//   /*9*/ 106.76, /*97*/ 107.70, /*137*/
+//   /*11*/ 109.18, /*82*/ 110.07, /*155*/
+//   /*12*/ 111.55, /*82*/ 112.45, /*159*/
+//
+// ];
 var actionTimeBal = [
-  /*1*/ 94.90, /*90*/ 95.85, /*141*/
-  /*3*/ 97.30, /*85*/ 98.26, /*152*/
-  /*5*/ 99.69, /*87*/ 100.60, /*150*/
-  /*7*/ 102.05, /* 88*/ 102.94, /*163*/
-  104.43, 105.33,
-  /*9*/ 106.76, /*97*/ 107.70, /*137*/
-  /*11*/ 109.18, /*82*/ 110.07, /*155*/
-  /*12*/ 111.55, /*82*/ 112.45, /*159*/
-
-];
+  94.82, 96.05,
+  97.20, 98.40,
+  99.58, 100.78,
+  101.96, 103.18,
+  104.33, 105.52,
+  106.71, 107.88,
+  109.09, 110.29,
+  111.46, 112.66
+]
 var eventNbBal = 0;
 var nextTimeBal = actionTimeBal[eventNbBal];
 
@@ -346,6 +293,9 @@ function loopVideo() {
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
   timeManager(vTime);
+  timeManagerResetClick(vTime)
+  timeManagerWord(vTime);
+  timeManagerWordRemove(vTime);
   superTimeManager(vTime);
   // timeManagerDrum(vTime);
   timeManagerBal(vTime);
