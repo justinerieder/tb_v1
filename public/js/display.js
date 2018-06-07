@@ -333,13 +333,13 @@ function loopVideo() {
 
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
-  // timeManager(vTime);
-  // timeManagerResetClick(vTime)
-  // superTimeManager(vTime);
-  // timeManagerPulse(vTime);
-  // timeManagerBal(vTime);
-  // timeManagerRandom(vTime);
-  // timeManagerWave(vTime);
+  timeManager(vTime);
+  timeManagerResetClick(vTime)
+  superTimeManager(vTime);
+  timeManagerPulse(vTime);
+  timeManagerBal(vTime);
+  timeManagerRandom(vTime);
+  timeManagerWave(vTime);
   timeManagerBoom(vTime);
   timeManagerBreath(vTime);
 
