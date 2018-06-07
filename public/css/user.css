@@ -107,14 +107,24 @@ h1{
   top:50%;
   left:50%;
 }
-.page-pulse{
+.pulse1{
   display: none;
   background-color: white;
   transition: background-color 100ms;
   position: absolute;
   left: 0; top: 0;
   width: 100%;
-  height: 100%;
+  height: 33%;
+  opacity: 1;
+}
+.pulse2{
+  display: none;
+  background-color: white;
+  transition: background-color 100ms;
+  position: absolute;
+  left: 0; top: 67%;
+  width: 100%;
+  height: 33%;
   opacity: 1;
 }
 .page-bal{
@@ -136,6 +146,26 @@ h1{
   width: 100%;
   height: 100%;
   opacity: 1;
+}
+.page-boom{
+  display: none;
+  background-color: white;
+  transition: background-color 100ms;
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.page-breath{
+  display: none;
+  background-color: white;
+  transition: background-color 100ms;
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 .superAnimation{
   display: none;

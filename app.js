@@ -185,7 +185,6 @@ io.on('connection', function(socket) {
   socket.on('animationPulse', function(data) {
     socket.broadcast.emit('animationPulse', data);
     console.log("pulse");
-
   });
 
   socket.on('animationBal', function(data) {
@@ -225,6 +224,19 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('animationWave', data);
   });
 
+
+  //----------------- boom
+
+  socket.on('animationBoom', function(data) {
+    socket.broadcast.emit('animationBoom', data);
+    console.log("boom");
+  });
+  //----------------- Breath
+
+  socket.on('animationBreath', function(data) {
+    socket.broadcast.emit('animationBreath', data);
+    console.log("Breath");
+  });
 
 
 

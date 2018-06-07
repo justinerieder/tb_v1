@@ -37,9 +37,9 @@ var actionTime = [
   62.3, /* 11 fadeBlack*/
   70, /* 12 stayBlack*/
   113.75, /* 13 stayBlack*/
-  139.93, /* 14 fadeWhite*/
-  140.03, /*15 stayWhite*/
-  142.03,
+// 139.93, /* 14 fadeWhite*/
+// 140.03, /*15 stayWhite*/
+// 142.03,
 ];
 var eventNb = 0;
 var nextTime = actionTime[eventNb];
@@ -262,6 +262,48 @@ function timeManagerWave(aTimeWave) {
   }
 }
 
+var actionTimeBoom = [
+  142.20, 142.50,
+  144.87, 145.02, 145.18, 145.32, 145.48, 145.61,
+/*boum fade*/ 147.25, 147.40, 147.54, 147.99,
+/*13*/ 149.64, 149.78, 149.93, 150.08, 150.36, 150.52, 151.11, 151.26,
+/*21*/ 154.37, 154.67, 154.97, 155.41, 155.71,
+/*25*/ 156.47, 156.61, 156.76, 156.90, 157.05
+];
+// var actionTimeBoom = [1];
+var eventNbBoom = 0;
+var nextTimeBoom = actionTimeBoom[eventNbBoom];
+
+function timeManagerBoom(aTimeBoom) {
+  if (aTimeBoom >= nextTimeBoom) {
+    // console.log(eventNb + 1);
+    socket.emit('animationBoom', {
+      animationNbBoom: (eventNbBoom + 1),
+      playBoom: actionTimeBoom[eventNbBoom],
+      stopBoom: actionTimeBoom[eventNbBoom + 1]
+    });
+    eventNbBoom++;
+    nextTimeBoom = actionTimeBoom[eventNbBoom]
+  }
+}
+var actionTimeBreath = [149.55, 150.80, 151.95, 153.11, 154.30, 155.57, 156.88,
+  157.91, 159.03, 160.24, 161.47, 162.65, 163.80, 164.96, 166.16, 167.32, 168.54, 169.72,];
+var eventNbBreath = 0;
+var nextTimeBreath = actionTimeBreath[eventNbBreath];
+
+function timeManagerBreath(aTimeBreath) {
+  if (aTimeBreath >= nextTimeBreath) {
+    // console.log(eventNb + 1);
+    socket.emit('animationBreath', {
+      animationNbBreath: (eventNbBreath + 1),
+      playBreath: actionTimeBreath[eventNbBreath],
+      stopBreath: actionTimeBreath[eventNbBreath + 1]
+    });
+    eventNbBreath++;
+    nextTimeBreath = actionTimeBreath[eventNbBreath]
+  }
+}
+
 function launchVideo() {
 
   $('.play-button').css({
@@ -277,7 +319,7 @@ function launchVideo() {
   loopVideo();
 }
 function go() {
-  $('#song').get(0).currentTime = 60;
+  $('#song').get(0).currentTime = 140;
 
   $('#song').get(0).play();
 
@@ -291,14 +333,15 @@ function loopVideo() {
 
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
-  timeManager(vTime);
-  timeManagerResetClick(vTime)
-  superTimeManager(vTime);
-  timeManagerPulse(vTime);
-  timeManagerBal(vTime);
-  timeManagerRandom(vTime);
-  // timeManagerMoit(vTime);
-  timeManagerWave(vTime);
+  // timeManager(vTime);
+  // timeManagerResetClick(vTime)
+  // superTimeManager(vTime);
+  // timeManagerPulse(vTime);
+  // timeManagerBal(vTime);
+  // timeManagerRandom(vTime);
+  // timeManagerWave(vTime);
+  timeManagerBoom(vTime);
+  timeManagerBreath(vTime);
 
   socket.emit('updateVideo', vTime);
 

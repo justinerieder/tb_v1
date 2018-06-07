@@ -778,7 +778,9 @@ socket.on('animationPulse', function(data) {
 });
 
 function pulse(who, opacity) {
+  // var size = 50;
   // var calculeMargin = (100 - size) / 2;
+
 
   $(who)
     .css('display', 'block')
@@ -793,57 +795,26 @@ function pulse(who, opacity) {
 ///-------------- annimation balayage
 
 var goBalayage = false;
+var balReset = 0;
 
 socket.on('animationBal', function(data) {
   console.log("data " + data.animationNbBal);
 
-  switch (data.animationNbBal) {
+  balReset++;
+
+  if (balReset > 2) {
+    balReset = 1;
+  }
+
+  switch (balReset) {
     case 1:
       randomLightUp();
       break
     case 2:
       $('.randomLight').css('display', 'none')
       break
-    case 3:
-      randomLightUp();
-      break
-    case 4:
-      $('.randomLight').css('display', 'none')
-      break
-    case 5:
-      randomLightUp();
-      break
-    case 6:
-      $('.randomLight').css('display', 'none')
-      break
-    case 7:
-      randomLightUp();
-      break
-    case 8:
-      $('.randomLight').css('display', 'none')
-      break
-    case 9:
-      randomLightUp();
-      break
-    case 10:
-      $('.randomLight').css('display', 'none')
-      break
-    case 11:
-      randomLightUp();
-      break
-    case 12:
-      $('.randomLight').css('display', 'none')
-      break
-    case 13:
-      randomLightUp();
-      break
-    case 14:
-      $('.randomLight').css('display', 'none')
-      break
-    case 15:
-      randomLightUp();
-      break
   }
+
 });
 var countLight = 0;
 
@@ -907,30 +878,9 @@ socket.on('animationWave', function(data) {
     randomSpeed1 = getRandom(minSpeed1, maxSpeed1)
 
     realSpeed1 = randomSpeed1 / 100;
-
-    // var tot = 0;
-    // var calcTot = 0;
-    // var smallRealSpeed1 = realSpeed1 / 1000
-    //
-    // var exponentiel = setInterval(function() {
-    //   newRealSpeed1 = (smallRealSpeed1 += realSpeed1 / 2);
-    //
-    //   if (smallRealSpeed1 >= realSpeed1) {
-    //     console.log("stop");
-    //     newRealSpeed1 = newRealSpeed1;
-    //     clearInterval(exponentiel)
-    //   }
-    // }, 10)
-
-
     downInt = setInterval(function() {
-      getDown += realSpeed1;
-      // console.log("newRealSpeed1 " + newRealSpeed1);
-      // realSpeed1 += realSpeed1;
+      getDown -= realSpeed1;
       $('.page-wave').css('top', getDown + '%')
-      // tot++;
-      // calcTot = tot * realSpeed1
-      // console.log("tot " + tot + ' ' + calcTot);
 
     }, 10)
   } else if (data.animationNbWave == 3) {
@@ -943,18 +893,310 @@ socket.on('animationWave', function(data) {
     realSpeed2 = realSpeed1 * deltaT;
 
     upInt = setInterval(function() {
-      getDown -= realSpeed2;
+      getDown += realSpeed2;
       $('.page-wave').css('top', getDown + '%')
     }, 10)
 
   } else if (data.animationNbWave == 5) {
     clearInterval(upInt)
     getDown = 0;
+    console.log("fini wave");
     $('.page-wave')
       .css('top', getDown + '%')
-      .css('display', 'none')
+    // .css('display', 'none')
+    $('.page-wave').fadeTo(2000, 0);
   }
 });
+//--------------- animation bottom
+socket.on('animationBoom', function(data) {
+  switch (data.animationNbBoom) {
+
+    // case 1:
+    //   boomInOut('.page-boom')
+    //   break;
+    // case 2:
+    //   boomInOut('.page-boom')
+    //   break;
+    // case 3:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 4:
+    //   boomOut('.page-boom')
+    //   break;
+    // case 5:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 6:
+    //   boomOut('.page-boom')
+    //   break;
+    // case 7:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 8:
+    //   boomOut('.page-boom')
+    //   break;
+    // case 9:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 10:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 11:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 12:
+    //   boomIn('.page-boom')
+    //   break;
+    // /**/
+    // case 13:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 14:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 15:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 16:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 17:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 18:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 19:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 20:
+    //   boomIn('.page-boom')
+    //   break;
+    // /**/
+    // case 21:
+    //   boomInOut('.page-boom')
+    //   break;
+    // case 22:
+    //   boomInOut('.page-boom')
+    //   break;
+    // case 23:
+    //   boomInOut('.page-boom')
+    //   break;
+    // case 24:
+    //   boomInOut('.page-boom')
+    //   break;
+    // case 25:
+    //   boomInOut('.page-boom')
+    //   break;
+    // /**/
+    // case 26:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 27:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 28:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 29:
+    //   boomIn('.page-boom')
+    //   break;
+    // case 30:
+    //   boomIn('.page-boom')
+    //   $('page-boom').css('display', 'none')
+    //   break;
+
+
+
+
+    case 1:
+      boomInOut('.page-boom', 1, 0)
+      break;
+    case 2:
+      boomInOut('.page-boom', 1, 0)
+      break;
+    case 3:
+      boomIn('.page-boom', 1)
+      break;
+    case 4:
+      boomOut('.page-boom', 0)
+      break;
+    case 5:
+      boomIn('.page-boom', 1)
+      break;
+    case 6:
+      boomOut('.page-boom', 0)
+      break;
+    case 7:
+      boomIn('.page-boom', 1)
+      break;
+    case 8:
+      boomOut('.page-boom', 0)
+      break;
+    case 9:
+      boomIn('.page-boom', 1)
+      break;
+    case 10:
+      boomIn('.page-boom', 0.6)
+      break;
+    case 11:
+      boomIn('.page-boom', 0.3)
+      break;
+    case 12:
+      boomIn('.page-boom', 0)
+      break;
+    /**/
+    case 13:
+      boomIn('.page-boom', 1)
+      break;
+    case 14:
+      boomIn('.page-boom', 0)
+      break;
+    case 15:
+      boomIn('.page-boom', 1)
+      break;
+    case 16:
+      boomIn('.page-boom', 0)
+      break;
+    case 17:
+      boomIn('.page-boom', 1)
+      break;
+    case 18:
+      boomIn('.page-boom', 0)
+      break;
+    case 19:
+      boomIn('.page-boom', 1)
+      break;
+    case 20:
+      boomIn('.page-boom', 0)
+      break;
+    /**/
+    case 21:
+      boomInOut('.page-boom', 1, 0)
+      break;
+    case 22:
+      boomInOut('.page-boom', 1, 0)
+      break;
+    case 23:
+      boomInOut('.page-boom', 1, 0)
+      break;
+    case 24:
+      boomInOut('.page-boom', 1, 0)
+      break;
+    case 25:
+      boomInOut('.page-boom', 1, 0)
+      break;
+    /**/
+    case 26:
+      boomIn('.page-boom', 0.25)
+      break;
+    case 27:
+      boomIn('.page-boom', 0.50)
+      break;
+    case 28:
+      boomIn('.page-boom', 0.75)
+      break;
+    case 29:
+      boomIn('.page-boom', 1)
+      break;
+    case 30:
+      boomIn('.page-boom', 0)
+      $('page-boom').css('display', 'none')
+      break;
+
+  }
+});
+
+// function boomInOut(who) {
+//   console.log("boom fade");
+//   // $(who).fadeTo(100, opacity);
+//   $(who).css('display', 'block')
+//   var boomColor = 0;
+//   var boomColorDown = 255;
+//   var boomInInt = setInterval(function() {
+//     console.log("boom fade int");
+//     boomColor += 100;
+//     $(who).css("background-color", "rgb(" + Math.round(boomColor) + "," + Math.round(boomColor) + "," + Math.round(boomColor) + ")");
+//     if (boomColor >= 255) {
+//       clearInterval(boomInInt);
+//       var boomInInt2 = setInterval(function() {
+//         boomColorDown -= 100;
+//         $(who).css("background-color", "rgb(" + Math.round(boomColorDown) + "," + Math.round(boomColorDown) + "," + Math.round(boomColorDown) + ")");
+//         if (boomColorDown <= 0) {
+//           clearInterval(boomInInt2)
+//         }
+//       }, 50)
+//     }
+//   }, 50);
+// }
+// function boomIn(who) {
+//   console.log("boom fade");
+//   // $(who).fadeTo(100, opacity);
+//   $(who).css('display', 'block')
+//   var boomColor = 0;
+//   var boomInInt = setInterval(function() {
+//     console.log("boom fade int");
+//     boomColor += 100;
+//     $(who).css("background-color", "rgb(" + Math.round(boomColor) + "," + Math.round(boomColor) + "," + Math.round(boomColor) + ")");
+//     if (boomColor >= 255) {
+//       clearInterval(boomInInt);
+//
+//     }
+//   }, 50);
+// }
+// function boomOut(who) {
+//   console.log("boom fade");
+//   // $(who).fadeTo(100, opacity);
+//   $(who).css('display', 'block')
+//   var boomColor = 255;
+//   var boomInInt = setInterval(function() {
+//     console.log("boom fade int");
+//     boomColor -= 100;
+//     $(who).css("background-color", "rgb(" + Math.round(boomColor) + "," + Math.round(boomColor) + "," + Math.round(boomColor) + ")");
+//     if (boomColor <= 0) {
+//       clearInterval(boomInInt);
+//     }
+//   }, 50);
+// }
+
+function boomInOut(who, opacityIn, opactiyOut) {
+  $(who).fadeTo(100, opacityIn, function() {
+    $(who).fadeTo(100, opactiyOut)
+  });
+
+}
+function boomIn(who, opacity) {
+  $(who).fadeTo(100, opacity);
+
+}
+function boomOut(who, opacity) {
+  $(who).fadeTo(100, opacity);
+}
+
+
+//-------------- playBreath
+var acc = 0.03;
+var opactiyBreath;
+socket.on('animationBreath', function(data) {
+  console.log("breath");
+  opactiyBreath = acc += acc;
+
+  Breath()
+});
+
+function Breath() {
+  if (opactiyBreath >= 1) {
+    opactiyBreath = 1;
+  }
+  $('.page-breath')
+    .css('display', 'block')
+    .fadeTo(860, opactiyBreath, function() {
+      $('.page-breath').fadeTo(260, 0)
+    });
+
+/*157.91 - 158.77 - 159.03 */
+}
+
 
 
 //-------------- full screen
