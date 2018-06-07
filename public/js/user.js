@@ -231,7 +231,7 @@ function negativeRemover() {
     .css('height', '50%')
     .css('z-index', '0')
 }
-//------------------ reset clickin
+//------------------ reset clicking
 socket.on('animationResetClick', function(data) {
   console.log("reset click");
 
@@ -243,6 +243,7 @@ socket.on('animationResetClick', function(data) {
   });
 });
 
+//-------------------- TIBOR
 
 // socket.on('exec', function(animFunc, play, stop) {
 //
@@ -251,87 +252,9 @@ socket.on('animationResetClick', function(data) {
 //   f();
 //
 // });
-var speechTop = 0;
-var realSpeechTop;
-var nbTexte = 8;
-var calculeMargintexte = 100 / (nbTexte + 2)
 
 
-for (var i = 0; i < nbTexte; i++) {
-  speechTop += calculeMargintexte;
-  $('.speech' + i).css('top', speechTop + '%')
-}
-
-
-
-var phrase = 'Hi and welcome to the dynamic_circle experience / Dynamic_circle can not exist without your participation / Dynamic_circle needs co-authors to take place / author means person at the origin / you are the authors of this moment / And authors makes choices / As the way you’re clicking on your phone / Or the way you have positioned yourself / Lets try to make our circle more dynamic / Please take a step back / Being author in the field of Interaction Design / Its accepting that users become co-author / of his own creation'
-var sepatator = ' / '
-var phraseCut = phrase.split(sepatator);
-var motParPhraseCute;
-var longueurPhrase = [];
-
-for (var i = 0; i < phraseCut.length; i++) {
-  motParPhraseCute = phraseCut[i].split(" ");
-  longueurPhrase.push(motParPhraseCute);
-}
-
-
-
-var textPosition = 0;
-var currentTextPosition;
-var phrasePosition = 0;
-var phraseCurrentPosition;
-
-
-//----------------- Words
-
-socket.on('animationWord', function(theWord, animationNbWord) {
-
-  phrasePosition++;
-  phraseCurrentPosition = phrasePosition - 1;
-  console.log("phrase position" + phraseCurrentPosition);
-  console.log(longueurPhrase[phraseCurrentPosition].length);
-  console.log(longueurPhrase[phraseCurrentPosition]);
-
-  var texteInterval = setInterval(function() {
-    textPosition++;
-    currentTextPosition = textPosition - 1;
-    console.log("nombre de lettre");
-    $('.speech' + currentTextPosition)
-      .html(longueurPhrase[phraseCurrentPosition][textPosition - 1])
-      .fadeTo("slow", 1)
-    $('.speech')
-      .css('left', '20px')
-      .css("color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")")
-
-    if (textPosition >= longueurPhrase[phraseCurrentPosition].length) {
-      clearInterval(texteInterval)
-      textPosition = 0;
-      console.log("hey clear");
-    }
-
-  }, 150);
-});
-
-var canRemove = false;
-var goRemover = true;
-var canRemoveTime = 0;
-var timeToRemove;
-var speechOpacity = 1;
-var minusOpacity = -1;
-var speechCurrentOpacity;
-
-socket.on('animationWordRemove', function(removerTime, playRemove, stopRemove) {
-
-  // $('.speech').fadeTo("slow", 0)
-
-  $('.speech').fadeTo("slow", 0, function() {
-    console.log("done fadeto");
-    $('.speech').empty();
-  });
-
-});
-
+//-------------------big fade
 
 
 socket.on('animation', function(animationNb, play, stop) {
@@ -340,73 +263,56 @@ socket.on('animation', function(animationNb, play, stop) {
 
   switch (animationNb) {
     case 1:
-      //console.log("bigFade1 " + play + " - " + stop);
-      animation1(colorH);
+      fadeWhite(colorH);
       break;
     case 2:
-    // console.log("bigFade2 " + play + " - " + stop);
-
-      animation2(colorH);
+      fadeBlack(colorH);
       break;
     case 3:
-      // console.log("bigFade3 " + play + " - " + stop);
-      animation3(colorH);
+      fadeWhite(colorH);
       break;
     case 4:
-      // console.log("bigFade4 " + play + " - " + stop);
-      animation4(colorH);
+      fadeBlack(colorH);
       break;
     case 5:
-      // console.log("bigFade5 " + play + " - " + stop);
-      animation5(colorH);
+      stayBlack(colorH);
       break;
     case 6:
-      // console.log("bigFade6 " + play + " - " + stop);
-      animation6(colorH);
+      fadeWhite(colorH);
       break;
     case 7:
-      // console.log("bigFade7 " + play + " - " + stop);
-      animation7(colorH);
+      fadeBlack(colorH);
       break;
     case 8:
-      // console.log("bigFade8 " + play + " - " + stop);
-      animation8(colorH);
+      stayBlack(colorH);
       break;
     case 9:
-      // console.log("bigFade9 " + play + " - " + stop);
-      animation9(colorH);
+      fadeWhite(colorH);
       break;
     case 10:
-      // console.log("bigFade10 " + play + " - " + stop);
-      animation10(colorH);
+      stayWhite(colorH);
       break;
     case 11:
-      // console.log("bigFade11 " + play + " - " + stop);
-      animation11(colorH);
+      fadeBlack(colorH);
       break;
     case 12:
-      console.log("bigFade12 " + play + " - " + stop);
-      animation12(colorH);
+      stayBlack(colorH);
       break;
     case 13:
-      // console.log("bigFade13 " + play + " - " + stop);
-      animation13(colorH);
+      console.log("stay black");
+
+      stayBlack(colorH);
+      // fadeWhite(colorH);
       break;
     case 14:
-      // console.log("bigFade13 " + play + " - " + stop);
-      animation14(colorH);
+      console.log("please white");
+      stayWhite(colorH);
+      // stayWhite(colorH);
       break;
     case 15:
-      // console.log("bigFade13 " + play + " - " + stop);
-      animation15(colorH);
-      break;
-    case 16:
-      // console.log("bigFade13 " + play + " - " + stop);
-      animation16(colorH);
-      break;
-    case 17:
-      // console.log("bigFade13 " + play + " - " + stop);
-      animation17(colorH);
+      console.log("stay white");
+      stayWhite(colorH);
+      // stayWhite(colorH);
       break;
   }
 
@@ -415,107 +321,27 @@ socket.on('animation', function(animationNb, play, stop) {
 var colorIndex = 0;
 var codeColor;
 
-function animation1(colorH) {
-  colorIndex += colorH;
-
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-// console.log($('.page-animation').css("background-color"));
-}
-function animation2(colorH) {
-  colorIndex -= colorH;
-  //  console.log("colorIndex2 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation3(colorH) {
-  colorIndex += colorH;
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation4(colorH) {
-  colorIndex -= colorH;
-  if (colorIndex >= 255) {
-    colorIndex = 255;
-  }
-  //console.log("colorIndex4 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation5(colorH) {
-  colorIndex = 0;
-  //console.log("colorIndex5 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation6(colorH) {
+function fadeWhite(colorH) {
   colorIndex += colorH;
   if (colorIndex >= 255) {
     colorIndex = 255;
   }
-  //console.log("colorIndex6 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-function animation7(colorH) {
-  colorIndex -= colorH;
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation8(colorH) {
-  colorIndex = 0;
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation9(colorH) {
-  colorIndex += colorH;
-  // console.log("fade to blanc");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation10(colorH) {
+function stayWhite(colorH) {
   colorIndex = 255;
-  // console.log("blaaaaanc");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-function animation11(colorH) {
+function fadeBlack(colorH) {
   colorIndex -= colorH;
-  //console.log("fade noiir");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-// ------- ici il faut faire les battements et enlevè le 12
 
-function animation12(colorH) {
+  if (colorIndex >= 255) {
+    colorIndex = 255;
+  }
+  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
+}
+function stayBlack(colorH) {
   colorIndex = 0;
-  // console.log("reste noir");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation13(colorH) {
-  colorIndex += colorH;
-  //console.log("fade blanc");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation14(colorH) {
-  colorIndex = 255;
-  //console.log("reste blanc");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation15(colorH) {
-  colorIndex -= colorH;
-  //console.log("fade black");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation16(colorH) {
-  colorIndex = 255;
-  //console.log("fade black");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
-  $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
-}
-function animation17(colorH) {
-  colorIndex -= colorH;
-  //console.log("fade black");
-  //console.log("colorIndex3 " + colorH + " - " + colorIndex);
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
 
@@ -881,34 +707,6 @@ function superAnimation4(number) {
     .css("margin-top", compenseMarginH + "%")
 }
 
-function tiktik1() {
-  console.log("tiktik1");
-  $('.superAnimation2')
-    .css('display', "block")
-    .css('top', '7%').css('left', '0')
-    .css('width', "100%")
-    .css('height', '15px')
-}
-function tiktik2() {
-  console.log("tiktik2");
-  $('.superAnimation2')
-    .css('display', "block")
-    .css('top', '90%')
-    .css('left', '0')
-    .css('width', "100%")
-    .css('height', '15px')
-}
-function tiktik3() {
-  console.log("tiktik3");
-  $('.superAnimation2')
-    .css('display', "block")
-    .css('top', '7%').css('left', '0')
-    .css('width', "100%")
-    .css('height', '15px')
-}
-
-
-
 ///-------------- annimation random
 var currentNb = 100;
 
@@ -922,9 +720,6 @@ socket.on('animationRandom', function(data) {
 
 function randomLightUp() {
   var color = 0;
-  // $('.randomLight')
-  //   .css('display', 'block')
-  //   .css('background-color', 'white')
 
   var intRandom = setInterval(function() {
     color += 10;
@@ -953,6 +748,46 @@ function randomLightDown() {
       clearInterval(intRandom);
     }
   }, 0.01)
+}
+
+///-------------- animation playPulse
+
+var pulseTime = 0;
+
+socket.on('animationPulse', function(data) {
+  console.log("animation pulse");
+
+  pulseTime++;
+
+  if (pulseTime > 3) {
+    pulseTime = 1;
+  }
+  console.log(pulseTime);
+
+  switch (pulseTime) {
+    case 1:
+      pulse('.page-pulse', 1)
+      break;
+    case 2:
+      pulse('.page-pulse', 0.5)
+      break
+    case 3:
+      pulse('.page-pulse', 0)
+      break
+  }
+});
+
+function pulse(who, opacity) {
+  // var calculeMargin = (100 - size) / 2;
+
+  $(who)
+    .css('display', 'block')
+    .fadeTo(100, opacity)
+    // .css('width', size + '%')
+    // .css('height', size + '%')
+    // .css('left', calculeMargin + '%')
+    // .css('top', calculeMargin + '%')
+
 }
 
 ///-------------- annimation balayage
@@ -1009,7 +844,7 @@ socket.on('animationBal', function(data) {
       randomLightUp();
       break
   }
-})
+});
 var countLight = 0;
 
 function lightUp() {
@@ -1032,6 +867,97 @@ function lightUp() {
 
   }
 }
+
+//-------------- animation Wave
+
+var playWave;
+var stopWave;
+var goDown = false;
+
+var getDown = 0;
+var downInt;
+var upInt;
+
+
+var t1;
+var t2;
+var deltaT;
+var maxSpeed1;
+var maxSpeed2;
+var minSpeed1;
+var minSpeed2;
+var realSpeed1;
+var newRealSpeed1;
+var realSpeed2;
+
+socket.on('animationWave', function(data) {
+
+  playWave = data.playWave;
+  stopWave = data.stopWave;
+
+  if (data.animationNbWave == 1) {
+    $('.page-wave').fadeTo('fast', 1)
+    $('.page-wave').css('opacity', '1');
+  } else if (data.animationNbWave == 2) {
+
+    t1 = (stopWave - playWave);
+    maxSpeed1 = 100 / t1;
+    minSpeed1 = maxSpeed1 / 3;
+
+    randomSpeed1 = getRandom(minSpeed1, maxSpeed1)
+
+    realSpeed1 = randomSpeed1 / 100;
+
+    // var tot = 0;
+    // var calcTot = 0;
+    // var smallRealSpeed1 = realSpeed1 / 1000
+    //
+    // var exponentiel = setInterval(function() {
+    //   newRealSpeed1 = (smallRealSpeed1 += realSpeed1 / 2);
+    //
+    //   if (smallRealSpeed1 >= realSpeed1) {
+    //     console.log("stop");
+    //     newRealSpeed1 = newRealSpeed1;
+    //     clearInterval(exponentiel)
+    //   }
+    // }, 10)
+
+
+    downInt = setInterval(function() {
+      getDown += realSpeed1;
+      // console.log("newRealSpeed1 " + newRealSpeed1);
+      // realSpeed1 += realSpeed1;
+      $('.page-wave').css('top', getDown + '%')
+      // tot++;
+      // calcTot = tot * realSpeed1
+      // console.log("tot " + tot + ' ' + calcTot);
+
+    }, 10)
+  } else if (data.animationNbWave == 3) {
+    // console.log("2 ");
+    clearInterval(downInt);
+  } else if (data.animationNbWave == 4) {
+
+    t2 = (stopWave - playWave);
+    deltaT = t1 / t2;
+    realSpeed2 = realSpeed1 * deltaT;
+
+    upInt = setInterval(function() {
+      getDown -= realSpeed2;
+      $('.page-wave').css('top', getDown + '%')
+    }, 10)
+
+  } else if (data.animationNbWave == 5) {
+    clearInterval(upInt)
+    getDown = 0;
+    $('.page-wave')
+      .css('top', getDown + '%')
+      .css('display', 'none')
+  }
+});
+
+
+//-------------- full screen
 
 $('.fs-button').click(function() {
 

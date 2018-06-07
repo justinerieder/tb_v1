@@ -141,21 +141,7 @@ io.on('connection', function(socket) {
   //socket.broadcast.emit('animation', data);
   });
 
-  socket.on('animationWord', function(data) {
 
-    var theWord = data.theWord;
-    var animationNbWord = data.animationNbWord
-    // console.log("coucou mot");
-    socket.broadcast.emit('animationWord', theWord, animationNbWord);
-  });
-  socket.on('animationWordRemove', function(data) {
-
-    var removerTime = data.animationNbWordRemove;
-    var playRemove = data.playWordRemove;
-    var stopRemove = data.stopWordRemove;
-    // console.log("coucou mot");
-    socket.broadcast.emit('animationWordRemove', removerTime, playRemove, stopRemove);
-  });
 
   var currentTime = 0;
   var incrementation = 100;
@@ -177,9 +163,7 @@ io.on('connection', function(socket) {
 
   }
 
-  socket.on('animationDrum', function(data) {
-    socket.broadcast.emit('animationDrum', data);
-  });
+
 
   socket.on('superAnimation', function(data) {
     socket.broadcast.emit('superAnimation', data);
@@ -197,7 +181,12 @@ io.on('connection', function(socket) {
     io.sockets.connected[users[randomUser]].emit('animationRandom', data);
 
   });
-  socket.on('animationMoit', function(data) {})
+
+  socket.on('animationPulse', function(data) {
+    socket.broadcast.emit('animationPulse', data);
+    console.log("pulse");
+
+  });
 
   socket.on('animationBal', function(data) {
     //console.log("animationBal " + data.playBal);
@@ -226,11 +215,19 @@ io.on('connection', function(socket) {
         io.sockets.connected[users[count]].emit('animationBal', data);
       }, timePerUser * 1000);
     }
-
-
-
   // socket.broadcast.emit('animationBal', data);
   });
+
+  //----------------- wave
+
+  socket.on('animationWave', function(data) {
+    console.log("serveur wave");
+    socket.broadcast.emit('animationWave', data);
+  });
+
+
+
+
   socket.on('updateVideo', function(vTime) {
     socket.broadcast.emit('updateVideo', vTime);
   });

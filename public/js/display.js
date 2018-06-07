@@ -21,8 +21,26 @@ $('.page-video').click(function() {
   console.log($('#song').get(0).currentTime);
   console.log("staaaart");
 });
+// var actionTimeWave = [113.98, 122.92, 123, 140.03];
 
-var actionTime = [0, 18.5, 20.8, 21, 32, 36, 36.53, 56.96, 59.8, 60, 62.3, 70, /*reste noir*/ 113.75, /*fade blanc*/ 113.95, /*rest blanc*/ 115.95, 139.98, 142.22];
+var actionTime = [
+  0, /* 1 fadeWhite*/
+  18.5, /* 2 fadeBlack*/
+  20.8, /* 3 fadeWhite*/
+  21, /* 4 fadeBlack*/
+  32, /* 5 stayBlack*/
+  36, /* 6 fadeWhite*/
+  36.53, /* 7 fadeBlack*/
+  56.96, /* 8 stayBlack*/
+  59.8, /* 9 fadeWhite*/
+  60, /* 10 stayWhite*/
+  62.3, /* 11 fadeBlack*/
+  70, /* 12 stayBlack*/
+  113.75, /* 13 stayBlack*/
+  139.93, /* 14 fadeWhite*/
+  140.03, /*15 stayWhite*/
+  142.03,
+];
 var eventNb = 0;
 var nextTime = actionTime[eventNb];
 
@@ -57,49 +75,6 @@ function timeManagerResetClick(aTimeResetClick) {
 }
 
 
-// var actionTimeWord = [0, 5, 10, 15, 20, 25, 30, 35, 40]
-var actionTimeWord = [3.87, 13.64, 21.07, 31.14, 36.53, 47, 52, 56.5, 85.32, 90.06, 158.20, 162.97, 167.95]
-
-var eventNbWord = 0;
-var nextTimeWord = actionTimeWord[eventNbWord];
-
-var phrase = 'Hi and welcome to the "dynamic_circle" experience _ you are the authors of this moment _ Dynamic_circle can not exist without your participation _'
-var mot = phrase.split(" ");
-console.log("mot " + mot[2]);
-
-
-function timeManagerWord(aTimeWord) {
-  if (aTimeWord >= nextTimeWord) {
-    console.log((eventNbWord + 1) + actionTimeWord[eventNbWord]);
-    socket.emit('animationWord', {
-      animationNbWord: (eventNbWord + 1),
-      playWord: actionTimeWord[eventNbWord],
-      stopWord: actionTimeWord[eventNbWord + 1],
-      theWord: mot[eventNbWord]
-    });
-    eventNbWord++;
-    nextTimeWord = actionTimeWord[eventNbWord]
-  }
-}
-
-// var actionTimeWordRemove = [4, 9, 14, 19, 24, 29, 34, 39]
-var actionTimeWordRemove = [9.23, 18.85, 27.19, 34, 40.50, 50.90, 55.67, 60.31, 88, 92.8, 162.07, 166.71, 170.84]
-var eventNbWordRemove = 0;
-var nextTimeWordRemove = actionTimeWordRemove[eventNbWordRemove];
-
-
-function timeManagerWordRemove(aTimeWordRemove) {
-  if (aTimeWordRemove >= nextTimeWordRemove) {
-    console.log("remover " + eventNbWordRemove + 1);
-    socket.emit('animationWordRemove', {
-      animationNbWordRemove: (eventNbWordRemove + 1),
-      playWordRemove: actionTimeWordRemove[eventNbWordRemove],
-      stopWordRemove: actionTimeWordRemove[eventNbWordRemove + 1],
-    });
-    eventNbWordRemove++;
-    nextTimeWordRemove = actionTimeWordRemove[eventNbWordRemove]
-  }
-}
 
 
 var superActionTime = [
@@ -175,7 +150,9 @@ function superTimeManager(bTime) {
 var actionTimeRandom = [70.47, 70.63, 70.92, 71.08, 71.24, 71.39,
   75.49, 75.64, 75.80, 75.96, 76.12, 76.27, 76.42,
   80.45, 80.60, 80.76, 80.91, 81.06, 81.21, 81.37,
-  82.73, 82.88
+  82.73, 82.88,
+  /**/
+  85.30, 87.41, 87.54, 89.18, 89.34, 90.07, 92.16, 92.31
 ]
 // var actionTimeRandom = [70.50, 70.70, 71.02, 71.18, 71.35, 71.30, /**/
 //   75.56, 75.72, 75.88, 76.04, 76.20, 76.36, /*76.50*/ /**/
@@ -208,35 +185,33 @@ function timeManagerRandom(randomTime) {
 111.553509
 113.937574
 */
+//---------------pulse
 
-var actionTimeMoit = [1];
-var eventNbMoit = 0;
-var nextTimeMoit = actionTimeMoit[eventNbMoit];
+// var actionTimePulse = [1, 2, 3, 4, 5, 6, 7, 8];
+var actionTimePulse = [
+  85.30, 85.76, 86.20,
+  87.69, 88.14, 88.58,
+  90.07, 90.51, 90.95,
+  92.45, 92.88, 93.27
 
-function timeManagerMoit(moitTime) {
-  if (moitTime >= nextTimeMoit) {
-    console.log("hello moit " + eventNbMoit + 1);
-    socket.emit('animationMoit', {
-      animationNbMoit: (eventNbMoit + 1),
-      playMoit: actionTimeMoit[eventNbMoit],
-      stopMoit: actionTimeMoit[eventNbMoit + 1]
+];
+var eventNbPulse = 0;
+var nextTimePulse = actionTimePulse[eventNbPulse];
+
+function timeManagerPulse(aTimePulse) {
+  if (aTimePulse >= nextTimePulse) {
+    // console.log(eventNb + 1);
+    socket.emit('animationPulse', {
+      animationNbPulse: (eventNbPulse + 1),
+      playPulse: actionTimePulse[eventNbPulse],
+      stopPulse: actionTimePulse[eventNbPulse + 1]
     });
-    eventNbMoit++;
-    nextTimeMoit = actionTimeMoit[eventNbMoit]
+    eventNbPulse++;
+    nextTimePulse = actionTimePulse[eventNbPulse]
   }
 }
 
-// var actionTimeBal = [
-//   /*1*/ 94.90, /*90*/ 95.85, /*141*/
-//   /*3*/ 97.30, /*85*/ 98.26, /*152*/
-//   /*5*/ 99.69, /*87*/ 100.60, /*150*/
-//   /*7*/ 102.05, /* 88*/ 102.94, /*163*/
-//   104.43, 105.33,
-//   /*9*/ 106.76, /*97*/ 107.70, /*137*/
-//   /*11*/ 109.18, /*82*/ 110.07, /*155*/
-//   /*12*/ 111.55, /*82*/ 112.45, /*159*/
-//
-// ];
+
 var actionTimeBal = [
   94.82, 96.05,
   97.20, 98.40,
@@ -263,6 +238,30 @@ function timeManagerBal(balTime) {
   }
 }
 
+//------------------- wave
+
+//113.98 --8.94-- 122.92 --17.11-- 140.03
+
+var actionTimeWave = [113.83, 114, 122.92, 123, 140.03];
+// var actionTimeWave = [1, 3, 4, 8];
+// var actionTimeWave = [0, 1, 8.94, 9, 26.11];
+var eventNbWave = 0;
+var nextTimeWave = actionTimeWave[eventNbWave];
+
+function timeManagerWave(aTimeWave) {
+  if (aTimeWave >= nextTimeWave) {
+    console.log("display wave");
+    console.log(eventNbWave + 1);
+    socket.emit('animationWave', {
+      animationNbWave: (eventNbWave + 1),
+      playWave: actionTimeWave[eventNbWave],
+      stopWave: actionTimeWave[eventNbWave + 1]
+    });
+    eventNbWave++;
+    nextTimeWave = actionTimeWave[eventNbWave]
+  }
+}
+
 function launchVideo() {
 
   $('.play-button').css({
@@ -278,7 +277,7 @@ function launchVideo() {
   loopVideo();
 }
 function go() {
-  $('#song').get(0).currentTime = 49;
+  $('#song').get(0).currentTime = 60;
 
   $('#song').get(0).play();
 
@@ -294,13 +293,12 @@ function loopVideo() {
   $('.chrono').html(vTime);
   timeManager(vTime);
   timeManagerResetClick(vTime)
-  timeManagerWord(vTime);
-  timeManagerWordRemove(vTime);
   superTimeManager(vTime);
-  // timeManagerDrum(vTime);
+  timeManagerPulse(vTime);
   timeManagerBal(vTime);
   timeManagerRandom(vTime);
-  timeManagerMoit(vTime);
+  // timeManagerMoit(vTime);
+  timeManagerWave(vTime);
 
   socket.emit('updateVideo', vTime);
 

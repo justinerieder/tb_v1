@@ -76,6 +76,13 @@ h1{
        -o-filter: invert(1);
        -ms-filter: invert(1);
 }
+.global{
+  width:100%; height:100%;
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index: -1;
+}
 .top-left{
   width:50%; height:50%;
   position:absolute;
@@ -100,9 +107,29 @@ h1{
   top:50%;
   left:50%;
 }
-.page-bal{
+.page-pulse{
   display: none;
+  background-color: white;
+  transition: background-color 100ms;
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+.page-bal{
+  display: block;
   background-color: black;
+  transition: background-color 100ms;
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.page-wave{
+  display: none;
+  background-color: white;
   transition: background-color 100ms;
   position: absolute;
   left: 0; top: 0;
@@ -135,43 +162,6 @@ h1{
   height: 80%;
   border: 10px solid white;
   background-color:transparent;
-}
-.drum0{
-  display: none;
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  background-color: red;
-}
-.drum1{
-  display: none;
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  background-color: red;
-
-}
-.drum2{
-  display: none;
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  background-color: red;
-
-}
-.drum3{
-  display: none;
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 1;
 }
 .randomLight{
   background-color: rgb(0,0,0);
