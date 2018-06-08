@@ -4,6 +4,10 @@ var socket = io.connect(ip);
 $(document).ready(function() {
 
   socket.emit('setDisplay');
+  console.log("hello");
+
+  // tiktikTime();
+
 });
 
 //update the interface to the current step
@@ -188,6 +192,7 @@ function timeManagerRandom(randomTime) {
 //---------------pulse
 
 // var actionTimePulse = [1, 2, 3, 4, 5, 6, 7, 8];
+
 var actionTimePulse = [
   85.30, 85.76, 86.20,
   87.69, 88.14, 88.58,
@@ -210,6 +215,80 @@ function timeManagerPulse(aTimePulse) {
     nextTimePulse = actionTimePulse[eventNbPulse]
   }
 }
+
+//--------------- tik
+// var add = [0.15, 0.15, 0.95]
+// var start = 66.21;
+// var int = 0;
+// var actionTimeTik = [];
+//
+// // function tiktikTime() {
+// actionTimeTik.push(start)
+//
+// for (var i = 0; i < 38; i++) {
+//   for (var j = 0; j < 3; j++) {
+//     start += add[j];
+//     // parseFloat(start).toFixed(2);
+//     actionTimeTik.push((start).toFixed(2))
+//
+//   }
+// }
+// console.log("actionTimeTik " + actionTimeTik);
+// }
+
+// actionTimeTik = [66.21, 66.36, 66.51,
+//   67.51, 67.66, 67.81,
+//   68.81, 68.96, 69.11]
+
+
+// var actionTimeTik = [
+//   66.21, 66.36, 66.51,
+//   67.51, 67.66, 67.81,
+//   68.81, 68.96, 69.11
+//
+// ];
+// var actionTimeTik = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5]
+
+
+var actionTimeTik = [66.21, 66.36, 66.51, 67.46, 67.61, 67.76, 68.71, 68.86, 69.01, 69.96, 70.11, 70.26, 71.21, 71.36, 71.51, 72.46, 72.61, 72.76, 73.71,
+  73.86, 74.01, 74.96, 75.11, 75.26, 76.21, 76.36, 76.51, 77.46, 77.61, 77.76, 78.71, 78.86, 79.01, 79.96, 80.11, 80.26, 81.21, 81.36, 81.51,
+  82.46, 82.61, 82.76, 83.71, 83.86, 84.01, 84.96, 85.11, 85.26, 86.21, 86.36, 86.51, 87.46, 87.61, 87.76,
+  88.58, 88.73, 88.88,
+  89.77, 89.91, 90.05,
+  90.96, 91.10, 91.25,
+  92.13, 92.27, 92.41,
+  93.19, 93.33, 93.47,
+  94.52, 94.64, 94.78,
+  95.72, 95.86, 96.00,
+  96.89, 96.94, 97.08,
+  98.08, 98.22, 98.36,
+  99.27, 99.41, 99.55,
+  101.65, 101.74, 101.88,
+  102.85, 102.99, 103.13,
+  104.02, 104.16, 104.30,
+  105.08, 105.22, 105.36,
+  106.39, 106.53, 106.67,
+  107.43, 107.57, 107.71,
+  108.62, 108.76, 108.90,
+  109.96, 110.1, 110.15,
+  111.44, 111.58, 111.72
+]
+
+var eventNbTik = 0;
+var nextTimeTik = actionTimeTik[eventNbTik];
+
+function timeManagerTik(aTimeTik) {
+  if (aTimeTik >= nextTimeTik) {
+    // console.log(eventNb + 1);
+    socket.emit('animationTik', {
+      animationNbTik: (eventNbTik + 1),
+    });
+    eventNbTik++;
+    nextTimeTik = actionTimeTik[eventNbTik]
+  }
+}
+
+//------------ Balayage
 
 
 var actionTimeBal = [
@@ -238,6 +317,7 @@ function timeManagerBal(balTime) {
   }
 }
 
+
 //------------------- wave
 
 //113.98 --8.94-- 122.92 --17.11-- 140.03
@@ -261,6 +341,8 @@ function timeManagerWave(aTimeWave) {
     nextTimeWave = actionTimeWave[eventNbWave]
   }
 }
+
+//------------- BOOM
 
 var actionTimeBoom = [
   142.20, 142.50,
@@ -319,7 +401,7 @@ function launchVideo() {
   loopVideo();
 }
 function go() {
-  $('#song').get(0).currentTime = 140;
+  $('#song').get(0).currentTime = 65;
 
   $('#song').get(0).play();
 
@@ -337,6 +419,7 @@ function loopVideo() {
   timeManagerResetClick(vTime)
   superTimeManager(vTime);
   timeManagerPulse(vTime);
+  timeManagerTik(vTime);
   timeManagerBal(vTime);
   timeManagerRandom(vTime);
   timeManagerWave(vTime);

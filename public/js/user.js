@@ -766,13 +766,23 @@ socket.on('animationPulse', function(data) {
 
   switch (pulseTime) {
     case 1:
-      pulse('.page-pulse', 1)
+      // pulse('.page-pulse', 1)
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break;
     case 2:
-      pulse('.page-pulse', 0.5)
+      // pulse('.page-pulse', 0.5)
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 3:
-      pulse('.page-pulse', 0)
+      // pulse('.page-pulse', 0)
+      // goodMarg(true, ".superAnimation1");
+      // goblink = true;
+      // blink(".superAnimation1", true, false);
+      kate()
       break
   }
 });
@@ -791,6 +801,47 @@ function pulse(who, opacity) {
     // .css('top', calculeMargin + '%')
 
 }
+
+//--------------  Animation Tik
+var tikNb = 0;
+socket.on('animationTik', function(data) {
+  tikNb++;
+
+  if (tikNb > 3) {
+    tikNb = 1;
+  }
+  switch (tikNb) {
+    case 1:
+      tiktik(95, 97, 10);
+      break;
+    case 2:
+      tiktik(90, 94, 20);
+      break;
+    case 3:
+      $('.page-tik').css('display', 'none')
+      break;
+  }
+});
+
+function tiktik(sizeW, sizeH, borderSize) {
+  var calcMargW = (100 - sizeW) / 2;
+  var calcMargH = (100 - sizeH) / 2;
+  var bSizeTik = -10;
+
+  $('.page-tik')
+    .css('display', 'block')
+    .css('width', sizeW + '%')
+    .css('height', sizeH + '%')
+    .css('border', borderSize + 'px solid white')
+    .css('top', '1.5%')
+    .css('left', '2.5%')
+    .css('margin-top', bSizeTik + 'px')
+    .css('margin-left', bSizeTik + 'px')
+
+
+}
+
+
 
 ///-------------- annimation balayage
 
@@ -910,105 +961,6 @@ socket.on('animationWave', function(data) {
 //--------------- animation bottom
 socket.on('animationBoom', function(data) {
   switch (data.animationNbBoom) {
-
-    // case 1:
-    //   boomInOut('.page-boom')
-    //   break;
-    // case 2:
-    //   boomInOut('.page-boom')
-    //   break;
-    // case 3:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 4:
-    //   boomOut('.page-boom')
-    //   break;
-    // case 5:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 6:
-    //   boomOut('.page-boom')
-    //   break;
-    // case 7:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 8:
-    //   boomOut('.page-boom')
-    //   break;
-    // case 9:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 10:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 11:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 12:
-    //   boomIn('.page-boom')
-    //   break;
-    // /**/
-    // case 13:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 14:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 15:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 16:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 17:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 18:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 19:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 20:
-    //   boomIn('.page-boom')
-    //   break;
-    // /**/
-    // case 21:
-    //   boomInOut('.page-boom')
-    //   break;
-    // case 22:
-    //   boomInOut('.page-boom')
-    //   break;
-    // case 23:
-    //   boomInOut('.page-boom')
-    //   break;
-    // case 24:
-    //   boomInOut('.page-boom')
-    //   break;
-    // case 25:
-    //   boomInOut('.page-boom')
-    //   break;
-    // /**/
-    // case 26:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 27:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 28:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 29:
-    //   boomIn('.page-boom')
-    //   break;
-    // case 30:
-    //   boomIn('.page-boom')
-    //   $('page-boom').css('display', 'none')
-    //   break;
-
-
-
-
     case 1:
       boomInOut('.page-boom', 1, 0)
       break;

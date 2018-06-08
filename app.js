@@ -182,10 +182,19 @@ io.on('connection', function(socket) {
 
   });
 
+  //------------- Pulse
+
   socket.on('animationPulse', function(data) {
     socket.broadcast.emit('animationPulse', data);
-    console.log("pulse");
   });
+
+  //------------- tik
+
+  socket.on('animationTik', function(data) {
+    socket.broadcast.emit('animationTik', data);
+  });
+
+  //-------------- Balayage
 
   socket.on('animationBal', function(data) {
     //console.log("animationBal " + data.playBal);
