@@ -155,7 +155,7 @@ h1{
   left: 0; top: 0;
 }
 .page-bal{
-  display: block;
+  /* --------display: block; */
   background-color: black;
   transition: background-color 100ms;
   position: absolute;

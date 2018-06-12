@@ -32,16 +32,62 @@ socket.on('updateVideo', function(vTime) {
   //console.log("vTime " + vTime);
 });
 
-$('body').on('click touchstart', function() {
-  // $('body').on('click', function() {
-  console.log("changeCollection");
-  changeCollection();
+canClick = false;
+
+socket.on('animationClick', function(data) {
+  switch (data.animationNbClick) {
+    case 1:
+      canClick = true;
+      break;
+    case 2:
+      canClick = false;
+
+      $('.page-animation').fadeTo("slow", 0, function() {
+        negativeRemover();
+        $('.page-animation')
+          .css('display', 'block')
+          .fadeTo("slow", 1)
+      });
+      //
+      // $('.page-animation').fadeTo('fast', 0)
+      //
+      // negativeRemover();
+      // $('.page-animation').css('display', 'block')
+      // $('.page-animation').fadeTo('fast', 1)
+      break;
+    case 3:
+      canClick = true;
+      break;
+    case 4:
+      canClick = false;
+      negativeRemover();
+      $('.page-animation').css('display', 'block')
+      break;
+  }
+});
+
+function clickable() {
+
+}
+
+// $('body').on('click touchstart', function() {
+$('body').on('click', function() {
+  if (canClick == true) {
+    console.log("click");
+    changeCollection();
+  } else if (canClick == false) {
+    negativeRemover();
+    $('.page-animation').css('display', 'block')
+
+  }
+
+// changeCollection();
 });
 
 var screenNb = 0;
 function changeCollection() {
   screenNb++;
-  console.log("nb " + screenNb);
+  // console.log("nb " + screenNb);
   if (screenNb > 12) {
     $('.test').removeClass('negative')
     screenNb = 0;
@@ -204,6 +250,9 @@ function changeCollection() {
   }
 }
 function negativeRemover() {
+  console.log("remover");
+  // $('.page-animation').fadeTo('fast', 0)
+
   $('.page-animation').removeClass('negative')
   $('.page-animation').css('display', 'none')
   $('.top-left')
@@ -231,18 +280,6 @@ function negativeRemover() {
     .css('height', '50%')
     .css('z-index', '0')
 }
-//------------------ reset clicking
-socket.on('animationResetClick', function(data) {
-  console.log("reset click");
-
-  $('.page-animation').fadeTo("slow", 0, function() {
-    negativeRemover();
-    $('.page-animation')
-      .css('display', 'block')
-      .css('opacity', '1')
-  });
-});
-
 //-------------------- TIBOR
 
 // socket.on('exec', function(animFunc, play, stop) {
@@ -354,8 +391,16 @@ border = false;
 blinkBg = false;
 blinkBorder = false;
 
+var superBoucle = 0;
+
+var startSuper;
+var stopSuper;
+
 socket.on('superAnimation', function(data) {
   // console.log("data " + data.superAnimationNb);
+
+  startSuper = data.superPlay;
+  stopSuper = data.superStop;
 
   switch (data.superAnimationNb) {
     case 1:
@@ -468,27 +513,346 @@ socket.on('superAnimation', function(data) {
       break
     case 25:
       animationGlitch('.superAnimation1', 2, 0);
+      blink(".superAnimation1", false, true);
+      console.log("blinking?");
       break
     case 26:
       animationGlitch('.superAnimation1', 0, 2);
+      blink(".superAnimation1", false, true);
+
       break
     case 27:
       animationGlitch('.superAnimation1', 2, 0);
+      blink(".superAnimation1", false, true);
+
       break
     case 28:
       animationGlitch('.superAnimation1', 0, 2);
+      blink(".superAnimation1", false, true);
+
       break
     case 29:
       animationGlitch('.superAnimation1', 2, 0);
+      blink(".superAnimation1", false, true);
+
       break
     case 30:
       animationGlitch('.superAnimation1', 0, 2);
+      blink(".superAnimation1", false, true);
+
       break
     case 31:
       animationGlitch('.superAnimation1', 2, 0);
+      blink(".superAnimation1", false, true);
+
+      break
+    case 32:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 33:
+      kate();
+      break
+    case 34:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 35:
+      kate();
+      break
+    case 36:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 37:
+      kate();
+      break
+    case 38:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
+    case 39:
+      animationGlitch('.superAnimation1', 0, 2);
+      break
+    case 40:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
+    case 41:
+      animationGlitch('.superAnimation1', 0, 2);
+      break
+    case 42:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
+    case 43:
+      animationGlitch('.superAnimation1', 2, 0);
+      break
+    case 44:
+      animationGlitch('.superAnimation1', 0, 2);
+      break
+
+    case 45:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 46:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 47:
+      kate();
+      break
+
+    case 48:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 49:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 50:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 51:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 52:
+      kate();
+      break
+
+    case 53:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 54:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 55:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 56:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 57:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 58:
+      kate();
+      break
+
+    case 59:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 60:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 61:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 62:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 63:
+      kate();
+      break
+
+    case 64:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 65:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 66:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 67:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 68:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 69:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 70:
+      kate();
+      break
+
+    case 71:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 72:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 73:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 74:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 75:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 76:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 77:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 78:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 79:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 80:
+      kate();
+      break
+
+    case 81:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 82:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 83:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 84:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 85:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 86:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 87:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 88:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 89:
+      kate();
+      break
+
+    case 90:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 91:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 92:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 93:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 94:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 95:
+      goodMarg(true, ".superAnimation1");
+      goblink = true;
+      blink(".superAnimation1", true, false);
+      break
+    case 96:
+      kate();
       break
   }
+  if (data.superAnimationNb > 96) {
+    goodMarg(true, ".superAnimation1");
+    goblink = true;
+    blink(".superAnimation1", true, false);
+  } else if (data.superAnimationNb == 111) {
+    kate();
+  }
 });
+
 
 glitchAnimation = false;
 function goodMarg(border, who) {
@@ -525,7 +889,7 @@ function animationGlitch(who, dirTop, dirLeft) {
 
   if (dirTop > 0) {
     w = 100;
-    h = 6;
+    h = 4;
 
     otop = -20;
     left = 0;
@@ -545,7 +909,7 @@ function animationGlitch(who, dirTop, dirLeft) {
 
   }
   if (dirLeft > 0) {
-    w = 9;
+    w = 7;
     h = 100;
 
     top = 0;
@@ -578,19 +942,20 @@ function animationGlitch(who, dirTop, dirLeft) {
 var randomColor;
 
 function blink(who, blinkBorder, blinkBg) {
-  // console.log("blink");
+
   if (goblink == true) {
     setTimeout(function() {
       randomColor = getRandom(0, 255);
+
       if (blinkBorder == true) {
         $(who).css("border", "10px solid rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
       } else if (blinkBorder == false) {
         $(who).css("border", "10px solid rgb(255,255,255)")
-      } else if (blinkBg == true) {
+      }
+      if (blinkBg == true) {
         $(who).css("background-color", "rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
       } else if (blinkBg == false) {
         $(who).css("background-color", "transparent")
-
       }
       blink(who, blinkBorder, blinkBg);
     }, 1);
@@ -711,29 +1076,36 @@ function superAnimation4(number) {
 var currentNb = 100;
 
 socket.on('animationRandom', function(data) {
-  goBalayage = true;
+  // ---------goBalayage = true;
   randomLightUp();
-  console.log("random");
 
 
-})
+});
+
+var count = 0;
 
 function randomLightUp() {
+  count++;
+  console.log('count ' + count);
   var color = 0;
+  var who = '.randomLight'
 
-  var intRandom = setInterval(function() {
+  var intRandomUp = setInterval(function() {
     color += 10;
     $('.randomLight')
       .css('display', 'block')
+      .css('z-index', '10')
       .css('background-color', "rgb(" + Math.round(color) + "," + Math.round(color) + "," + Math.round(color) + ")")
+    // console.log(color);
+    // console.log($('.randomLight').css('background-color'));
     if (color >= 255) {
-      clearInterval(intRandom);
+      clearInterval(intRandomUp);
 
       randomLightDown();
     }
   }, 0.0001)
-
 }
+
 
 function randomLightDown() {
   var color = 255;
@@ -742,6 +1114,7 @@ function randomLightDown() {
     $('.randomLight')
       .css('display', 'block')
       .css('background-color', "rgb(" + Math.round(color) + "," + Math.round(color) + "," + Math.round(color) + ")")
+    // console.log($('.randomLight').css('background-color'));
     if (color <= 0) {
       $('.randomLight')
         .css('display', 'none')
@@ -890,6 +1263,12 @@ function lightUp() {
   }
 }
 
+// ---------------- animation return
+socket.on('animationReturn', function(data) {
+  console.log("return");
+  randomLightUp()
+});
+
 //-------------- animation Wave
 
 var playWave;
@@ -943,13 +1322,18 @@ socket.on('animationWave', function(data) {
     deltaT = t1 / t2;
     realSpeed2 = realSpeed1 * deltaT;
 
+    var randonColorWave;
     upInt = setInterval(function() {
       getDown += realSpeed2;
-      $('.page-wave').css('top', getDown + '%')
+      randonColorWave = getRandom(0, 255);
+      $('.page-wave')
+        .css('top', getDown + '%')
+        .css("background-color", "rgb(" + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + ")")
     }, 10)
 
   } else if (data.animationNbWave == 5) {
     clearInterval(upInt)
+    goblink = false;
     getDown = 0;
     console.log("fini wave");
     $('.page-wave')
@@ -962,193 +1346,138 @@ socket.on('animationWave', function(data) {
 socket.on('animationBoom', function(data) {
   switch (data.animationNbBoom) {
     case 1:
-      boomInOut('.page-boom', 1, 0)
+      boom('.page-boom')
       break;
     case 2:
-      boomInOut('.page-boom', 1, 0)
+      boom('.page-boom')
       break;
     case 3:
-      boomIn('.page-boom', 1)
+      boom('.page-boom')
       break;
     case 4:
-      boomOut('.page-boom', 0)
+      boom('.page-boom')
       break;
     case 5:
-      boomIn('.page-boom', 1)
+      boom('.page-boom')
       break;
     case 6:
-      boomOut('.page-boom', 0)
+      boom('.page-boom')
       break;
     case 7:
-      boomIn('.page-boom', 1)
+      boom('.page-boom')
       break;
     case 8:
-      boomOut('.page-boom', 0)
+      boom('.page-boom')
       break;
     case 9:
-      boomIn('.page-boom', 1)
-      break;
+      boom('.page-boom')
     case 10:
-      boomIn('.page-boom', 0.6)
+      boom('.page-boom')
       break;
     case 11:
-      boomIn('.page-boom', 0.3)
+      boom('.page-boom')
       break;
     case 12:
-      boomIn('.page-boom', 0)
+      boom('.page-boom')
       break;
     /**/
     case 13:
-      boomIn('.page-boom', 1)
+      boom('.page-boom')
       break;
     case 14:
-      boomIn('.page-boom', 0)
+      boom('.page-boom')
       break;
-    case 15:
-      boomIn('.page-boom', 1)
-      break;
-    case 16:
-      boomIn('.page-boom', 0)
-      break;
-    case 17:
-      boomIn('.page-boom', 1)
-      break;
-    case 18:
-      boomIn('.page-boom', 0)
-      break;
-    case 19:
-      boomIn('.page-boom', 1)
-      break;
-    case 20:
-      boomIn('.page-boom', 0)
-      break;
-    /**/
-    case 21:
-      boomInOut('.page-boom', 1, 0)
-      break;
-    case 22:
-      boomInOut('.page-boom', 1, 0)
-      break;
-    case 23:
-      boomInOut('.page-boom', 1, 0)
-      break;
-    case 24:
-      boomInOut('.page-boom', 1, 0)
-      break;
-    case 25:
-      boomInOut('.page-boom', 1, 0)
-      break;
-    /**/
-    case 26:
-      boomIn('.page-boom', 0.25)
-      break;
-    case 27:
-      boomIn('.page-boom', 0.50)
-      break;
-    case 28:
-      boomIn('.page-boom', 0.75)
-      break;
-    case 29:
-      boomIn('.page-boom', 1)
-      break;
-    case 30:
-      boomIn('.page-boom', 0)
-      $('page-boom').css('display', 'none')
-      break;
-
   }
 });
 
-// function boomInOut(who) {
-//   console.log("boom fade");
-//   // $(who).fadeTo(100, opacity);
-//   $(who).css('display', 'block')
-//   var boomColor = 0;
-//   var boomColorDown = 255;
-//   var boomInInt = setInterval(function() {
-//     console.log("boom fade int");
-//     boomColor += 100;
-//     $(who).css("background-color", "rgb(" + Math.round(boomColor) + "," + Math.round(boomColor) + "," + Math.round(boomColor) + ")");
-//     if (boomColor >= 255) {
-//       clearInterval(boomInInt);
-//       var boomInInt2 = setInterval(function() {
-//         boomColorDown -= 100;
-//         $(who).css("background-color", "rgb(" + Math.round(boomColorDown) + "," + Math.round(boomColorDown) + "," + Math.round(boomColorDown) + ")");
-//         if (boomColorDown <= 0) {
-//           clearInterval(boomInInt2)
-//         }
-//       }, 50)
-//     }
-//   }, 50);
-// }
-// function boomIn(who) {
-//   console.log("boom fade");
-//   // $(who).fadeTo(100, opacity);
-//   $(who).css('display', 'block')
-//   var boomColor = 0;
-//   var boomInInt = setInterval(function() {
-//     console.log("boom fade int");
-//     boomColor += 100;
-//     $(who).css("background-color", "rgb(" + Math.round(boomColor) + "," + Math.round(boomColor) + "," + Math.round(boomColor) + ")");
-//     if (boomColor >= 255) {
-//       clearInterval(boomInInt);
+
+function boom(who) {
+  var randomSizeWBoom = getRandom(80, 20)
+  var randomSizeHBoom = getRandom(80, 20)
+  console.log("boom");
+  // var wBoom = 60;
+  // var hBoom = 40;
+  var calcTopBoom = (100 - randomSizeHBoom) / 2
+  var calcLeftBoom = (100 - randomSizeWBoom) / 2
+
+  $(who)
+    .css('display', 'block')
+    .css('width', randomSizeWBoom + '%')
+    .css('height', randomSizeHBoom + '%')
+    .css('top', calcTopBoom + '%')
+    .css('left', calcLeftBoom + '%')
+  $(who).fadeTo(300, 1, function() {
+    $(who).fadeTo(600, 0)
+  })
+}
 //
-//     }
-//   }, 50);
+// function boomInOut(who, opacityIn, opactiyOut) {
+//   $(who).fadeTo(100, opacityIn, function() {
+//     $(who).fadeTo(100, opactiyOut)
+//   });
+//
 // }
-// function boomOut(who) {
-//   console.log("boom fade");
-//   // $(who).fadeTo(100, opacity);
-//   $(who).css('display', 'block')
-//   var boomColor = 255;
-//   var boomInInt = setInterval(function() {
-//     console.log("boom fade int");
-//     boomColor -= 100;
-//     $(who).css("background-color", "rgb(" + Math.round(boomColor) + "," + Math.round(boomColor) + "," + Math.round(boomColor) + ")");
-//     if (boomColor <= 0) {
-//       clearInterval(boomInInt);
-//     }
-//   }, 50);
+// function boomIn(who, opacity) {
+//   $(who).fadeTo(100, opacity);
+//
 // }
-
-function boomInOut(who, opacityIn, opactiyOut) {
-  $(who).fadeTo(100, opacityIn, function() {
-    $(who).fadeTo(100, opactiyOut)
-  });
-
-}
-function boomIn(who, opacity) {
-  $(who).fadeTo(100, opacity);
-
-}
-function boomOut(who, opacity) {
-  $(who).fadeTo(100, opacity);
-}
+// function boomOut(who, opacity) {
+//   $(who).fadeTo(100, opacity);
+// }
 
 
 //-------------- playBreath
-var acc = 0.03;
+var acc = 0.003;
 var opactiyBreath;
+var seuil;
 socket.on('animationBreath', function(data) {
-  console.log("breath");
-  opactiyBreath = acc += acc;
+  console.log(data.animationNbBreath);
+  // console.log("breath");
 
-  Breath()
+  // seuil = opactiyBreath + 0.10
+
+  Breath();
 });
 
 function Breath() {
-  if (opactiyBreath >= 1) {
+  opactiyBreath = acc += acc;
+
+  if (opactiyBreath <= 1.0) {
+    $('.page-breath')
+      .css('display', 'block')
+      .fadeTo(860, opactiyBreath + 0.10, function() {
+        $('.page-breath').fadeTo(260, 0);
+      });
+  } else if (opactiyBreath >= 1.0) {
     opactiyBreath = 1;
+    $('.page-breath')
+      .css('display', 'block')
+      .fadeTo(860, opactiyBreath, function() {
+        $('.page-breath').fadeTo(260, 0);
+      });
+    console.log("else");
   }
-  $('.page-breath')
-    .css('display', 'block')
-    .fadeTo(860, opactiyBreath, function() {
-      $('.page-breath').fadeTo(260, 0)
-    });
+  console.log('opactiyBreath ' + opactiyBreath);
 
-/*157.91 - 158.77 - 159.03 */
+
+
+
+// if (opactiyBreath >= 1) {
+//   console.log("plus grand :)");
+//   // opactiyBreath = 0;
+//   $('.page-breath')
+//     .css('display', 'block')
+//     .fadeTo(860, 1, function() {
+//       $('.page-breath').fadeTo(260, 0)
+//     });
+// } else {
+//   $('.page-breath')
+//     .css('display', 'block')
+//     .fadeTo(860, opactiyBreath + 0.10, function() {
+//       $('.page-breath').fadeTo(260, 0);
+//     });
+// }
 }
-
 
 
 //-------------- full screen

@@ -132,17 +132,6 @@ io.on('connection', function(socket) {
   //socket.broadcast.emit('animation', data);
   });
 
-  socket.on('animationResetClick', function(data) {
-
-    console.log("reset click ");
-
-    socket.broadcast.emit('animationResetClick', data);
-
-  //socket.broadcast.emit('animation', data);
-  });
-
-
-
   var currentTime = 0;
   var incrementation = 100;
   function animation(animationNb, play, stop) {
@@ -163,8 +152,6 @@ io.on('connection', function(socket) {
 
   }
 
-
-
   socket.on('superAnimation', function(data) {
     socket.broadcast.emit('superAnimation', data);
   });
@@ -179,7 +166,6 @@ io.on('connection', function(socket) {
     var randomUser = getRandom(0, (users.length - 1));
     console.log("random user " + randomUser + " " + (users.length - 1));
     io.sockets.connected[users[randomUser]].emit('animationRandom', data);
-
   });
 
   //------------- Pulse
@@ -226,6 +212,39 @@ io.on('connection', function(socket) {
   // socket.broadcast.emit('animationBal', data);
   });
 
+  //----------------- return
+  var last;
+  var returnCount = 0;
+  var nbDeFoisReturn;
+  socket.on('animationReturn', function(data) {
+    nbDeFoisReturn = data.nbDeFoisReturn;
+    nbDeFoisReturnPetit = data.nbDeFoisReturnPetit;
+
+    console.log('nbDeFoisReturnPetit ' + nbDeFoisReturnPetit);
+    console.log('nbDeFoisReturn ' + nbDeFoisReturn);
+    console.log('users.length ' + users.length);
+    last = users.length;
+    if (nbDeFoisReturnPetit < users.length) {
+      console.log("oui oui");
+      io.sockets.connected[users[nbDeFoisReturnPetit - 1]].emit('animationReturn', data);
+    } else if (nbDeFoisReturn > users.length) {
+      // console.log("hello trop long");
+      io.sockets.connected[users[last - 1]].emit('animationReturn', data);
+    } else {
+      returnCount++;
+      // console.log('returnCount ' + returnCount);
+      last -= returnCount;
+      console.log('last ' + last);
+      console.log('nbDeFoisReturn ' + nbDeFoisReturn);
+      io.sockets.connected[users[last]].emit('animationReturn', data);
+    }
+    if (last == 0) {
+      returnCount = 0
+    }
+
+
+  });
+
   //----------------- wave
 
   socket.on('animationWave', function(data) {
@@ -233,18 +252,24 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('animationWave', data);
   });
 
-
   //----------------- boom
 
   socket.on('animationBoom', function(data) {
     socket.broadcast.emit('animationBoom', data);
-    console.log("boom");
+  // console.log("boom");
   });
   //----------------- Breath
 
   socket.on('animationBreath', function(data) {
     socket.broadcast.emit('animationBreath', data);
-    console.log("Breath");
+  // console.log("Breath");
+  });
+
+  //----------------- Click
+
+  socket.on('animationClick', function(data) {
+    socket.broadcast.emit('animationClick', data);
+    console.log("Click");
   });
 
 
