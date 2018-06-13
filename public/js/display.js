@@ -31,6 +31,9 @@ $('.page-video').click(function() {
 // var actionTimeWave = [113.98, 122.92, 123, 140.03];
 
 var actionTime = [
+  // 1, 4, 8, 9, 12, 16, 20, 25
+
+  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
   0, /* 1 fadeWhite*/
   18.5, /* 2 fadeBlack*/
   20.8, /* 3 fadeWhite*/
@@ -43,10 +46,24 @@ var actionTime = [
   60, /* 10 stayWhite*/
   62.3, /* 11 fadeBlack*/
   70, /* 12 stayBlack*/
-  113.75, /* 13 stayBlack*/
-// 139.93, /* 14 fadeWhite*/
-// 140.03, /*15 stayWhite*/
-// 142.03,
+  // 113.75, /* 13 stayBlack*/
+  141.20, /*13 fadeWhite*/
+  141.97, /*14 fadeBalck*/
+  142.41, /*15 fadeWhite*/
+  143.21, /*16 fadeB*/
+  143.60, /*17 fadeW*/
+  144.32, /*18 fabrB*/
+  144.79,
+  145.53,
+  145.95,
+  146.85, /* fadeB*/
+  147.20,
+  147.99,
+  148.34,
+  149.18,
+  149.53,
+  150.36,
+  150.74
 ];
 var eventNb = 0;
 var nextTime = actionTime[eventNb];
@@ -256,7 +273,7 @@ var nextTimeBal = actionTimeBal[eventNbBal];
 
 function timeManagerBal(balTime) {
   if (balTime >= nextTimeBal) {
-    // console.log(eventNbBal + 1);
+    console.log(eventNbBal + 1);
     socket.emit('animationBal', {
       animationNbBal: (eventNbBal + 1),
       playBal: actionTimeBal[eventNbBal],
@@ -418,6 +435,21 @@ function timeManagerClick(aTimeClick) {
   }
 }
 
+var actionTimeSound = [172.82];
+var eventNbSound = 0;
+var nextTimeSound = actionTimeSound[eventNbSound];
+
+function timeManagerSound(aTimeSound) {
+  if (aTimeSound >= nextTimeSound) {
+    // console.log(eventNb + 1);
+    socket.emit('animationSound', {
+      animationNbSound: (eventNbSound + 1)
+    });
+    eventNbSound++;
+    nextTimeSound = actionTimeSound[eventNbSound]
+  }
+}
+
 function launchVideo() {
 
   $('.play-button').css({
@@ -433,7 +465,7 @@ function launchVideo() {
   loopVideo();
 }
 function go() {
-  $('#song').get(0).currentTime = 95;
+  $('#song').get(0).currentTime = 70;
 
   $('#song').get(0).play();
 
@@ -447,7 +479,8 @@ function loopVideo() {
 
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
-  timeManagerClick(vTime)
+  timeManagerClick(vTime);
+  timeManagerSound(vTime);
   timeManager(vTime);
   superTimeManager(vTime);
   timeManagerPulse(vTime);

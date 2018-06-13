@@ -14,19 +14,38 @@ $(document).ready(function() {
 
   socket.emit('newUser');
 
-  //disable scroll refresh
-  /*$(document).on('touchmove', function(e) {
-
-    e.preventDefault();
-  }
-);*/
-
 });
+
+var myGlitch;
 
 socket.on('showNb', function(userNb) {
   console.log(userNb);
   $('.displayNumber').html(userNb);
+
+  myGlitch = userNb;
+  $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
+
+
 });
+
+$('.ready').click(function() {
+  console.log("click play " + myGlitch);
+
+
+  $('#songGlitch').get(0).play();
+
+  if ($('#songGlitch').get(0).currentTime = 0.1) {
+    console.log("1");
+    $('#songGlitch').get(0).pause();
+  }
+});
+
+socket.on('animationSound', function(data) {
+  console.log("sound");
+  $('#songGlitch').get(0).play();
+})
+
+
 
 socket.on('updateVideo', function(vTime) {
   //console.log("vTime " + vTime);
@@ -71,18 +90,18 @@ function clickable() {
 }
 
 // $('body').on('click touchstart', function() {
-$('body').on('click', function() {
-  if (canClick == true) {
-    console.log("click");
-    changeCollection();
-  } else if (canClick == false) {
-    negativeRemover();
-    $('.page-animation').css('display', 'block')
-
-  }
-
-// changeCollection();
-});
+// $('body').on('click', function() {
+//   if (canClick == true) {
+//     console.log("click");
+//     changeCollection();
+//   } else if (canClick == false) {
+//     negativeRemover();
+//     $('.page-animation').css('display', 'block')
+//
+//   }
+//
+// // changeCollection();
+// });
 
 var screenNb = 0;
 function changeCollection() {
@@ -293,91 +312,158 @@ function negativeRemover() {
 
 //-------------------big fade
 
-
 socket.on('animation', function(animationNb, play, stop) {
 
-  var colorH = 255 / (stop - play) / 10;
+  // var colorH = 255 / (stop - play) / 10;
 
   switch (animationNb) {
+
     case 1:
-      fadeWhite(colorH);
+      fadeWhite(play, stop, 255);
+      console.log("fadeWhite");
       break;
     case 2:
-      fadeBlack(colorH);
+      fadeBlack(play, stop, 255);
+      console.log("fadeBlack");
+
       break;
     case 3:
-      fadeWhite(colorH);
+      fadeWhite(play, stop, 255);
+      console.log("fadeWhite");
+
       break;
     case 4:
-      fadeBlack(colorH);
+      fadeBlack(play, stop, 255);
+      console.log("fadeBlack");
+
       break;
     case 5:
-      stayBlack(colorH);
+      stayBlack(play, stop);
+      console.log("stayBlack");
+
       break;
     case 6:
-      fadeWhite(colorH);
+      fadeWhite(play, stop, 255);
+      console.log("fadeWhite");
+
       break;
     case 7:
-      fadeBlack(colorH);
+      fadeBlack(play, stop, 255);
       break;
     case 8:
-      stayBlack(colorH);
+      stayBlack(play, stop);
       break;
     case 9:
-      fadeWhite(colorH);
+      fadeWhite(play, stop, 255);
       break;
     case 10:
-      stayWhite(colorH);
+      stayWhite(play, stop);
       break;
     case 11:
-      fadeBlack(colorH);
+      fadeBlack(play, stop, 255);
       break;
     case 12:
-      stayBlack(colorH);
+      stayBlack(play, stop);
       break;
-    case 13:
-      console.log("stay black");
 
-      stayBlack(colorH);
-      // fadeWhite(colorH);
+
+    case 13:
+      fadeWhite(play, stop, 40);
+      console.log("fade ?");
+
       break;
     case 14:
-      console.log("please white");
-      stayWhite(colorH);
-      // stayWhite(colorH);
+      fadeBlack(play, stop, 40);
+      console.log("fade ? ");
       break;
     case 15:
-      console.log("stay white");
-      stayWhite(colorH);
-      // stayWhite(colorH);
+      fadeWhite(play, stop, 60);
+      console.log("fade ? ");
+      break;
+    case 16:
+      fadeBlack(play, stop, 60);
+      console.log("fade ? ");
+      break;
+    case 17:
+      fadeWhite(play, stop, 80);
+      console.log("fade ? ");
+      break;
+    case 18:
+      fadeBlack(play, stop, 80);
+      console.log("fade ? ");
+      break;
+    case 19:
+      fadeWhite(play, stop, 100);
+      console.log("fade ? ");
+      break;
+    case 20:
+      fadeBlack(play, stop, 100);
+      console.log("fade ? ");
+      break;
+    case 21:
+      fadeWhite(play, stop, 120);
+      console.log("fade ? ");
+      break;
+    case 22:
+      fadeBlack(play, stop, 120);
+      console.log("fade ? ");
+      break;
+    case 23:
+      fadeWhite(play, stop, 140);
+      break;
+    case 24:
+      fadeBlack(play, stop, 140);
+      break;
+    case 25:
+      fadeWhite(play, stop, 160);
+      break;
+    case 26:
+      fadeBlack(play, stop, 160);
+      break;
+    case 27:
+      fadeWhite(play, stop, 180);
+      break;
+    case 28:
+      fadeBlack(play, stop, 180);
+      break;
+    case 29:
+      fadeWhite(play, stop, 200);
       break;
   }
-
 });
 
 var colorIndex = 0;
 var codeColor;
 
-function fadeWhite(colorH) {
+function fadeWhite(play, stop, baseColor) {
+  var colorH = baseColor / (stop - play) / 10;
+
   colorIndex += colorH;
-  if (colorIndex >= 255) {
-    colorIndex = 255;
+  if (colorIndex >= baseColor) {
+    colorIndex = baseColor;
   }
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-function stayWhite(colorH) {
+
+
+function stayWhite(play, stop) {
   colorIndex = 255;
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-function fadeBlack(colorH) {
-  colorIndex -= colorH;
 
-  if (colorIndex >= 255) {
-    colorIndex = 255;
+
+function fadeBlack(play, stop, baseColor) {
+  var colorHBlack = baseColor / (stop - play) / 10;
+  colorIndex -= colorHBlack;
+
+  if (colorIndex <= 0) {
+    colorIndex = 0;
   }
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
-function stayBlack(colorH) {
+
+
+function stayBlack(play, stop) {
   colorIndex = 0;
   $('.page-animation').css("background-color", "rgb(" + Math.round(colorIndex) + "," + Math.round(colorIndex) + "," + Math.round(colorIndex) + ")");
 }
@@ -513,8 +599,8 @@ socket.on('superAnimation', function(data) {
       break
     case 25:
       animationGlitch('.superAnimation1', 2, 0);
-      blink(".superAnimation1", false, true);
-      console.log("blinking?");
+      // blink(".superAnimation1", false, true);
+      // console.log("blinking?");
       break
     case 26:
       animationGlitch('.superAnimation1', 0, 2);
@@ -1314,8 +1400,9 @@ socket.on('animationWave', function(data) {
 
     }, 10)
   } else if (data.animationNbWave == 3) {
-    // console.log("2 ");
+
     clearInterval(downInt);
+
   } else if (data.animationNbWave == 4) {
 
     t2 = (stopWave - playWave);
@@ -1325,10 +1412,10 @@ socket.on('animationWave', function(data) {
     var randonColorWave;
     upInt = setInterval(function() {
       getDown += realSpeed2;
-      randonColorWave = getRandom(0, 255);
+      // randonColorWave = getRandom(0, 255);
       $('.page-wave')
         .css('top', getDown + '%')
-        .css("background-color", "rgb(" + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + ")")
+    // .css("background-color", "rgb(" + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + ")")
     }, 10)
 
   } else if (data.animationNbWave == 5) {

@@ -61,6 +61,7 @@ io.on('connection', function(socket) {
     console.log('new user');
     users.push(socket.id);
     console.log("ID user " + users);
+    console.log("users.length " + users.length);
 
     socket.emit('showNb', users.length);
 
@@ -81,51 +82,16 @@ io.on('connection', function(socket) {
 
   });
 
-  // socket.on('disconnect', function() {
-  //
-  //   var i = users.indexOf(socket);
-  //
-  //   console.log(users.indexOf(socket));
-  //
-  //
-  //   if (users.indexOf(socket) != -1) {
-  //
-  //     users.splice(i, 1);
-  //   }
-  //
-  //   for (var i = 0; i < idAdmin.length; i++) {
-  //
-  //     socket.to(idAdmin[i]).emit('nbUserChange', {
-  //       nbUser: users.length,
-  //       nbVid: nbVideoLoaded
-  //     });
-  //   }
-  // });
-
   socket.on('hideWelcome', function() {
 
     socket.broadcast.emit('hideWelcome');
-  // console.log("hey moit");
-  //
-  //
-  // for (var i = 0; i < users.length; i++) {
-  //   firstMoit.push(users[i]);
-  //   if (i <= users.length / 2) {
-  //     firstMoit.push(users[i]);
-  //   } else {
-  //     secondMoit.push(users[i])
-  //   }
-  // }
-  // console.log("users " + users.length);
-  // console.log("firstMoit " + firstMoit.length);
-  // console.log("secondMoit " + firstMoit.length);
   });
 
   socket.on('animation', function(data) {
     var animationNb = data.animationNb;
     var stop = data.stop;
     var play = data.play;
-    console.log("stop " + stop);
+    console.log("animation");
 
     animation(animationNb, play, stop);
 
@@ -227,33 +193,43 @@ io.on('connection', function(socket) {
     nbDeFoisReturnPetit = data.nbDeFoisReturnPetit;
     console.log("number " + nbDeFoisReturnPetit);
 
-    petit++;
-    last = users.length;
-
     if (nbDeFoisReturnPetit <= users.length) {
-      console.log("petit");
+      siPetit(nbDeFoisReturn, nbDeFoisReturnPetit);
+    } else {
+      siGrand(nbDeFoisReturn, nbDeFoisReturnPetit);
+    }
+
+    function siPetit(nbDeFoisReturn, nbDeFoisReturnPetit) {
+      console.log("petit " + petit);
+
+      petit++;
+      last = users.length;
+
       last -= petit;
+      console.log("last " + last);
       io.sockets.connected[users[last]].emit('animationReturn', data);
       if (petit == nbDeFoisReturnPetit) {
         console.log("finito petit");
         petit = 0;
       }
-    } else {
+    }
+
+    function siGrand(nbDeFoisReturn, nbDeFoisReturnPetit) {
       grand++;
       last = users.length;
       avance = (nbDeFoisReturnPetit - grand) + 1;
       calcule = nbDeFoisReturnPetit - minus;
-      console.log("avance " + avance);
-      console.log("nbDeFoisReturnPetit " + (nbDeFoisReturnPetit - 1));
+      // console.log("avance " + avance);
+      // console.log("nbDeFoisReturnPetit " + (nbDeFoisReturnPetit - 1));
       if (avance < nbDeFoisReturnPetit - calcule) {
         grandiose++;
         last = users.length;
         last -= grandiose;
-        console.log("grand position " + last);
+        // console.log("grand position " + last);
         io.sockets.connected[users[last]].emit('animationReturn', data);
       } else {
         last = users.length;
-        console.log("grand position (else) " + (last));
+        // console.log("grand position (else) " + (last));
 
         io.sockets.connected[users[last - 1]].emit('animationReturn', data);
       }
@@ -265,7 +241,7 @@ io.on('connection', function(socket) {
         petit = 0;
       }
     }
-    console.log("petit " + petit);
+
 
   });
 
@@ -293,6 +269,12 @@ io.on('connection', function(socket) {
 
   socket.on('animationClick', function(data) {
     socket.broadcast.emit('animationClick', data);
+    console.log("Click");
+  });
+  //----------------- Sound
+
+  socket.on('animationSound', function(data) {
+    socket.broadcast.emit('animationSound', data);
     console.log("Click");
   });
 
