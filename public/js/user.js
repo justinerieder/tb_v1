@@ -1382,41 +1382,95 @@ socket.on('animationWave', function(data) {
   playWave = data.playWave;
   stopWave = data.stopWave;
 
+  t1 = (stopWave - playWave);
+  var total = t1 * 1000; // du timeline de l'anim
+  var interval = 30;
+
   if (data.animationNbWave == 1) {
     $('.page-wave').fadeTo('fast', 1)
     $('.page-wave').css('opacity', '1');
   } else if (data.animationNbWave == 2) {
 
-    t1 = (stopWave - playWave);
-    maxSpeed1 = 100 / t1;
-    minSpeed1 = maxSpeed1 / 3;
+    getDown = getRandom(20, 100);
 
-    randomSpeed1 = getRandom(minSpeed1, maxSpeed1)
+    var currentTime = 0;
+    var frameCount = 0;
 
-    realSpeed1 = randomSpeed1 / 100;
-    downInt = setInterval(function() {
-      getDown -= realSpeed1;
-      $('.page-wave').css('top', getDown + '%')
+    var start = null;
 
-    }, 10)
+    var draw = function(timestamp) {
+      var progress;
+      if (start === null)
+        start = timestamp;
+      progress = timestamp - start;
+
+      //var deltaTime = e / 100;
+      var pct = progress / total;
+
+      var val = ease(pct);
+      var animValue = val * getDown;
+
+      $('.page-wave').css('top', -animValue + '%')
+
+      if (progress >= total) {
+        return;
+      }
+      requestAnimationFrame(draw);
+    };
+
+    requestAnimationFrame(draw);
+  // downInt = setInterval(function() {
+  //   currentTime += interval;
+  //   var pct = currentTime / total;
+  //   var val = ease(pct);
+  //   var animValue = val * getDown;
+  //
+  //   $('.page-wave').css('top', -animValue + '%')
+  //
+  // }, interval)
   } else if (data.animationNbWave == 3) {
 
-    clearInterval(downInt);
+    //clearInterval(downInt);
 
   } else if (data.animationNbWave == 4) {
+    var currentTime = 0;
+    var start = null;
 
-    t2 = (stopWave - playWave);
-    deltaT = t1 / t2;
-    realSpeed2 = realSpeed1 * deltaT;
+    var draw = function(timestamp) {
+      var progress;
+      if (start === null)
+        start = timestamp;
+      progress = timestamp - start;
 
-    var randonColorWave;
-    upInt = setInterval(function() {
-      getDown += realSpeed2;
-      // randonColorWave = getRandom(0, 255);
-      $('.page-wave')
-        .css('top', getDown + '%')
-    // .css("background-color", "rgb(" + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + "," + Math.round(randonColorWave) + ")")
-    }, 10)
+      //var deltaTime = e / 100;
+      var pct = progress / total;
+
+      var val = ease(1 - pct);
+      var animValue = val * getDown;
+
+      $('.page-wave').css('top', -animValue + '%')
+
+      if (progress >= total) {
+        return;
+      }
+      requestAnimationFrame(draw);
+    };
+
+    requestAnimationFrame(draw);
+
+
+
+
+    // upInt = setInterval(function() {
+    //   currentTime += interval;
+    //   var pct = currentTime / total;
+    //   var val = ease(1 - pct);
+    //
+    //   var animValue = val * getDown;
+    //
+    //   $('.page-wave').css('top', -animValue + '%')
+    //
+    // }, interval)
 
   } else if (data.animationNbWave == 5) {
     clearInterval(upInt)
@@ -1636,4 +1690,8 @@ Number.prototype.map = function(in_min, in_max, out_min, out_max) {
 }
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function ease(t) {
+  return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
 }
