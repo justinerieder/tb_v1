@@ -216,32 +216,56 @@ io.on('connection', function(socket) {
   var last;
   var returnCount = 0;
   var nbDeFoisReturn;
+  var petit = 0;
+  var grand = 0;
+  var grandiose = 0;
+  var avance = 0;
+  var minus = 7;
+  var calcule;
   socket.on('animationReturn', function(data) {
     nbDeFoisReturn = data.nbDeFoisReturn;
     nbDeFoisReturnPetit = data.nbDeFoisReturnPetit;
+    console.log("number " + nbDeFoisReturnPetit);
 
-    console.log('nbDeFoisReturnPetit ' + nbDeFoisReturnPetit);
-    console.log('nbDeFoisReturn ' + nbDeFoisReturn);
-    console.log('users.length ' + users.length);
+    petit++;
     last = users.length;
-    if (nbDeFoisReturnPetit < users.length) {
-      console.log("oui oui");
-      io.sockets.connected[users[nbDeFoisReturnPetit - 1]].emit('animationReturn', data);
-    } else if (nbDeFoisReturn > users.length) {
-      // console.log("hello trop long");
-      io.sockets.connected[users[last - 1]].emit('animationReturn', data);
-    } else {
-      returnCount++;
-      // console.log('returnCount ' + returnCount);
-      last -= returnCount;
-      console.log('last ' + last);
-      console.log('nbDeFoisReturn ' + nbDeFoisReturn);
-      io.sockets.connected[users[last]].emit('animationReturn', data);
-    }
-    if (last == 0) {
-      returnCount = 0
-    }
 
+    if (nbDeFoisReturnPetit <= users.length) {
+      console.log("petit");
+      last -= petit;
+      io.sockets.connected[users[last]].emit('animationReturn', data);
+      if (petit == nbDeFoisReturnPetit) {
+        console.log("finito petit");
+        petit = 0;
+      }
+    } else {
+      grand++;
+      last = users.length;
+      avance = (nbDeFoisReturnPetit - grand) + 1;
+      calcule = nbDeFoisReturnPetit - minus;
+      console.log("avance " + avance);
+      console.log("nbDeFoisReturnPetit " + (nbDeFoisReturnPetit - 1));
+      if (avance < nbDeFoisReturnPetit - calcule) {
+        grandiose++;
+        last = users.length;
+        last -= grandiose;
+        console.log("grand position " + last);
+        io.sockets.connected[users[last]].emit('animationReturn', data);
+      } else {
+        last = users.length;
+        console.log("grand position (else) " + (last));
+
+        io.sockets.connected[users[last - 1]].emit('animationReturn', data);
+      }
+      if (last == 0) {
+        console.log("finito");
+        last = users.length;
+        grand = 0;
+        grandiose = 0;
+        petit = 0;
+      }
+    }
+    console.log("petit " + petit);
 
   });
 
