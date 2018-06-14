@@ -141,9 +141,43 @@ io.on('connection', function(socket) {
   });
 
   //------------- tik
-
+  var impaire = false;
+  var tour = 0;
   socket.on('animationTik', function(data) {
-    socket.broadcast.emit('animationTik', data);
+    // socket.broadcast.emit('animationTik', data);
+
+
+    nbTik = data.animationNbTik;
+
+    if (nbTik > 51) {
+      console.log("pus que 60 !");
+      tour++;
+
+      if (tour <= 3) {
+        impaire = true;
+      } else if (tour >= 4) {
+        impaire = false;
+        if (tour == 6) {
+          tour = 0;
+        }
+      }
+
+      if (impaire == true) {
+        for (var i = 0; i < users.length; i++) {
+          if (i % 2 == 1) {
+            io.sockets.connected[users[i]].emit('animationTik', data);
+          }
+        }
+      } else if (impaire == false) {
+        for (var i = 0; i < users.length; i++) {
+          if (i % 2 == 0) {
+            io.sockets.connected[users[i]].emit('animationTik', data);
+          }
+        }
+      }
+    } else {
+      socket.broadcast.emit('animationTik', data);
+    }
   });
 
   //-------------- Balayage

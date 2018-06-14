@@ -18,12 +18,18 @@ $(document).ready(function() {
 
 var myGlitch;
 
+var sonGlitch;
+
 socket.on('showNb', function(userNb) {
   console.log(userNb);
   $('.displayNumber').html(userNb);
 
   myGlitch = userNb;
   $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
+  // $('#songGlitch').prop("volume", 0.0);
+
+
+
   $('#songGlitch').css('display', 'none')
 
 });
@@ -31,6 +37,10 @@ socket.on('showNb', function(userNb) {
 $('.ready').click(function() {
   console.log("click play " + myGlitch);
 
+  // sonGlitch = document.getElementById("songGlitch");
+  // sonGlitch.volume = 0.0;
+  //
+  // console.log(sonGlitch.volume);
 
   $('#songGlitch').get(0).play();
 
@@ -38,7 +48,7 @@ $('.ready').click(function() {
     console.log("1");
     $('#songGlitch').get(0).pause();
   }
-  // $('.ready').fadeTo('fast', 0);
+  $('.ready').fadeTo('fast', 0);
 
   $(this).fadeTo('fast', 0, function() {
     $(this).remove();
@@ -673,24 +683,24 @@ socket.on('superAnimation', function(data) {
       break
     case 32:
       goodMarg(true, ".superAnimation1");
-      //goblink = true;
-      //blink(".superAnimation1", true, false);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 33:
       kate();
       break
     case 34:
       goodMarg(true, ".superAnimation1");
-      //goblink = true;
-      //blink(".superAnimation1", true, false);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 35:
       kate();
       break
     case 36:
       goodMarg(true, ".superAnimation1");
-      //goblink = true;
-      //blink(".superAnimation1", true, false);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 37:
       kate();
@@ -1058,7 +1068,7 @@ function animationGlitch(who, dirTop, dirLeft) {
 
   if (dirTop > 0) {
     w = 100;
-    h = 4;
+    h = 6;
 
     otop = -20;
     left = 0;
@@ -1548,69 +1558,117 @@ socket.on('animationWave', function(data) {
 socket.on('animationBoom', function(data) {
   switch (data.animationNbBoom) {
     case 1:
-      boom('.page-boom')
+
+      boom('.page-boom', 100, 7)
       break;
     case 2:
-      boom('.page-boom')
+
+      boom('.page-boom', 100, 7)
       break;
     case 3:
-      boom('.page-boom')
+
+      boom('.page-boom', 100, 7)
+
+      boom('.page-boom', 12, 100)
       break;
     case 4:
-      boom('.page-boom')
+      boom('.page-boom', 100, 7)
       break;
     case 5:
-      boom('.page-boom')
+
+      boom('.page-boom', 12, 100)
       break;
     case 6:
-      boom('.page-boom')
+
+      boom('.page-boom', 12, 100)
       break;
     case 7:
-      boom('.page-boom')
+      boom('.page-boom', 100, 7)
+
       break;
     case 8:
-      boom('.page-boom')
+      boom('.page-boom', 100, 7)
       break;
     case 9:
-      boom('.page-boom')
+      boom('.page-boom', 100, 7)
     case 10:
-      boom('.page-boom')
+
+      boom('.page-boom', 12, 100)
       break;
     case 11:
-      boom('.page-boom')
+      boom('.page-boom', 100, 7)
       break;
     case 12:
-      boom('.page-boom')
+
+      boom('.page-boom', 12, 100)
       break;
     /**/
     case 13:
-      boom('.page-boom')
+      boom('.page-boom', 100, 7)
+
       break;
     case 14:
-      boom('.page-boom')
+      boom('.page-boom', 100, 7)
       break;
   }
 });
 
 
-function boom(who) {
-  var randomSizeWBoom = getRandom(80, 20)
-  var randomSizeHBoom = getRandom(80, 20)
-  console.log("boom");
-  // var wBoom = 60;
-  // var hBoom = 40;
-  var calcTopBoom = (100 - randomSizeHBoom) / 2
-  var calcLeftBoom = (100 - randomSizeWBoom) / 2
+function boom(who, h, w) {
+  var randomLeft = 0;
+  var randomTop = 0;
+
+  if (h == 100) {
+    randomLeft = getRandom(10, 80);
+    randomTop = 0;
+  // var intBoom = setInterval(function() {
+  //   randomLeft++;
+  // }, 10);
+  }
+  if (w == 100) {
+    randomTop = getRandom(10, 80);
+    randomLeft = 0;
+  }
+
+
+
+
+
 
   $(who)
     .css('display', 'block')
-    .css('width', randomSizeWBoom + '%')
-    .css('height', randomSizeHBoom + '%')
-    .css('top', calcTopBoom + '%')
-    .css('left', calcLeftBoom + '%')
-  $(who).fadeTo(300, 1, function() {
-    $(who).fadeTo(600, 0)
+    .css('width', w + '%')
+    .css('height', h + '%')
+    .css('left', randomLeft + '%')
+    .css('top', randomTop + '%')
+
+
+  $(who).fadeTo(200, 1, function() {
+
+    $(this).fadeTo(400, 0, function() {
+      // clearInterval(intBoom);
+    })
   })
+
+
+
+// var randomSizeWBoom = getRandom(80, 20)
+// var randomSizeHBoom = getRandom(80, 20)
+// console.log("boom");
+// // var wBoom = 60;
+// // var hBoom = 40;
+// var calcTopBoom = (100 - randomSizeHBoom) / 2
+// var calcLeftBoom = (100 - randomSizeWBoom) / 2
+//
+// $(who)
+//   .css('display', 'block')
+//   .css('width', randomSizeWBoom + '%')
+//   .css('height', randomSizeHBoom + '%')
+//   .css('top', calcTopBoom + '%')
+//   .css('left', calcLeftBoom + '%')
+// $(who).fadeTo(300, 1, function() {
+//   $(who).fadeTo(600, 0)
+// })
 }
 //
 // function boomInOut(who, opacityIn, opactiyOut) {

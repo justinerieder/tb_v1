@@ -266,9 +266,15 @@ function timeManagerPulse(aTimePulse) {
   }
 }
 
-var actionTimeTik = [66.21, 66.36, 66.51, 67.46, 67.61, 67.76, 68.71, 68.86, 69.01, 69.96, 70.11, 70.26, 71.21, 71.36, 71.51, 72.46, 72.61, 72.76, 73.71,
-  73.86, 74.01, 74.96, 75.11, 75.26, 76.21, 76.36, 76.51, 77.46, 77.61, 77.76, 78.71, 78.86, 79.01, 79.96, 80.11, 80.26, 81.21, 81.36, 81.51,
-  82.46, 82.61, 82.76, 83.71, 83.86, 84.01, 84.96, 85.11, 85.26, 86.21, 86.36, 86.51, 87.46, 87.61, 87.76,
+//----------------- tik
+var actionTimeTik = [
+  66.21, 66.36, 66.51, 67.46, 67.61, 67.76, 68.71, 68.86, 69.01, 69.96,
+  70.11, 70.26, 71.21, 71.36, 71.51, 72.46, 72.61, 72.76, 73.71, 73.86,
+  74.01, 74.96, 75.11, 75.26, 76.21, 76.36, 76.51, 77.46, 77.61, 77.76,
+  78.71, 78.86, 79.01, 79.96, 80.11, 80.26, 81.21, 81.36, 81.51, 82.46,
+  82.61, 82.76, 83.71, 83.86, 84.01, 84.96, 85.11, 85.26, 86.21,
+
+  /*changé ? 51---*/ 86.36, 86.51, 87.46, 87.61, 87.76,
   88.58, 88.73, 88.88,
   89.77, 89.91, 90.05,
   90.96, 91.10, 91.25,
@@ -293,16 +299,41 @@ function timeManagerTik(aTimeTik) {
 //------------ Balayage
 
 
+// var actionTimeBalBefore = [
+//   94.81, 95.79,
+//   97.18, 98.15,
+//   99.57, 100.52,
+//   101.94, 102.90,
+//   104.33, 105.28,
+//   /*6*/ 106.69, 107.66,
+//   107.69, 109.06,
+//   109.07, 110.08,
+//   110.10, 111.13,
+//   111.15, 112.40,
+//   112.45, 153.81
+// ]
+// var actionTimeBal = [];
+// for (var i = 0; i < actionTimeBalBefore.length; i++) {
+//   var newTime = actionTimeBalBefore[i] - 94;
+//   // parseFloat(newTime).toFixed(2);
+//   actionTimeBal.push(newTime)
+// }
+// console.log(actionTimeBal);
+
 var actionTimeBal = [
   94.81, 95.79,
   97.18, 98.15,
   99.57, 100.52,
   101.94, 102.90,
   104.33, 105.28,
-  106.69, 107.66,
-  109.07, 110.02,
-  111.45, 112.40
+  /*6*/ 106.69, 107.66,
+  107.69, 109.06,
+  109.07, 110.08,
+  110.10, 111.13,
+  111.15, 112.43,
+  112.45, 113.78
 ]
+
 var eventNbBal = 0;
 var nextTimeBal = actionTimeBal[eventNbBal];
 
@@ -322,15 +353,6 @@ function timeManagerBal(balTime) {
 // ------------------- return
 
 
-// /*45*/ 96.13, 96.30, /*stop*/ 96.45,
-// /*48*/ 98.54, 98.67, 98.82, 98.97, /*stop*/ 99.12,
-// /*53*/ 100.91, 101.05, 101.19, 101.34, 101.49, /*stop*/ 101.65,
-// /*59*/ 103.29, 103.42, 103.57, 103.70, /*stop*/ 103.85,
-// /*64*/ 105.80, 105.94, 106.09, 106.24, 106.39, 106.53, /*stop*/ 106.68,
-// /*71*/ 107.73, 107.87, 108.01, 108.16, 108.32, 108.47, 108.61, 108.76, 108.92, /*stop*/ 109.07,
-// /*81*/ 110.10, 110.25, 110.39, 110.54, 110.69, 110.84, 110.99, 111.13, /*stop*/ 111.30,
-// /*90*/ 112.48, 112.63, 112.79, 112.92, 113.06, 112.22, /*stop*/ 112.37,
-
 var actionTimeReturn = [
 // 1, 1.5,
 // 2, 2.5, 3, 3.5,
@@ -346,9 +368,9 @@ var actionTimeReturn = [
 /*53*/ 100.91, 101.05, 101.19, 101.34, 101.49,
 /*59*/ 103.29, 103.42, 103.57, 103.70,
 /*64*/ 105.80, 105.94, 106.09, 106.24, 106.39, 106.53,
-/*71*/ 107.73, 107.87, 108.01, 108.16, 108.32, 108.47, 108.61, 108.76, 108.92,
-/*81*/ 110.10, 110.25, 110.39, 110.54, 110.69, 110.84, 110.99, 111.13,
-/*90*/ 112.48, 112.63, 112.79, 112.92, 113.06, 112.22,
+// /*71*/ 107.73, 107.87, 108.01, 108.16, 108.32, 108.47, 108.61, 108.76, 108.92,
+// /*81*/ 110.10, 110.25, 110.39, 110.54, 110.69, 110.84, 110.99, 111.13,
+// /*90*/ 112.48, 112.63, 112.79, 112.92, 113.06, 112.22,
 ];
 var nbDeFoisReturn = [
   2, 2,
@@ -356,9 +378,9 @@ var nbDeFoisReturn = [
   5, 5, 5, 5, 5,
   4, 4, 4, 4,
   6, 6, 6, 6, 6, 6,
-  9, 9, 9, 9, 9, 9, 9, 9, 9,
-  8, 8, 8, 8, 8, 8, 8, 8,
-  6, 6, 6, 6, 6, 6
+// 9, 9, 9, 9, 9, 9, 9, 9, 9,
+// 8, 8, 8, 8, 8, 8, 8, 8,
+// 6, 6, 6, 6, 6, 6
 ];
 var eventNbReturn = 0;
 var nextTimeReturn = actionTimeReturn[eventNbReturn];
@@ -406,9 +428,9 @@ function timeManagerWave(aTimeWave) {
 //------------- BOOM
 
 
-// var actionTimeBoom = [
-//   1, 2, 3, 4
-// ]
+var actionTimeBoom = [
+  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+]
 var actionTimeBoom = [
   146.37, 149.63, 150.08, 150.52, 153.04, 154.67, 154.98, 155.41, 155.71, 156.76,
   156.90, 158.24, 158.42, 159.28,
@@ -452,6 +474,7 @@ function timeManagerClick(aTimeClick) {
 }
 
 var actionTimeSound = [172.82];
+// var actionTimeSound = [2];
 var eventNbSound = 0;
 var nextTimeSound = actionTimeSound[eventNbSound];
 
@@ -495,16 +518,16 @@ function loopVideo() {
 
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
-  timeManagerClick(vTime);
-  timeManagerSound(vTime);
-  timeManager(vTime);
-  superTimeManager(vTime);
-  timeManagerPulse(vTime);
-  timeManagerTik(vTime);
-  timeManagerBal(vTime);
-  timeManagerReturn(vTime);
-  timeManagerRandom(vTime);
-  timeManagerWave(vTime);
+  // timeManagerClick(vTime);
+  // timeManagerSound(vTime);
+  // timeManager(vTime);
+  // superTimeManager(vTime);
+  // timeManagerPulse(vTime);
+  // timeManagerTik(vTime);
+  // timeManagerBal(vTime);
+  // timeManagerReturn(vTime);
+  // timeManagerRandom(vTime);
+  // timeManagerWave(vTime);
   timeManagerBoom(vTime);
 
   socket.emit('updateVideo', vTime);
