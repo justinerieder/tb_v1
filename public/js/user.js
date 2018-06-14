@@ -631,104 +631,104 @@ socket.on('superAnimation', function(data) {
       break
     case 25:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", false, true);
+      //goblink = true;
+      //blink(".superAnimation1", false, true);
       // console.log("blinking?");
       break
     case 26:
       animationGlitch('.superAnimation1', 0, 2);
-      goblink = true;
-      blink(".superAnimation1", false, true);
+      //goblink = true;
+      //blink(".superAnimation1", false, true);
 
       break
     case 27:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", false, true);
+      //goblink = true;
+      //blink(".superAnimation1", false, true);
 
       break
     case 28:
       animationGlitch('.superAnimation1', 0, 2);
-      goblink = true;
-      blink(".superAnimation1", false, true);
+      //goblink = true;
+      //blink(".superAnimation1", false, true);
 
       break
     case 29:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", false, true);
+      //goblink = true;
+      //blink(".superAnimation1", false, true);
 
       break
     case 30:
       animationGlitch('.superAnimation1', 0, 2);
-      goblink = true;
-      blink(".superAnimation1", false, true);
+      //goblink = true;
+      //blink(".superAnimation1", false, true);
 
       break
     case 31:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", false, true);
+      //goblink = true;
+      //blink(".superAnimation1", false, true);
 
       break
     case 32:
       goodMarg(true, ".superAnimation1");
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 33:
       kate();
       break
     case 34:
       goodMarg(true, ".superAnimation1");
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 35:
       kate();
       break
     case 36:
       goodMarg(true, ".superAnimation1");
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 37:
       kate();
       break
     case 38:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 39:
       animationGlitch('.superAnimation1', 0, 2);
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 40:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 41:
       animationGlitch('.superAnimation1', 0, 2);
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 42:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 43:
       animationGlitch('.superAnimation1', 2, 0);
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
     case 44:
       animationGlitch('.superAnimation1', 0, 2);
-      goblink = true;
-      blink(".superAnimation1", true, false);
+      //goblink = true;
+      //blink(".superAnimation1", true, false);
       break
 
     case 45:
