@@ -63,7 +63,42 @@ var actionTime = [
   149.18,
   149.53,
   150.36,
-  150.74
+  150.74, /*le dernier !*/
+  151.50, /*30*/
+  151.89,
+  152.92,
+  153.16,
+  154.00,
+  154.24,
+  155.08,
+  155.50,
+  156.24,
+  156.63,
+  157.50, /*40*/
+  157.81,
+  158.73,
+  159.00,
+  159.88,
+  160.18,
+  161.01,
+  161.42,
+  162.36,
+  162.58,
+  163.52, /*50*/
+  163.76,
+  164.67,
+  164.96,
+  165.87,
+  166.15,
+  167.00,
+  167.33,
+  168.16,
+  168.52,
+  169.49, /*60*/
+  169.71,
+  170.79,
+  /*le dernier plus 34*/ 170.94
+
 ];
 var eventNb = 0;
 var nextTime = actionTime[eventNb];
@@ -394,30 +429,11 @@ function timeManagerBoom(aTimeBoom) {
     nextTimeBoom = actionTimeBoom[eventNbBoom]
   }
 }
-var actionTimeBreath = [141.57, 142.69, 143.65, 144.90,
-  146.05, 147.42, 148.53, 149.63, 150.93, 152.19, 153.42, 154.33, 155.73, 156.70, 158.14,
-  159.03, 160.24, 161.47, 162.65, 163.80, 164.96, 166.16, 167.32, 168.54, 169.72];
-
-var eventNbBreath = 0;
-var nextTimeBreath = actionTimeBreath[eventNbBreath];
-
-function timeManagerBreath(aTimeBreath) {
-  if (aTimeBreath >= nextTimeBreath) {
-    // console.log(eventNb + 1);
-    socket.emit('animationBreath', {
-      animationNbBreath: (eventNbBreath + 1),
-      playBreath: actionTimeBreath[eventNbBreath],
-      stopBreath: actionTimeBreath[eventNbBreath + 1]
-    });
-    eventNbBreath++;
-    nextTimeBreath = actionTimeBreath[eventNbBreath]
-  }
-}
 
 
 //-------------- click envent
 
-// var actionTimeClick = [0, 5, 10, 15];
+// var actionTimeClick = [0, 4 /*5, 10, 15*/ ];
 var actionTimeClick = [30, 85, 140, 169];
 var eventNbClick = 0;
 var nextTimeClick = actionTimeClick[eventNbClick];
@@ -465,7 +481,7 @@ function launchVideo() {
   loopVideo();
 }
 function go() {
-  $('#song').get(0).currentTime = 70;
+  $('#song').get(0).currentTime = 145;
 
   $('#song').get(0).play();
 
@@ -490,7 +506,6 @@ function loopVideo() {
   timeManagerRandom(vTime);
   timeManagerWave(vTime);
   timeManagerBoom(vTime);
-  timeManagerBreath(vTime);
 
   socket.emit('updateVideo', vTime);
 

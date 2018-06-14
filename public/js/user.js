@@ -24,7 +24,7 @@ socket.on('showNb', function(userNb) {
 
   myGlitch = userNb;
   $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
-
+  $('#songGlitch').css('display', 'none')
 
 });
 
@@ -38,6 +38,11 @@ $('.ready').click(function() {
     console.log("1");
     $('#songGlitch').get(0).pause();
   }
+  // $('.ready').fadeTo('fast', 0);
+
+  $(this).fadeTo('fast', 0, function() {
+    $(this).remove();
+  });
 });
 
 socket.on('animationSound', function(data) {
@@ -57,25 +62,22 @@ socket.on('animationClick', function(data) {
   switch (data.animationNbClick) {
     case 1:
       canClick = true;
+      console.log("click true");
+      clickable();
+
       break;
     case 2:
       canClick = false;
-
       $('.page-animation').fadeTo("slow", 0, function() {
         negativeRemover();
         $('.page-animation')
           .css('display', 'block')
           .fadeTo("slow", 1)
       });
-      //
-      // $('.page-animation').fadeTo('fast', 0)
-      //
-      // negativeRemover();
-      // $('.page-animation').css('display', 'block')
-      // $('.page-animation').fadeTo('fast', 1)
       break;
     case 3:
       canClick = true;
+      clickable();
       break;
     case 4:
       canClick = false;
@@ -84,51 +86,63 @@ socket.on('animationClick', function(data) {
       break;
   }
 });
-
 function clickable() {
-
+  var fontH = 150;
+  if (canClick == true) {
+    $('.speech')
+      .text('click')
+      .css('font-size', fontH + '%')
+    $('.speech').fadeTo(400, 1, function() {
+      $(this).fadeTo(400, 0, function() {
+        $('.speech').text('');
+      });
+    });
+  } else {
+    $('.speech').text('');
+  }
 }
 
 // $('body').on('click touchstart', function() {
-// $('body').on('click', function() {
-//   if (canClick == true) {
-//     console.log("click");
-//     changeCollection();
-//   } else if (canClick == false) {
-//     negativeRemover();
-//     $('.page-animation').css('display', 'block')
-//
-//   }
-//
-// // changeCollection();
-// });
+$('body').on('click', function() {
+  if (canClick == true) {
+    changeCollection();
+  } else if (canClick == false) {
+    negativeRemover();
+    $('.page-animation').css('display', 'block')
+  }
+// changeCollection();
+});
 
 var screenNb = 0;
 function changeCollection() {
   screenNb++;
   // console.log("nb " + screenNb);
-  if (screenNb > 12) {
+  if (screenNb > 8) {
     $('.test').removeClass('negative')
     screenNb = 0;
   }
   switch (screenNb) {
     case 0:
+      console.log('0');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       break
     case 1:
+      console.log('1');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       $('.top-right').addClass('negative')
       $('.top-left').addClass('negative')
       break
     case 2:
+      console.log('2');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       $('.bottom-right').addClass('negative')
       $('.bottom-left').addClass('negative')
       break
     case 3:
+      console.log('3');
       negativeRemover();
       $('.page-animation').css('display', 'block')
 
@@ -136,6 +150,7 @@ function changeCollection() {
       $('.bottom-left').addClass('negative')
       break
     case 4:
+      console.log('4');
       negativeRemover();
       $('.page-animation').css('display', 'block')
 
@@ -143,6 +158,7 @@ function changeCollection() {
       $('.bottom-right').addClass('negative')
       break
     case 5:
+      console.log('5');
       negativeRemover();
 
       $('.page-animation').css('display', 'block')
@@ -150,79 +166,14 @@ function changeCollection() {
       $('.bottom-right').addClass('negative')
       break
     case 6:
+      console.log('6');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       $('.top-left').addClass('negative')
       $('.bottom-left').addClass('negative')
       break
     case 7:
-      negativeRemover();
-      $('.top-right')
-        .css('display', 'block')
-        .css('width', '100%')
-        .css('height', '100%')
-        .css('left', '0px')
-        .addClass('negative')
-      $('.top-left')
-        .css('display', 'block')
-        .css('top', '25%')
-        .css('left', '25%')
-        .css('z-index', '2')
-      break
-    case 8:
-      negativeRemover();
-      $('.top-right')
-        .css('display', 'block')
-        .css('width', '100%')
-        .css('height', '100%')
-        .css('left', '0px')
-      $('.top-left')
-        .css('display', 'block')
-        .css('top', '25%')
-        .css('left', '25%')
-        .css('z-index', '2')
-        .addClass('negative')
-      break
-    case 9:
-      negativeRemover();
-      $('.top-right')
-        .css('display', 'block')
-        .css('width', '100%')
-        .css('height', '100%')
-        .css('left', '0px')
-      $('.top-left')
-        .css('display', 'block')
-        .css('top', '35%')
-        .css('left', '15%')
-        .css('z-index', '2')
-        .addClass('negative')
-      $('.bottom-left')
-        .css('display', 'block')
-        .css('top', '15%')
-        .css('left', '35%')
-        .css('z-index', '2')
-        .addClass('negative')
-      break
-    case 10:
-      negativeRemover();
-      $('.top-right')
-        .css('display', 'block')
-        .css('width', '100%')
-        .css('height', '100%')
-        .css('left', '0px')
-        .addClass('negative')
-      $('.top-left')
-        .css('display', 'block')
-        .css('top', '35%')
-        .css('left', '15%')
-        .css('z-index', '2')
-      $('.bottom-left')
-        .css('display', 'block')
-        .css('top', '15%')
-        .css('left', '35%')
-        .css('z-index', '2')
-      break
-    case 11:
+      console.log('7');
       negativeRemover();
       $('.top-right')
         .css('display', 'block')
@@ -243,7 +194,8 @@ function changeCollection() {
         .css('height', '33%')
         .css('z-index', '2')
       break
-    case 12:
+    case 8:
+      console.log('8');
       negativeRemover();
       $('.top-right')
         .css('display', 'block')
@@ -320,32 +272,21 @@ socket.on('animation', function(animationNb, play, stop) {
 
     case 1:
       fadeWhite(play, stop, 255);
-      console.log("fadeWhite");
       break;
     case 2:
       fadeBlack(play, stop, 255);
-      console.log("fadeBlack");
-
       break;
     case 3:
       fadeWhite(play, stop, 255);
-      console.log("fadeWhite");
-
       break;
     case 4:
       fadeBlack(play, stop, 255);
-      console.log("fadeBlack");
-
       break;
     case 5:
       stayBlack(play, stop);
-      console.log("stayBlack");
-
       break;
     case 6:
       fadeWhite(play, stop, 255);
-      console.log("fadeWhite");
-
       break;
     case 7:
       fadeBlack(play, stop, 255);
@@ -369,44 +310,33 @@ socket.on('animation', function(animationNb, play, stop) {
 
     case 13:
       fadeWhite(play, stop, 40);
-      console.log("fade ?");
-
       break;
     case 14:
       fadeBlack(play, stop, 40);
-      console.log("fade ? ");
       break;
     case 15:
       fadeWhite(play, stop, 60);
-      console.log("fade ? ");
       break;
     case 16:
       fadeBlack(play, stop, 60);
-      console.log("fade ? ");
       break;
     case 17:
       fadeWhite(play, stop, 80);
-      console.log("fade ? ");
       break;
     case 18:
       fadeBlack(play, stop, 80);
-      console.log("fade ? ");
       break;
     case 19:
       fadeWhite(play, stop, 100);
-      console.log("fade ? ");
       break;
     case 20:
       fadeBlack(play, stop, 100);
-      console.log("fade ? ");
       break;
     case 21:
       fadeWhite(play, stop, 120);
-      console.log("fade ? ");
       break;
     case 22:
       fadeBlack(play, stop, 120);
-      console.log("fade ? ");
       break;
     case 23:
       fadeWhite(play, stop, 140);
@@ -428,6 +358,108 @@ socket.on('animation', function(animationNb, play, stop) {
       break;
     case 29:
       fadeWhite(play, stop, 200);
+      break;
+    case 30:
+      fadeBlack(play, stop, 200);
+      break;
+    case 31:
+      fadeWhite(play, stop, 220);
+      break;
+    case 32:
+      fadeBlack(play, stop, 220);
+      break;
+    case 33:
+      fadeWhite(play, stop, 240);
+      break;
+    case 34:
+      fadeBlack(play, stop, 240);
+      break;
+    case 35:
+      fadeWhite(play, stop, 255);
+      break;
+    case 36:
+      fadeBlack(play, stop, 255);
+      break;
+    case 37:
+      fadeWhite(play, stop, 255);
+      break;
+    case 38:
+      fadeBlack(play, stop, 255);
+      break;
+    case 39:
+      fadeWhite(play, stop, 255);
+      break;
+    case 40:
+      fadeBlack(play, stop, 255);
+      break;
+    case 41:
+      fadeWhite(play, stop, 255);
+      break;
+    case 42:
+      fadeBlack(play, stop, 255);
+      break;
+    case 43:
+      fadeWhite(play, stop, 255);
+      break;
+    case 44:
+      fadeBlack(play, stop, 255);
+      break;
+    case 45:
+      fadeWhite(play, stop, 255);
+      break;
+    case 46:
+      fadeBlack(play, stop, 255);
+      break;
+    case 47:
+      fadeWhite(play, stop, 255);
+      break;
+    case 48:
+      fadeBlack(play, stop, 255);
+      break;
+    case 49:
+      fadeWhite(play, stop, 255);
+      break;
+    case 50:
+      fadeBlack(play, stop, 255);
+      break;
+    case 51:
+      fadeWhite(play, stop, 255);
+      break;
+    case 52:
+      fadeBlack(play, stop, 255);
+      break;
+    case 53:
+      fadeWhite(play, stop, 255);
+      break;
+    case 54:
+      fadeBlack(play, stop, 255);
+      break;
+    case 55:
+      fadeWhite(play, stop, 255);
+      break;
+    case 56:
+      fadeBlack(play, stop, 255);
+      break;
+    case 57:
+      fadeWhite(play, stop, 255);
+      break;
+    case 58:
+      fadeBlack(play, stop, 255);
+      break;
+    case 59:
+      fadeWhite(play, stop, 255);
+      break;
+    case 60:
+      fadeBlack(play, stop, 255);
+      break;
+    case 61:
+      fadeWhite(play, stop, 255);
+      break;
+    case 62:
+      fadeBlack(play, stop, 255);
+      break;
+    case 63:
+      fadeWhite(play, stop, 255);
       break;
   }
 });
@@ -599,36 +631,43 @@ socket.on('superAnimation', function(data) {
       break
     case 25:
       animationGlitch('.superAnimation1', 2, 0);
-      // blink(".superAnimation1", false, true);
+      goblink = true;
+      blink(".superAnimation1", false, true);
       // console.log("blinking?");
       break
     case 26:
       animationGlitch('.superAnimation1', 0, 2);
+      goblink = true;
       blink(".superAnimation1", false, true);
 
       break
     case 27:
       animationGlitch('.superAnimation1', 2, 0);
+      goblink = true;
       blink(".superAnimation1", false, true);
 
       break
     case 28:
       animationGlitch('.superAnimation1', 0, 2);
+      goblink = true;
       blink(".superAnimation1", false, true);
 
       break
     case 29:
       animationGlitch('.superAnimation1', 2, 0);
+      goblink = true;
       blink(".superAnimation1", false, true);
 
       break
     case 30:
       animationGlitch('.superAnimation1', 0, 2);
+      goblink = true;
       blink(".superAnimation1", false, true);
 
       break
     case 31:
       animationGlitch('.superAnimation1', 2, 0);
+      goblink = true;
       blink(".superAnimation1", false, true);
 
       break
@@ -658,24 +697,38 @@ socket.on('superAnimation', function(data) {
       break
     case 38:
       animationGlitch('.superAnimation1', 2, 0);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 39:
       animationGlitch('.superAnimation1', 0, 2);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 40:
       animationGlitch('.superAnimation1', 2, 0);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 41:
       animationGlitch('.superAnimation1', 0, 2);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 42:
       animationGlitch('.superAnimation1', 2, 0);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 43:
       animationGlitch('.superAnimation1', 2, 0);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
     case 44:
       animationGlitch('.superAnimation1', 0, 2);
+      goblink = true;
+      blink(".superAnimation1", true, false);
       break
 
     case 45:
@@ -939,6 +992,36 @@ socket.on('superAnimation', function(data) {
   }
 });
 
+// case 25:
+//   console.log("marche stp :) ");
+//   animationGlitch('.superAnimation1', 2, 0);
+//   blink(".superAnimation1", false, true);
+//   // console.log("blinking?");
+//   break
+
+function blink(who, blinkBorder, blinkBg) {
+
+  if (goblink == true) {
+    setTimeout(function() {
+      randomColor = getRandom(0, 255);
+
+      if (blinkBorder == true) {
+        $(who).css("border", "10px solid rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
+      } else if (blinkBorder == false) {
+        $(who).css("border", "10px solid rgb(255,255,255)")
+      }
+      if (blinkBg == true) {
+        // console.log("randomColor " + randomColor);
+        $(who).css('border', 'none')
+        $(who).css("background-color", "rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
+      } else if (blinkBg == false) {
+        $(who).css("background-color", "transparent")
+      }
+      blink(who, blinkBorder, blinkBg);
+    }, 1);
+  }
+}
+
 
 glitchAnimation = false;
 function goodMarg(border, who) {
@@ -1021,32 +1104,10 @@ function animationGlitch(who, dirTop, dirLeft) {
     .css('margin-top', '0px')
     .css('top', top + "%")
     .css('left', left + "%")
-
-
-
 }
 var randomColor;
 
-function blink(who, blinkBorder, blinkBg) {
 
-  if (goblink == true) {
-    setTimeout(function() {
-      randomColor = getRandom(0, 255);
-
-      if (blinkBorder == true) {
-        $(who).css("border", "10px solid rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
-      } else if (blinkBorder == false) {
-        $(who).css("border", "10px solid rgb(255,255,255)")
-      }
-      if (blinkBg == true) {
-        $(who).css("background-color", "rgb(" + Math.round(randomColor) + "," + Math.round(randomColor) + "," + Math.round(randomColor) + ")")
-      } else if (blinkBg == false) {
-        $(who).css("background-color", "transparent")
-      }
-      blink(who, blinkBorder, blinkBg);
-    }, 1);
-  }
-}
 function kate() {
   goblink = false;
   $('.superAnimation')
@@ -1566,97 +1627,52 @@ function boom(who) {
 //   $(who).fadeTo(100, opacity);
 // }
 
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-//-------------- playBreath
-var acc = 0.003;
-var opactiyBreath;
-var seuil;
-socket.on('animationBreath', function(data) {
-  console.log(data.animationNbBreath);
-  // console.log("breath");
-
-  // seuil = opactiyBreath + 0.10
-
-  Breath();
-});
-
-function Breath() {
-  opactiyBreath = acc += acc;
-
-  if (opactiyBreath <= 1.0) {
-    $('.page-breath')
-      .css('display', 'block')
-      .fadeTo(860, opactiyBreath + 0.10, function() {
-        $('.page-breath').fadeTo(260, 0);
-      });
-  } else if (opactiyBreath >= 1.0) {
-    opactiyBreath = 1;
-    $('.page-breath')
-      .css('display', 'block')
-      .fadeTo(860, opactiyBreath, function() {
-        $('.page-breath').fadeTo(260, 0);
-      });
-    console.log("else");
-  }
-  console.log('opactiyBreath ' + opactiyBreath);
-
-
-
-
-// if (opactiyBreath >= 1) {
-//   console.log("plus grand :)");
-//   // opactiyBreath = 0;
-//   $('.page-breath')
-//     .css('display', 'block')
-//     .fadeTo(860, 1, function() {
-//       $('.page-breath').fadeTo(260, 0)
-//     });
-// } else {
-//   $('.page-breath')
-//     .css('display', 'block')
-//     .fadeTo(860, opactiyBreath + 0.10, function() {
-//       $('.page-breath').fadeTo(260, 0);
-//     });
-// }
+if (IS_IOS) {
+  console.log("i am an ios device");
+  // document.documentElement.classList.add('ios');
+  $('body').css('cursor', 'pointer')
 }
 
 
 //-------------- full screen
 
 $('.fs-button').click(function() {
+  console.log("click fullscreen");
 
   toggleFullScreen(document.body);
 
-  $(this).css({
-    'background-color': 'yellow'
-  });
-
-  $(this).animate({
-    'opacity': '0'
-  }, 600, function() {
-
+  $(this).fadeTo('fast', 0, function() {
     $(this).remove();
   });
+
+// $(this).animate({
+//   'opacity': '0'
+// }, 600, function() {
+//
+//
+// });
 });
 
-(function($) {
-  var IS_IOS = /iphone|ipad/i.test(navigator.userAgent);
-  $.fn.nodoubletapzoom = function() {
-    if (IS_IOS)
-      $(this).bind('touchstart', function preventZoom(e) {
-        var t2 = e.timeStamp,
-          t1 = $(this).data('lastTouch') || t2,
-          dt = t2 - t1,
-          fingers = e.originalEvent.touches.length;
-        $(this).data('lastTouch', t2);
-        if (!dt || dt > 500 || fingers > 1) return; // not double-tap
-
-        e.preventDefault(); // double tap - prevent the zoom
-        // also synthesize click events we just swallowed up
-        $(this).trigger('click').trigger('click');
-      });
-  };
-})(jQuery);
+// (function($) {
+//   var IS_IOS = /iphone|ipad/i.test(navigator.userAgent);
+//   $.fn.nodoubletapzoom = function() {
+//     if (IS_IOS)
+//       $(this).bind('touchstart', function preventZoom(e) {
+//         var t2 = e.timeStamp,
+//           t1 = $(this).data('lastTouch') || t2,
+//           dt = t2 - t1,
+//           fingers = e.originalEvent.touches.length;
+//         $(this).data('lastTouch', t2);
+//         if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+//
+//         e.preventDefault(); // double tap - prevent the zoom
+//         // also synthesize click events we just swallowed up
+//         $(this).trigger('click').trigger('click');
+//       });
+//   };
+// })(jQuery);
 
 
 function toggleFullScreen(elem) {

@@ -258,12 +258,6 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('animationBoom', data);
   // console.log("boom");
   });
-  //----------------- Breath
-
-  socket.on('animationBreath', function(data) {
-    socket.broadcast.emit('animationBreath', data);
-  // console.log("Breath");
-  });
 
   //----------------- Click
 
