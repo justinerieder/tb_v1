@@ -479,16 +479,16 @@ function loopVideo() {
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
   timeManagerClick(vTime);
-  // timeManagerSound(vTime);
-  // timeManager(vTime);
-  // superTimeManager(vTime);
-  // timeManagerPulse(vTime);
-  // timeManagerTik(vTime);
-  // timeManagerBal(vTime);
-  // timeManagerReturn(vTime);
-  // timeManagerRandom(vTime);
-  // timeManagerWave(vTime);
-  // timeManagerBoom(vTime);
+  timeManagerSound(vTime);
+  timeManager(vTime);
+  superTimeManager(vTime);
+  timeManagerPulse(vTime);
+  timeManagerTik(vTime);
+  timeManagerBal(vTime);
+  timeManagerReturn(vTime);
+  timeManagerRandom(vTime);
+  timeManagerWave(vTime);
+  timeManagerBoom(vTime);
 
   socket.emit('updateVideo', vTime);
 
