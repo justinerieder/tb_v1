@@ -3,11 +3,13 @@ var socket = io.connect(ip);
 
 //update the interface to the current step
 
+var finalUsersLength;
 
-socket.on('hideWelcome', function() {
+socket.on('hideWelcome', function(unsersLength) {
   $('.page-welcome').css("display", "none");
   $('.page-animation').css("display", "block");
-  console.log("hideWelcome");
+  console.log("hideWelcome " + unsersLength);
+  finalUsersLength = unsersLength;
 });
 
 $(document).ready(function() {
@@ -20,16 +22,18 @@ var myGlitch;
 
 var sonGlitch;
 
+var myUserNb;
+
 socket.on('showNb', function(userNb) {
   console.log(userNb);
+
+  myUserNb = userNb;
+
   $('.displayNumber').html(userNb);
 
   myGlitch = userNb;
   $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
   // $('#songGlitch').prop("volume", 0.0);
-
-
-
   $('#songGlitch').css('display', 'none')
 
 });
@@ -37,10 +41,6 @@ socket.on('showNb', function(userNb) {
 $('.ready').click(function() {
   console.log("click play " + myGlitch);
 
-  // sonGlitch = document.getElementById("songGlitch");
-  // sonGlitch.volume = 0.0;
-  //
-  // console.log(sonGlitch.volume);
 
   $('#songGlitch').get(0).play();
 
@@ -68,7 +68,7 @@ socket.on('updateVideo', function(vTime) {
 
 canClick = false;
 
-socket.on('animationClick', function(data) {
+socket.on('animationClick', function(data, theMaster) {
   switch (data.animationNbClick) {
     case 1:
       canClick = true;
@@ -87,7 +87,9 @@ socket.on('animationClick', function(data) {
       break;
     case 3:
       canClick = true;
-      clickable();
+      console.log("theMaster " + theMaster);
+
+      clickableMaster(theMaster);
       break;
     case 4:
       canClick = false;
@@ -109,6 +111,17 @@ function clickable() {
     });
   } else {
     $('.speech').text('');
+  }
+}
+
+function clickableMaster(theMaster) {
+
+  if (theMaster == myUserNb) {
+    console.log('i am the master');
+    clickable();
+  // socket.emit('masterClick', {
+  //   masterNb: theMaster
+  // })
   }
 }
 
@@ -261,17 +274,6 @@ function negativeRemover() {
     .css('height', '50%')
     .css('z-index', '0')
 }
-//-------------------- TIBOR
-
-// socket.on('exec', function(animFunc, play, stop) {
-//
-//   console.log(animFunc.superAnimationNb);
-//   var f = eval(animFunc.superAnimationNb);
-//   f();
-//
-// });
-
-
 //-------------------big fade
 
 socket.on('animation', function(animationNb, play, stop) {
@@ -1231,19 +1233,19 @@ function superAnimation4(number) {
 
 ///-------------- annimation random
 var currentNb = 100;
+var nbUsersRandom;
 
 socket.on('animationRandom', function(data) {
-  // ---------goBalayage = true;
-  randomLightUp();
-
-
+  if (data.nbUsers == myUserNb) {
+    randomLightUp();
+  }
 });
 
-var count = 0;
+// var countrandomLightUp = 0;
 
 function randomLightUp() {
-  count++;
-  console.log('count ' + count);
+  // countrandomLightUp++;
+  // console.log('coucountrandomLightUpnt ' + countrandomLightUp);
   var color = 0;
   var who = '.randomLight'
 
@@ -1378,22 +1380,12 @@ function tiktik(sizeW, sizeH, borderSize) {
 var goBalayage = false;
 var balReset = 0;
 
-socket.on('animationBal', function(data) {
-  console.log("data " + data.animationNbBal);
+socket.on('animationBal', function(data, count) {
+  // console.log("data " + data.animationNbBal);
+  console.log('count ' + count);
 
-  balReset++;
-
-  if (balReset > 2) {
-    balReset = 1;
-  }
-
-  switch (balReset) {
-    case 1:
-      randomLightUp();
-      break
-    case 2:
-      $('.randomLight').css('display', 'none')
-      break
+  if (count == myUserNb) {
+    randomLightUp();
   }
 
 });
@@ -1421,9 +1413,19 @@ function lightUp() {
 }
 
 // ---------------- animation return
-socket.on('animationReturn', function(data) {
-  console.log("return");
-  randomLightUp()
+socket.on('animationReturn', function(data, last) {
+  console.log("return " + last);
+
+  if (last <= 0) {
+    last = 1;
+  }
+
+  if (last == myUserNb) {
+    randomLightUp()
+
+  }
+
+
 });
 
 //-------------- animation Wave
@@ -1490,15 +1492,7 @@ socket.on('animationWave', function(data) {
     };
 
     requestAnimationFrame(draw);
-  // downInt = setInterval(function() {
-  //   currentTime += interval;
-  //   var pct = currentTime / total;
-  //   var val = ease(pct);
-  //   var animValue = val * getDown;
-  //
-  //   $('.page-wave').css('top', -animValue + '%')
-  //
-  // }, interval)
+
   } else if (data.animationNbWave == 3) {
 
     //clearInterval(downInt);
@@ -1630,11 +1624,6 @@ function boom(who, h, w) {
     randomLeft = 0;
   }
 
-
-
-
-
-
   $(who)
     .css('display', 'block')
     .css('width', w + '%')
@@ -1649,41 +1638,7 @@ function boom(who, h, w) {
       // clearInterval(intBoom);
     })
   })
-
-
-
-// var randomSizeWBoom = getRandom(80, 20)
-// var randomSizeHBoom = getRandom(80, 20)
-// console.log("boom");
-// // var wBoom = 60;
-// // var hBoom = 40;
-// var calcTopBoom = (100 - randomSizeHBoom) / 2
-// var calcLeftBoom = (100 - randomSizeWBoom) / 2
-//
-// $(who)
-//   .css('display', 'block')
-//   .css('width', randomSizeWBoom + '%')
-//   .css('height', randomSizeHBoom + '%')
-//   .css('top', calcTopBoom + '%')
-//   .css('left', calcLeftBoom + '%')
-// $(who).fadeTo(300, 1, function() {
-//   $(who).fadeTo(600, 0)
-// })
 }
-//
-// function boomInOut(who, opacityIn, opactiyOut) {
-//   $(who).fadeTo(100, opacityIn, function() {
-//     $(who).fadeTo(100, opactiyOut)
-//   });
-//
-// }
-// function boomIn(who, opacity) {
-//   $(who).fadeTo(100, opacity);
-//
-// }
-// function boomOut(who, opacity) {
-//   $(who).fadeTo(100, opacity);
-// }
 
 const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 

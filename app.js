@@ -30,11 +30,6 @@ app.get('/', function(req, res) {
   .use(function(req, res, next) {});
 
 
-/**
- * STEP:
- * 0 -> welcome
- * 1 -> LIVE
- */
 
 var idDisplay;
 var idAdmin = [];
@@ -52,6 +47,7 @@ io.on('connection', function(socket) {
 
   socket.on('resetUser', function() {
     users = [];
+    console.log("connection");
     console.log("ID user " + users);
   });
 
@@ -60,8 +56,9 @@ io.on('connection', function(socket) {
 
     console.log('new user');
     users.push(socket.id);
-    console.log("ID user " + users);
+    // console.log("ID user " + users);
     console.log("users.length " + users.length);
+
 
     socket.emit('showNb', users.length);
 
@@ -83,8 +80,10 @@ io.on('connection', function(socket) {
   });
 
   socket.on('hideWelcome', function() {
+    var unsersLength = users.length;
 
-    socket.broadcast.emit('hideWelcome');
+
+    socket.broadcast.emit('hideWelcome', unsersLength);
   });
 
   socket.on('animation', function(data) {
@@ -122,16 +121,14 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('superAnimation', data);
   });
 
-  socket.on('exec', function(data) {
-    socket.broadcast.emit('exec', data);
-  });
+
+  // ------------ random
 
   socket.on('animationRandom', function(data) {
-    //  socket.broadcast.emit('animationRandom', data);
 
-    var randomUser = getRandom(0, (users.length - 1));
-    console.log("random user " + randomUser + " " + (users.length - 1));
-    io.sockets.connected[users[randomUser]].emit('animationRandom', data);
+    data.nbUsers = getRandom(1, users.length)
+    console.log('data.nbUsers ' + data.nbUsers);
+    socket.broadcast.emit('animationRandom', data);
   });
 
   //------------- Pulse
@@ -149,65 +146,77 @@ io.on('connection', function(socket) {
 
     nbTik = data.animationNbTik;
 
-    if (nbTik > 51) {
-      console.log("pus que 60 !");
-      tour++;
-
-      if (tour <= 3) {
-        impaire = true;
-      } else if (tour >= 4) {
-        impaire = false;
-        if (tour == 6) {
-          tour = 0;
-        }
-      }
-
-      if (impaire == true) {
-        for (var i = 0; i < users.length; i++) {
-          if (i % 2 == 1) {
-            io.sockets.connected[users[i]].emit('animationTik', data);
-          }
-        }
-      } else if (impaire == false) {
-        for (var i = 0; i < users.length; i++) {
-          if (i % 2 == 0) {
-            io.sockets.connected[users[i]].emit('animationTik', data);
-          }
-        }
-      }
-    } else {
-      socket.broadcast.emit('animationTik', data);
-    }
+    // if (nbTik > 51) {
+    //   // console.log("pus que 60 !");
+    //   tour++;
+    //
+    //   if (tour <= 3) {
+    //     impaire = true;
+    //   } else if (tour >= 4) {
+    //     impaire = false;
+    //     if (tour == 6) {
+    //       tour = 0;
+    //     }
+    //   }
+    //
+    //   if (impaire == true) {
+    //     for (var i = 0; i < users.length; i++) {
+    //       if (i % 2 == 1) {
+    //         socket.broadcast.emit('animationTik', data);
+    //
+    //       // io.sockets.connected[users[i]].emit('animationTik', data);
+    //       }
+    //     }
+    //   } else if (impaire == false) {
+    //     for (var i = 0; i < users.length; i++) {
+    //       if (i % 2 == 0) {
+    //         socket.broadcast.emit('animationTik', data);
+    //
+    //       // io.sockets.connected[users[i]].emit('animationTik', data);
+    //       }
+    //     }
+    //   }
+    // } else {
+    socket.broadcast.emit('animationTik', data);
+  // }
   });
 
   //-------------- Balayage
 
   socket.on('animationBal', function(data) {
-    //console.log("animationBal " + data.playBal);
+
     var count = 0;
     var playBal = data.playBal;
     var stopBal = data.stopBal;
 
     var balTime = stopBal - playBal;
-    console.log("time " + balTime);
+    var timePerUser = (balTime / users.length) - 0.02;
 
-    var timePerUser = balTime / users.length;
-    console.log("timeParUsers " + timePerUser);
+    if (data.animationNbBal > 13) {
+      if (data.animationNbBal % 2 == 0) {
+      } else {
+        console.log('plus grand que 13');
 
-    io.sockets.connected[users[0]].emit('animationBal', data);
-    balayage();
-
-
+        balayage();
+      }
+    } else {
+      if (data.animationNbBal % 2 == 0) {
+      } else {
+        balayage();
+      }
+    }
     function balayage() {
       var intBal = setInterval(function() {
-        if (count >= users.length - 1) {
+        if (count >= users.length /* - 1*/ ) {
           count = 0;
           clearInterval(intBal);
         } else {
           count++;
         }
-        io.sockets.connected[users[count]].emit('animationBal', data);
+        socket.broadcast.emit('animationBal', data, count);
+      // io.sockets.connected[users[count]].emit('animationBal', data);
       }, timePerUser * 1000);
+
     }
   // socket.broadcast.emit('animationBal', data);
   });
@@ -225,7 +234,7 @@ io.on('connection', function(socket) {
   socket.on('animationReturn', function(data) {
     nbDeFoisReturn = data.nbDeFoisReturn;
     nbDeFoisReturnPetit = data.nbDeFoisReturnPetit;
-    console.log("number " + nbDeFoisReturnPetit);
+    // console.log("number " + nbDeFoisReturnPetit);
 
     if (nbDeFoisReturnPetit <= users.length) {
       siPetit(nbDeFoisReturn, nbDeFoisReturnPetit);
@@ -234,14 +243,15 @@ io.on('connection', function(socket) {
     }
 
     function siPetit(nbDeFoisReturn, nbDeFoisReturnPetit) {
-      console.log("petit " + petit);
+      // console.log("petit " + petit);
 
       petit++;
       last = users.length;
 
       last -= petit;
       console.log("last " + last);
-      io.sockets.connected[users[last]].emit('animationReturn', data);
+      socket.broadcast.emit('animationReturn', data, last);
+      // io.sockets.connected[users[last]].emit('animationReturn', data);
       if (petit == nbDeFoisReturnPetit) {
         console.log("finito petit");
         petit = 0;
@@ -259,13 +269,17 @@ io.on('connection', function(socket) {
         grandiose++;
         last = users.length;
         last -= grandiose;
+        console.log("last grand " + last);
         // console.log("grand position " + last);
-        io.sockets.connected[users[last]].emit('animationReturn', data);
+        socket.broadcast.emit('animationReturn', data, last);
+
+      // io.sockets.connected[users[last]].emit('animationReturn', data);
       } else {
         last = users.length;
         // console.log("grand position (else) " + (last));
+        socket.broadcast.emit('animationReturn', data, last);
 
-        io.sockets.connected[users[last - 1]].emit('animationReturn', data);
+      // io.sockets.connected[users[last - 1]].emit('animationReturn', data);
       }
       if (last == 0) {
         console.log("finito");
@@ -296,7 +310,19 @@ io.on('connection', function(socket) {
   //----------------- Click
 
   socket.on('animationClick', function(data) {
-    socket.broadcast.emit('animationClick', data);
+
+    if (data.animationNbClick == 3) {
+      var theMaster = getRandom(1, users.length)
+    }
+    socket.broadcast.emit('animationClick', data, theMaster);
+    console.log("Click");
+  });
+
+  //----------------- Click Master
+
+  socket.on('masterClick', function(data) {
+    console.log('master ' + data.masterNb);
+    // socket.broadcast.emit('animationClick', data);
     console.log("Click");
   });
   //----------------- Sound

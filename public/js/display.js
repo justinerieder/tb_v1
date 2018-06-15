@@ -180,43 +180,6 @@ function superTimeManager(bTime) {
 }
 
 
-
-
-//_________ TIBOR
-
-// var animFuncs = {
-//   5.5: "tiktik1",
-//   7.5: "tiktik1"
-// };
-//
-// const superActionTime = Object.keys(driversCounter)
-//
-// var superEventNb = 0;
-// var superNextTime = superActionTime[superEventNb];
-//
-//
-// function superTimeManager(bTime) {
-//   if (bTime >= superNextTime) {
-//     console.log(superEventNb + 1);
-//     // socket.emit('superAnimation', {
-//     //   superAnimationNb: (superEventNb + 1),
-//     //   superPlay: superActionTime[superEventNb],
-//     //   superStop: superActionTime[superEventNb + 1]
-//     // });
-//     console.log(animFuncs.bTime);
-//     var s = animFuncs[superEventNb + 1]
-//     socket.emit('exec', {
-//       superAnimationNb: animFuncs[superEventNb + 1],
-//       superPlay: superActionTime[superEventNb],
-//       superStop: superActionTime[superEventNb + 1]
-//     })
-//     superEventNb++;
-//     superNextTime = superActionTime[superEventNb]
-//   }
-// }
-
-
-
 var actionTimeRandom = [70.47, 70.63, 70.92, 71.08, 71.24, 71.39,
   75.49, 75.64, 75.80, 75.96, 76.12, 76.27, 76.42,
   80.45, 80.60, 80.76, 80.91, 81.06, 81.21, 81.37,
@@ -224,7 +187,7 @@ var actionTimeRandom = [70.47, 70.63, 70.92, 71.08, 71.24, 71.39,
   /**/
   85.30, 87.41, 87.54, 89.18, 89.34, 90.07, 92.16, 92.31
 ]
-// var actionTimeRandom = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+// var actionTimeRandom = [ /*1, 2, 3, 4, 5,*/ 6, 7, 8, 9, 10, 11, 12, 13, 14];
 var eventNbRandom = 0;
 var nextTimeRandom = actionTimeRandom[eventNbRandom];
 
@@ -233,8 +196,7 @@ function timeManagerRandom(randomTime) {
     // console.log(eventNbRandom + 1);
     socket.emit('animationRandom', {
       animationNbRandom: (eventNbRandom + 1),
-    // playRandom: actionTimeRandom[eventNbRandom],
-    // stopRandom: actionTimeRandom[eventNbRandom + 1]
+      nbUsers: 0
     });
     eventNbRandom++;
     nextTimeRandom = actionTimeRandom[eventNbRandom]
@@ -321,17 +283,18 @@ function timeManagerTik(aTimeTik) {
 // console.log(actionTimeBal);
 
 var actionTimeBal = [
-  94.81, 95.79,
-  97.18, 98.15,
-  99.57, 100.52,
-  101.94, 102.90,
-  104.33, 105.28,
-  /*6*/ 106.69, 107.66,
-  107.69, 109.06,
-  109.07, 110.08,
-  110.10, 111.13,
-  111.15, 112.43,
-  112.45, 113.78
+  94.79, 95.72,
+  97.22, 98.12,
+  99.59, 100.48,
+  102.00, 102.86,
+  104.33, 105.21,
+
+  106.69, 108.04,
+  108.04, 109.06,
+  109.06, 110.27,
+  110.27, 111.44,
+  111.44, 112.81,
+  112.81, 113.79
 ]
 
 var eventNbBal = 0;
@@ -368,9 +331,6 @@ var actionTimeReturn = [
 /*53*/ 100.91, 101.05, 101.19, 101.34, 101.49,
 /*59*/ 103.29, 103.42, 103.57, 103.70,
 /*64*/ 105.80, 105.94, 106.09, 106.24, 106.39, 106.53,
-// /*71*/ 107.73, 107.87, 108.01, 108.16, 108.32, 108.47, 108.61, 108.76, 108.92,
-// /*81*/ 110.10, 110.25, 110.39, 110.54, 110.69, 110.84, 110.99, 111.13,
-// /*90*/ 112.48, 112.63, 112.79, 112.92, 113.06, 112.22,
 ];
 var nbDeFoisReturn = [
   2, 2,
@@ -455,8 +415,8 @@ function timeManagerBoom(aTimeBoom) {
 
 //-------------- click envent
 
-// var actionTimeClick = [0, 4 /*5, 10, 15*/ ];
-var actionTimeClick = [30, 85, 140, 169];
+var actionTimeClick = [0, 1, 2, 13];
+// var actionTimeClick = [30, 85, 140, 169];
 var eventNbClick = 0;
 var nextTimeClick = actionTimeClick[eventNbClick];
 
@@ -504,7 +464,7 @@ function launchVideo() {
   loopVideo();
 }
 function go() {
-  $('#song').get(0).currentTime = 145;
+  $('#song').get(0).currentTime = 65;
 
   $('#song').get(0).play();
 
@@ -519,15 +479,15 @@ function loopVideo() {
   vTime = $('#song').get(0).currentTime;
   $('.chrono').html(vTime);
   timeManagerClick(vTime);
-  timeManagerSound(vTime);
-  timeManager(vTime);
-  superTimeManager(vTime);
-  timeManagerPulse(vTime);
-  timeManagerTik(vTime);
-  timeManagerBal(vTime);
-  timeManagerReturn(vTime);
-  timeManagerRandom(vTime);
-  timeManagerWave(vTime);
+  // timeManagerSound(vTime);
+  // timeManager(vTime);
+  // superTimeManager(vTime);
+  // timeManagerPulse(vTime);
+  // timeManagerTik(vTime);
+  // timeManagerBal(vTime);
+  // timeManagerReturn(vTime);
+  // timeManagerRandom(vTime);
+  // timeManagerWave(vTime);
   // timeManagerBoom(vTime);
 
   socket.emit('updateVideo', vTime);
