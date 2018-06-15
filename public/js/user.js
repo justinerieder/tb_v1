@@ -32,8 +32,8 @@ socket.on('showNb', function(userNb) {
   $('.displayNumber').html(userNb);
 
   myGlitch = userNb;
-  // $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
-  $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/souffle.mp3" controls></audio>'));
+  $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
+  // $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/souffle.mp3" controls></audio>'));
   // $('#songGlitch').prop("volume", 0.0);
   $('#songGlitch').css('display', 'none')
 
