@@ -32,7 +32,8 @@ socket.on('showNb', function(userNb) {
   $('.displayNumber').html(userNb);
 
   myGlitch = userNb;
-  $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
+  // $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
+  $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/souffle.mp3" controls></audio>'));
   // $('#songGlitch').prop("volume", 0.0);
   $('#songGlitch').css('display', 'none')
 
@@ -88,8 +89,8 @@ socket.on('animationClick', function(data, theMaster) {
     case 3:
       canClick = true;
       console.log("theMaster " + theMaster);
-
-      clickableMaster(theMaster);
+      clickable();
+      // clickableMaster(theMaster);
       break;
     case 4:
       canClick = false;

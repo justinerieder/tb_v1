@@ -415,8 +415,8 @@ function timeManagerBoom(aTimeBoom) {
 
 //-------------- click envent
 
-var actionTimeClick = [0, 1, 2, 13];
-// var actionTimeClick = [30, 85, 140, 169];
+// var actionTimeClick = [0, 1, 2, 13];
+var actionTimeClick = [30, 85, 140, 169];
 var eventNbClick = 0;
 var nextTimeClick = actionTimeClick[eventNbClick];
 
