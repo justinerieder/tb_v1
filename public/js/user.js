@@ -33,13 +33,31 @@ socket.on('showNb', function(userNb) {
 
   myGlitch = userNb;
   $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
-  // $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/souffle.mp3" controls></audio>'));
   // $('#songGlitch').prop("volume", 0.0);
   $('#songGlitch').css('display', 'none')
 
 });
 
+$('.fs-button').click(function() {});
+
+
+
 $('.ready').click(function() {
+
+  socket.emit('iAmReady', {
+    userReady: myUserNb
+  })
+
+  console.log("click fullscreen");
+
+  toggleFullScreen(document.body);
+
+  $(this).fadeTo('fast', 0, function() {
+    $(this).remove();
+  })
+
+
+
   console.log("click play " + myGlitch);
 
 
@@ -68,8 +86,10 @@ socket.on('updateVideo', function(vTime) {
 });
 
 canClick = false;
+masterChange = false;
 
 socket.on('animationClick', function(data, theMaster) {
+
   switch (data.animationNbClick) {
     case 1:
       canClick = true;
@@ -78,6 +98,12 @@ socket.on('animationClick', function(data, theMaster) {
 
       break;
     case 2:
+      $('.speech').fadeTo(400, 0, function() {
+        // $('.speech').text('');
+      });
+
+      break;
+    case 3:
       canClick = false;
       $('.page-animation').fadeTo("slow", 0, function() {
         negativeRemover();
@@ -86,13 +112,20 @@ socket.on('animationClick', function(data, theMaster) {
           .fadeTo("slow", 1)
       });
       break;
-    case 3:
-      canClick = true;
-      console.log("theMaster " + theMaster);
-      clickable();
-      // clickableMaster(theMaster);
-      break;
     case 4:
+      console.log("theMaster " + theMaster);
+
+      // canClick = true;
+      screenNb = 0;
+      // clickable();
+      clickableMaster(theMaster);
+      break;
+    case 5:
+      $('.speech').fadeTo(400, 0, function() {
+        // $('.speech').text('');
+      });
+      break;
+    case 6:
       canClick = false;
       negativeRemover();
       $('.page-animation').css('display', 'block')
@@ -100,42 +133,55 @@ socket.on('animationClick', function(data, theMaster) {
   }
 });
 function clickable() {
-  var fontH = 150;
+  var fontH = 180;
   if (canClick == true) {
     $('.speech')
       .text('click')
       .css('font-size', fontH + '%')
-    $('.speech').fadeTo(400, 1, function() {
-      $(this).fadeTo(400, 0, function() {
-        $('.speech').text('');
-      });
-    });
+    $('.speech').fadeTo(400, 1);
   } else {
     $('.speech').text('');
   }
 }
 
 function clickableMaster(theMaster) {
+  negativeRemover();
 
+  isthereAMaster = true;
   if (theMaster == myUserNb) {
+    $('.speech').fadeTo(400, 1);
+    masterChange = true;
     console.log('i am the master');
-    clickable();
-  // socket.emit('masterClick', {
-  //   masterNb: theMaster
-  // })
+  } else {
+    canClick = false;
   }
 }
+isthereAMaster = false;
 
 // $('body').on('click touchstart', function() {
 $('body').on('click', function() {
   if (canClick == true) {
     changeCollection();
-  } else if (canClick == false) {
+  } else if (canClick == false && isthereAMaster == false) {
     negativeRemover();
     $('.page-animation').css('display', 'block')
   }
+
+  if (masterChange == true) {
+    changeCollection();
+    socket.emit('masterClick', {
+      collectionNb: 1
+    });
+  }
 // changeCollection();
 });
+
+socket.on('masterClickAll', function(collectionNb) {
+  console.log('data.collectionNb ' + collectionNb);
+
+  changeCollection()
+})
+
 
 var screenNb = 0;
 function changeCollection() {
@@ -210,7 +256,7 @@ function changeCollection() {
         .css('top', '33%')
         .css('left', '0px')
         .css('height', '33%')
-        .css('z-index', '100')
+        .css('z-index', '1')
       $('.bottom-left')
         .css('display', 'block')
         .css('top', '33%')
@@ -231,7 +277,7 @@ function changeCollection() {
         .css('top', '33%')
         .css('left', '0px')
         .css('height', '33%')
-        .css('z-index', '2')
+        .css('z-index', '1')
         .addClass('negative')
 
       $('.bottom-left')
@@ -643,10 +689,11 @@ socket.on('superAnimation', function(data) {
       kate();
       break
     case 25:
+      $('.superAnimation1').css('display', 'block')
       animationGlitch('.superAnimation1', 2, 0);
       //goblink = true;
       //blink(".superAnimation1", false, true);
-      // console.log("blinking?");
+      console.log("blinking?");
       break
     case 26:
       animationGlitch('.superAnimation1', 0, 2);
@@ -1067,7 +1114,9 @@ function goodMarg(border, who) {
 
 }
 function animationGlitch(who, dirTop, dirLeft) {
-  $(who).css('border', 'none')
+  $(who)
+    .css('border', 'none')
+    .css('background-color', 'white')
 
   if (dirTop > 0) {
     w = 100;

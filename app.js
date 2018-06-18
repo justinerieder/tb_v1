@@ -85,6 +85,15 @@ io.on('connection', function(socket) {
 
     socket.broadcast.emit('hideWelcome', unsersLength);
   });
+  var readyUsers = 0;
+  socket.on('iAmReady', function() {
+    readyUsers++;
+    console.log('readyUsers ' + readyUsers);
+
+    if (readyUsers == users.length) {
+      console.log("everyOne is ready !");
+    }
+  });
 
   socket.on('animation', function(data) {
     var animationNb = data.animationNb;
@@ -96,6 +105,7 @@ io.on('connection', function(socket) {
 
   //socket.broadcast.emit('animation', data);
   });
+
 
   var currentTime = 0;
   var incrementation = 100;
@@ -311,19 +321,21 @@ io.on('connection', function(socket) {
 
   socket.on('animationClick', function(data) {
 
-    if (data.animationNbClick == 3) {
+    if (data.animationNbClick == 4) {
       var theMaster = getRandom(1, users.length)
+      console.log("the master " + theMaster);
     }
     socket.broadcast.emit('animationClick', data, theMaster);
-    console.log("Click");
+
   });
 
   //----------------- Click Master
 
   socket.on('masterClick', function(data) {
-    console.log('master ' + data.masterNb);
-    // socket.broadcast.emit('animationClick', data);
-    console.log("Click");
+    console.log('master ' + data.collectionNb);
+    collectionNb = data.collectionNb;
+    socket.broadcast.emit('masterClickAll', collectionNb);
+  // console.log("Click");
   });
   //----------------- Sound
 
