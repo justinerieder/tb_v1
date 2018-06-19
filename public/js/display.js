@@ -464,7 +464,7 @@ function launchVideo() {
   loopVideo();
 }
 function go() {
-  $('#song').get(0).currentTime = 139;
+  $('#song').get(0).currentTime = 175.76;
 
   $('#song').get(0).play();
 
