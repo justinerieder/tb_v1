@@ -160,6 +160,7 @@ function clickable() {
     $('.speech')
       .text('click')
       .css('font-size', fontH + '%')
+      .css('left', '0')
     $('.speech').fadeTo(400, 1);
   } else {
     $('.speech').text('');
