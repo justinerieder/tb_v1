@@ -32,13 +32,13 @@ socket.on('showNb', function(userNb) {
   $('.displayNumber').html(userNb);
 
   myGlitch = userNb;
-  $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
+  $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/end.mp3" controls></audio>'));
+  // $('.page-welcome').append($('<audio id="songGlitch" src="../data/glitchs/' + myGlitch + '.mp3" controls></audio>'));
   // $('#songGlitch').prop("volume", 0.0);
   $('#songGlitch').css('display', 'none')
 
 });
 
-$('.fs-button').click(function() {});
 
 
 
@@ -74,18 +74,39 @@ $('.ready').click(function() {
   });
 });
 
-socket.on('animationSound', function(data) {
-  console.log("sound");
-  $('#songGlitch').get(0).play();
-})
+var firstPause = false;
 
+socket.on('animationSound', function(data, userTime, ending) {
+  // requestAnimationFrame(loopTest);
 
+  console.log("userTime " + userTime);
+  if (userTime == myUserNb) {
+    console.log("sound");
+    $('#songGlitch').get(0).play();
+    randomLightUp();
+  }
+  if (firstPause == false) {
+    var pauseInt = setInterval(function() {
+      if ($('#songGlitch').get(0).currentTime >= 1.4) {
+        console.log("pauuuuse");
+        $('#songGlitch').get(0).pause();
+        clearInterval(pauseInt)
+        firstPause = true;
+      }
+    }, 1)
 
-socket.on('updateVideo', function(vTime) {
-  //console.log("vTime " + vTime);
+  }
+  if (ending == 2) {
+    $('#songGlitch').get(0).currentTime = 1.4;
+    $('#songGlitch').get(0).play();
+    randomLightUp();
+  }
+
 });
 
+
 canClick = false;
+canClickMaster = false;
 masterChange = false;
 
 socket.on('animationClick', function(data, theMaster) {
@@ -115,7 +136,7 @@ socket.on('animationClick', function(data, theMaster) {
     case 4:
       console.log("theMaster " + theMaster);
 
-      // canClick = true;
+      canClickMaster = true;
       screenNb = 0;
       // clickable();
       clickableMaster(theMaster);
@@ -127,13 +148,14 @@ socket.on('animationClick', function(data, theMaster) {
       break;
     case 6:
       canClick = false;
+      canClickMaster = false;
       negativeRemover();
       $('.page-animation').css('display', 'block')
       break;
   }
 });
 function clickable() {
-  var fontH = 180;
+  var fontH = 460;
   if (canClick == true) {
     $('.speech')
       .text('click')
@@ -148,27 +170,40 @@ function clickableMaster(theMaster) {
   negativeRemover();
 
   isthereAMaster = true;
-  if (theMaster == myUserNb) {
-    $('.speech').fadeTo(400, 1);
-    masterChange = true;
-    console.log('i am the master');
+  if (canClickMaster == true) {
+    if (theMaster == myUserNb) {
+      $('.speech').fadeTo(400, 1);
+      masterChange = true;
+      console.log('i am the master');
+    } else {
+      canClick = false;
+    }
   } else {
-    canClick = false;
+    // negativeRemover();
   }
+// if (theMaster == myUserNb) {
+//   $('.speech').fadeTo(400, 1);
+//   masterChange = true;
+//   console.log('i am the master');
+// } else {
+//   canClick = false;
+// }
 }
 isthereAMaster = false;
 
 // $('body').on('click touchstart', function() {
 $('body').on('click', function() {
   if (canClick == true) {
+    console.log('click');
     changeCollection();
   } else if (canClick == false && isthereAMaster == false) {
     negativeRemover();
     $('.page-animation').css('display', 'block')
   }
 
-  if (masterChange == true) {
+  if (masterChange == true && canClickMaster == true) {
     changeCollection();
+    console.log('click master');
     socket.emit('masterClick', {
       collectionNb: 1
     });
@@ -177,8 +212,8 @@ $('body').on('click', function() {
 });
 
 socket.on('masterClickAll', function(collectionNb) {
-  console.log('data.collectionNb ' + collectionNb);
-
+  // console.log('data.collectionNb ' + collectionNb);
+  console.log("changed by master");
   changeCollection()
 })
 
@@ -193,26 +228,26 @@ function changeCollection() {
   }
   switch (screenNb) {
     case 0:
-      console.log('0');
+      // console.log('0');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       break
     case 1:
-      console.log('1');
+      // console.log('1');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       $('.top-right').addClass('negative')
       $('.top-left').addClass('negative')
       break
     case 2:
-      console.log('2');
+      // console.log('2');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       $('.bottom-right').addClass('negative')
       $('.bottom-left').addClass('negative')
       break
     case 3:
-      console.log('3');
+      // console.log('3');
       negativeRemover();
       $('.page-animation').css('display', 'block')
 
@@ -220,7 +255,7 @@ function changeCollection() {
       $('.bottom-left').addClass('negative')
       break
     case 4:
-      console.log('4');
+      // console.log('4');
       negativeRemover();
       $('.page-animation').css('display', 'block')
 
@@ -228,7 +263,7 @@ function changeCollection() {
       $('.bottom-right').addClass('negative')
       break
     case 5:
-      console.log('5');
+      // console.log('5');
       negativeRemover();
 
       $('.page-animation').css('display', 'block')
@@ -236,14 +271,14 @@ function changeCollection() {
       $('.bottom-right').addClass('negative')
       break
     case 6:
-      console.log('6');
+      // console.log('6');
       negativeRemover();
       $('.page-animation').css('display', 'block')
       $('.top-left').addClass('negative')
       $('.bottom-left').addClass('negative')
       break
     case 7:
-      console.log('7');
+      // console.log('7');
       negativeRemover();
       $('.top-right')
         .css('display', 'block')
@@ -265,7 +300,7 @@ function changeCollection() {
         .css('z-index', '2')
       break
     case 8:
-      console.log('8');
+      // console.log('8');
       negativeRemover();
       $('.top-right')
         .css('display', 'block')
@@ -291,7 +326,7 @@ function changeCollection() {
   }
 }
 function negativeRemover() {
-  console.log("remover");
+  // console.log("remover");
   // $('.page-animation').fadeTo('fast', 0)
 
   $('.page-animation').removeClass('negative')

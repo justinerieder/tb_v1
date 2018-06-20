@@ -414,8 +414,8 @@ function timeManagerBoom(aTimeBoom) {
 
 
 //-------------- click envent
-
-// var actionTimeClick = [0, 4, 4.5, 5, 6.5, 20];
+//
+// var actionTimeClick = [0, 4, 4.5, 5, 6.5, 8];
 var actionTimeClick = [30, 31.5, 85, 141, 142.4, 169];
 var eventNbClick = 0;
 var nextTimeClick = actionTimeClick[eventNbClick];
@@ -434,7 +434,7 @@ function timeManagerClick(aTimeClick) {
 }
 
 var actionTimeSound = [172.82];
-// var actionTimeSound = [2];
+// var actionTimeSound = [1];
 var eventNbSound = 0;
 var nextTimeSound = actionTimeSound[eventNbSound];
 

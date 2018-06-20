@@ -99,7 +99,7 @@ io.on('connection', function(socket) {
     var animationNb = data.animationNb;
     var stop = data.stop;
     var play = data.play;
-    console.log("animation");
+    // console.log("animation");
 
     animation(animationNb, play, stop);
 
@@ -339,10 +339,30 @@ io.on('connection', function(socket) {
   });
   //----------------- Sound
 
+  var userTime = 0;
+  var ending = 0;
+
   socket.on('animationSound', function(data) {
-    socket.broadcast.emit('animationSound', data);
+    var soundBal = setInterval(function() {
+      userTime++;
+      console.log(userTime);
+
+
+      if (userTime > users.length) {
+        ending++;
+        // clearInterval(soundBal)
+        if (ending > 2) {
+          clearInterval(soundBal)
+          console.log("finish");
+        }
+      }
+      socket.broadcast.emit('animationSound', data, userTime, ending);
+
+    }, 1000);
+
     console.log("Click");
   });
+
 
 
 
